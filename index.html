@@ -434,8 +434,8 @@
             z-index: 1;
         }
 
-        /* Gallery Preview */
-        .gallery-grid {
+         /* Gallery Section */
+       .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
@@ -485,103 +485,6 @@
             color: var(--text-light);
             font-size: 1.2rem;
             font-weight: 600;
-        }
-
-        /* Gallery Preview Modal */
-        .gallery-preview-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        .gallery-preview-modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .preview-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .preview-image {
-            width: 100%;
-            border-radius: 15px;
-            object-fit: cover;
-            max-height: 70vh;
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
-        }
-
-        .preview-info {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .preview-title {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            color: var(--accent-gold);
-            margin-bottom: 1rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .preview-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .preview-btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .preview-btn-carousel {
-            background: var(--accent-gold);
-            color: var(--bg-dark);
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .preview-btn-carousel:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
-        }
-
-        .preview-btn-close {
-            background: rgba(255, 23, 68, 0.2);
-            color: var(--accent-red);
-            border: 1px solid var(--accent-red);
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .preview-btn-close:hover {
-            background: var(--accent-red);
-            color: var(--text-light);
         }
 
         /* Carousel Modal */
@@ -839,6 +742,9 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 2rem;
             }
+            .gallery-overlay{
+                opacity: 1;
+            }
         }
 
         @media (max-width: 768px) {
@@ -897,7 +803,7 @@
             }
 
             .hero h1 {
-                font-size: clamp(4rem, 10vw, 8rem);
+                font-size: clamp(8rem, 10vw, 10rem);
             }
 
             .hero h2 {
@@ -997,23 +903,10 @@
                 font-size: 1rem;
                 padding: 0.5rem 1.5rem;
             }
-
-            .preview-container {
-                gap: 1.5rem;
+             .gallery-overlay{
+                opacity: 1;
             }
 
-            .preview-info {
-                padding: 1.5rem;
-            }
-
-            .preview-title {
-                font-size: clamp(1.2rem, 2.5vw, 2rem);
-            }
-
-            .preview-btn {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
-            }
         }
 
         @media (max-width: 480px) {
@@ -1023,15 +916,15 @@
 
             .logo {
                 font-size: 1.2rem;
-                letter-spacing: 1px;
+                letter-spacing: -1px;
             }
 
             .hero {
-                height: 80vh;
+                height: 100vh;
             }
 
             .hero h1 {
-                font-size: clamp(4rem, 8vw, 6rem);
+                font-size: clamp(6rem, 8vw, 8rem);
             }
 
             .hero h2 {
@@ -1141,44 +1034,16 @@
                 font-size: 0.9rem;
                 padding: 0.4rem 1rem;
                 bottom: 1rem;
-            }
-
-            .gallery-preview-modal {
-                padding: 0.5rem;
-            }
-
-            .preview-container {
-                gap: 1rem;
-            }
-
-            .preview-image {
-                max-height: 50vh;
-                border-radius: 10px;
-            }
-
-            .preview-info {
-                padding: 1rem;
-            }
-
-            .preview-title {
-                font-size: 1.3rem;
-                margin-bottom: 1rem;
-            }
-
-            .preview-actions {
-                gap: 0.8rem;
-            }
-
-            .preview-btn {
-                padding: 0.7rem 1.2rem;
-                font-size: 0.85rem;
-            }
+            }          
 
             .scroll-top {
                 bottom: 1rem;
                 right: 1rem;
                 width: 45px;
                 height: 45px;
+            }
+             .gallery-overlay{
+                opacity: 1;
             }
         }
     </style>
@@ -1289,25 +1154,25 @@
                 <div class="gallery-item" data-index="0">
                     <img src="./images/verejny/verejny_prostor_3.jpg" alt="Street Art">
                     <div class="gallery-overlay">
-                        <span>Street Art</span>
+                        <span>Street Art</span>                        
                     </div>
                 </div>
                 <div class="gallery-item" data-index="1">
                     <img src="./images/verejny/ext_3.jpg" alt="Mural">
                     <div class="gallery-overlay">
-                        <span>Mural</span>
+                        <span>Mural</span>                        
                     </div>
                 </div>
                 <div class="gallery-item" data-index="2">
                     <img src="./images/dentist.jpg" alt="Design">
                     <div class="gallery-overlay">
-                        <span>Design</span>
+                        <span>Design</span>                        
                     </div>
                 </div>
                 <div class="gallery-item" data-index="3">
                     <img src="./images/workshop/obr_6.jpg" alt="Exhibition">
                     <div class="gallery-overlay">
-                        <span>Exhibition</span>
+                        <span>Exhibition</span>                        
                     </div>
                 </div>
             </div>
@@ -1357,25 +1222,7 @@
     <!-- Scroll to Top -->
     <div class="scroll-top" id="scrollTop">
         <i class="fas fa-arrow-up"></i>
-    </div>
-
-    <!-- Gallery Preview Modal -->
-    <div class="gallery-preview-modal" id="previewModal">
-        <div class="preview-container">
-            <img class="preview-image" id="previewImage" src="" alt="Gallery preview">
-            <div class="preview-info">
-                <div class="preview-title" id="previewTitle">Loading...</div>
-                <div class="preview-actions">
-                    <button class="preview-btn preview-btn-carousel" id="openCarouselBtn">
-                        <i class="fas fa-expand"></i> Otevřít galerii
-                    </button>
-                    <button class="preview-btn preview-btn-close" id="closePreviewBtn">
-                        <i class="fas fa-times"></i> Zavřít
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    </div>  
 
     <!-- Carousel Modal -->
     <div class="carousel-modal" id="carouselModal">
@@ -1532,27 +1379,49 @@
             });
         });
 
+                // Event listeners for gallery open buttons
+        document.querySelectorAll('.gallery-open-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent item click event
+                const item = btn.closest('.gallery-item');
+                const index = parseInt(item.getAttribute('data-index'));
+                openCarousel(index);
+            });
+        });
+
+        // Toggle gallery overlay on mobile tap
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    // If button is clicked, let it handle it
+                    if (e.target.classList.contains('gallery-open-btn')) return;
+                    
+                    item.classList.toggle('active');
+                    e.stopPropagation();
+                });
+            });
+
+            // Close overlay when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.gallery-item')) {
+                    document.querySelectorAll('.gallery-item.active').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                }
+            });
+        }
+
         // Event listeners for carousel controls
         carouselClose.addEventListener('click', closeCarousel);
         carouselNext.addEventListener('click', nextImage);
-        carouselPrev.addEventListener('click', prevImage);
-
-        // Event listeners for preview controls
-        openCarouselBtn.addEventListener('click', openCarouselFromPreview);
-        closePreviewBtn.addEventListener('click', closePreview);
+        carouselPrev.addEventListener('click', prevImage);        
 
         // Close on background click
         carouselModal.addEventListener('click', (e) => {
             if (e.target === carouselModal) {
                 closeCarousel();
             }
-        });
-
-        previewModal.addEventListener('click', (e) => {
-            if (e.target === previewModal) {
-                closePreview();
-            }
-        });
+        });       
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
