@@ -1,0 +1,50 @@
+[
+    {
+        "src": "./images/verejny/verejny_prostor_3.jpg",
+        "alt": "Street Art"
+    },
+    {
+        "src": "./images/verejny/verejny_prostor_1.jpg",
+        "alt": "Street Art"
+    },
+    {
+        "src": "./images/verejny/verejny_prostor_7.jpg",
+        "alt": "Street Art"
+    },
+    {
+        "src": "./images/verejny/verejny_prostor_4.jpg",
+        "alt": "Street Art"
+    },
+    {
+        "src": "./images/verejny/ext_3.jpg",
+        "alt": "Mural"
+    },
+    {
+        "src": "./images/verejny/ext_1.jpg",
+        "alt": "Mural"
+    },
+    {
+        "src": "./images/zakazka/int_1.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/zakazka/int_2.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/zakazka/int_4.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/workshop/obr_6.jpg",
+        "alt": "Exhibition"
+    },
+    {
+        "src": "./images/workshop/obr_3.jpg",
+        "alt": "Exhibition"
+    },
+    {
+        "src": "./images/workshop/obr_2.jpg",
+        "alt": "Exhibition"
+    }
+]

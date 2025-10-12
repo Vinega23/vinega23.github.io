@@ -1,305 +1,1153 @@
 <!DOCTYPE html>
 <html lang="cz">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./CSS/style.css">
-    <link rel="stylesheet" href="./CSS/normalize.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&family=Red+Hat+Display&display=swap"
-        rel="stylesheet">
+    <title>Dyazart - Streetart Graffiti Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/coolvetica-2" rel="stylesheet">
-
     <script src="https://kit.fontawesome.com/c5650a16ef.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./CSS/simple-lightbox.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <meta name="title" content="Dyazart">
-    <meta name="description"
-        content="Dyazart se zabývá malbou a designem všeho druhu a všech velikostí. Tento projekt má své kořeny v roce 2009.">
-    <meta name="keywords" content="malba na zakázku, exhibice, workshop, design, streetart, graffiti">
-    <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        :root {
+            --bg-dark: #0a0b0e;
+            --bg-card: #16171a;
+            --accent-gold: #ffd700;
+            --accent-red: #ff1744;
+            --text-light: #e4e3e3;
+            --text-muted: #888;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-gold: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
 
-    <title>Dyazart</title>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
 
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="./images/favicomatic/apple-touch-icon-57x57.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="./images/favicomatic/apple-touch-icon-114x114.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="./images/favicomatic/apple-touch-icon-72x72.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="./images/favicomatic/apple-touch-icon-144x144.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="./images/favicomatic/apple-touch-icon-60x60.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="./images/favicomatic/apple-touch-icon-120x120.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="./images/favicomatic/apple-touch-icon-76x76.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="./images/favicomatic/apple-touch-icon-152x152.png" />
-    <link rel="icon" type="image/png" href="./images/favicomatic/favicon-196x196.png" sizes="196x196" />
-    <link rel="icon" type="image/png" href="./images/favicomatic/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/png" href="./images/favicomatic/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="./images/favicomatic/favicon-16x16.png" sizes="16x16" />
-    <link rel="icon" type="image/png" href="./images/favicomatic/favicon-128.png" sizes="128x128" />
-    <meta name="application-name" content="&nbsp;" />
-    <meta name="msapplication-TileColor" content="#FFFFFF" />
-    <meta name="msapplication-TileImage" content="mstile-144x144.png" />
-    <meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
-    <meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
-    <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
-    <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-muted);
+            overflow-x: hidden;
+        }
 
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 11, 14, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Coolvetica', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-gold);
+            font-weight: bold;
+            letter-spacing: -1px;
+            text-transform: lowercase;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .social-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-nav a {
+            color: var(--text-light);
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-nav a:hover {
+            color: var(--accent-gold);
+            transform: translateY(-3px);
+        }
+
+        /* Mobile Menu */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 30px;
+            height: 3px;
+            background: var(--accent-gold);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0b0e 0%, #1a1b1e 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('./images/whaleBG.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            animation: kenburns 30s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(10, 11, 14, 0.3) 0%, rgba(10, 11, 14, 0.7) 100%);
+            z-index: 0;
+        }
+
+        @keyframes kenburns {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+            position: relative;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Coolvetica', sans-serif;
+            font-size: clamp(6rem, 12vw, 10rem);
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            letter-spacing: -6px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-red) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(20deg); }
+        }
+
+        .hero h2 {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--text-light);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 1rem 3rem;
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: var(--accent-gold);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 4rem;
+            font-weight: 300;
+        }
+
+        /* Bio Section */
+        .bio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .bio-content p {
+            font-size: 1.1rem;
+            line-height: 2;
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .bio-content strong {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .bio-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .bio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .bio-image:hover img {
+            transform: scale(1.1);
+        }
+
+        .bio-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 23, 68, 0.2));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+
+        .bio-image:hover::before {
+            opacity: 1;
+        }
+
+        /* Service Cards */
+        .services {
+            background: var(--bg-card);
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 23, 68, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.2);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card h3 {
+            font-size: 2rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Gallery Preview */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--bg-card);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item i {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            width: 40px;
+        }
+
+        .contact-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent-gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0 0 1rem 0;
+        }       
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+         /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(10, 11, 14, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 3rem;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1.5rem;
+            }
+
+            .social-nav {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+                z-index: 1000;
+            }
+
+            .mobile-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .mobile-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            .bio-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .service-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+        }
+
+         /* Carousel Modal */
+        .carousel-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-modal.active {
+            display: flex;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+        }
+
+        .carousel-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 215, 0, 0.9);
+            border: none;
+            border-radius: 50%;
+            color: var(--bg-dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+        }
+
+        .carousel-close:hover {
+            transform: scale(1.1) rotate(90deg);
+            background: var(--accent-red);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 215, 0, 0.9);
+            border: none;
+            border-radius: 50%;
+            color: var(--bg-dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-nav:hover {
+            background: var(--accent-gold);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-prev {
+            left: 2rem;
+        }
+
+        .carousel-next {
+            right: 2rem;
+        }
+
+        .carousel-counter {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-light);
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+        }
+
+
+         /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .carousel-modal.active {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-nav {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+
+            .carousel-prev {
+                left: 1rem;
+            }
+
+            .carousel-next {
+                right: 1rem;
+            }
+
+            .carousel-close {
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
 </head>
-
-<body id="dyazart">
-    <a id="button"></a>
-    <nav class="wrappedMenu">
-        <div class="wrapped-nav">
-            <div class="right-side">
-                <div id="menuToggle">
-
-                    <input id="op" type="checkbox" />
-
-                    <span></span>
-                    <span></span>
-                    <span></span>
-
-
-                    <ul class="menu">
-
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#bio">O mně</a></li>
-                        <li><a href="#zakazka">Malba na zakázku</a></li>
-                        <li><a href="#exhibice">Exhibice a workshop</a></li>
-                        <li><a href="#verejny">Veřejný prostor</a></li>
-                        <li><a href="./galerie.html">Galerie</a></li>
-                        <li><a href="#contact">Kontakt</a></li>
-
-                    </ul>
-
-                </div>
-                <div class="social-icons">
-                    <li><a href="https://www.instagram.com/dyas.17/" class="social-icon"><i
-                                class="fa fa-instagram"></i></a>
-                    </li>
-                    <li><a href="https://www.facebook.com/vojtech.kral.399" class="social-icon"><i
-                                class="fa fa-facebook"></i></a></li>
-                </div>
-            </div>
-            <div class="red-logo">
-                <img src="./images/logo-red-bigger.png" alt="">
-            </div>
-
-        </div>
-    </nav>
-    <nav class="main-nav">
-
-        <div class="container">
-            
-            <ul class="post-menu">                
-                <div class="red-logo">
-                    <img src="./images/logo-red-bigger.png" alt="">
-                </div>
-
-                <li><a href="#">Home</a></li>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">dyazart</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
                 <li><a href="#bio">O mně</a></li>
-
-                <li class="dropdown">                     
-                    <a>Tvorba </a>  
-                    <ul class="dropdown_menu dropdown_menu--animated tvorba ">                    
-                       
-                        <li><a href="#zakazka">Malba na zakázku</a></li>             
-                        <li><a href="#exhibice">Exhibice a workshop</a></li>             
-                        <li><a href="#verejny">Veřejný prostor</a></li>          
-                                                                                
-                    </ul>
-                                      
-                </li>                          
-                
-                <li><a href="./galerie.html">Galerie</a></li>
+                <li><a href="#services">Tvorba</a></li>
+                <li><a href="#gallery">Galerie</a></li>
                 <li><a href="#contact">Kontakt</a></li>
-
-                <div class="social-icons">
-                    <li><a href="https://www.instagram.com/dyas.17/" class="social-icon"><i
-                                class="fa fa-instagram"></i></a>
-                    </li>
-                    <li><a href="https://www.facebook.com/vojtech.kral.399" class="social-icon"><i
-                                class="fa fa-facebook"></i></a></li>
-                </div>
-
             </ul>
-
-        </div>
-
-    </nav>
-    <div class="header-wrapper">
-        <header>
-            <!-- <div class="gradient"></div>     -->
-        </header>
-    </div>
-
-
-    <main>
-        <div class="container">
-            <h1 class="dyazart-title">
-                dyazart
-            </h1>
-            <h3 class="under-title">streetart graffiti design</h3>
-
-        </div>
-        <section id="bio" class="section-bio container">
-            <div class="content">
-                <h1>O mně</h1>
-                <div class="line"></div>
-                <p>
-                    Jmenuji se <strong>Vojtěch Král</strong>, jsem z Opavy a výtvarná činnost je mou celoživotní vášní.
-                    Na poli graffiti, street-art působím 20let.
-                    Oživovat prostředí, ve kterém žijeme, dát mu smysl, hravost a tvar - to je to, proč to dělám. Miluji
-                    barvy a hlavně výzvy.
-                </p>
-                <p>
-                    <strong>Dyazart.cz</strong> se zabývá malbou a designem všeho druhu a všech velikostí.
-                    Tento projekt má své kořeny v roce 2009, kdy jsem namaloval jednu z prvních zakázek.
-                    K dnešnímu dni mám na kontě desítky úspěšných realizací a vdechnul jsem život spoustě zdem.
-                </p>
+            <div class="social-nav">
+                <a href="https://www.instagram.com/dyas.17/" target="_blank"><i class="fa fa-instagram"></i></a>
+                <a href="https://www.facebook.com/vojtech.kral.399" target="_blank"><i class="fa fa-facebook"></i></a>
             </div>
+            <div class="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
-            <img src="./images/profile.jpg" alt="Dyaz">
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>dyazart</h1>
+            <h2>streetart · graffiti · design</h2>
+            <a href="#services" class="cta-button">Prozkoumat tvorbu</a>
+        </div>
+    </section>
 
-        </section>
-        <section class="section-content container">
+    <!-- Bio Section -->
+    <section id="bio">
+        <div class="container">
+            <h2 class="section-title">O mně</h2>
+            <div class="bio-grid">
+                <div class="bio-content">
+                    <p>
+                        Jmenuji se <strong>Vojtěch Král</strong>, jsem z Opavy a výtvarná činnost je mou celoživotní vášní.
+                        Na poli graffiti, street-art působím 20 let.
+                    </p>
+                    <p>
+                        Oživovat prostředí, ve kterém žijeme, dát mu smysl, hravost a tvar - to je to, proč to dělám. Miluji
+                        barvy a hlavně výzvy.
+                    </p>
+                    <p>
+                        <strong>Dyazart.cz</strong> se zabývá malbou a designem všeho druhu a všech velikostí.
+                        Tento projekt má své kořeny v roce 2009, kdy jsem namaloval jednu z prvních zakázek.
+                        K dnešnímu dni mám na kontě desítky úspěšných realizací a vdechnul jsem život spoustě zdem.
+                    </p>
+                </div>
+                <div class="bio-image">
+                    <img src="./images/profile.jpg" alt="Dyaz">
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <article id="zakazka" class="art">
-
-                <div class="box-image">
-                    <img src="./images/dentist.jpg" alt="dentist">
-
-                    <small></i><a href="./galerie.html" target="_blank" rel="noopener">galerie</a><i
-                            class="fa-solid fa-arrow-right"></i></small>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Moje tvorba</h2>
+            <p class="section-subtitle">Komplexní služby v oblasti street artu a designu</p>
+            <div class="service-grid">
+                <div class="service-card">
+                    <i class="fas fa-spray-can service-icon"></i>
+                    <h3>Malba na zakázku</h3>
+                    <p>
+                        Vytvářím malby na zakázku, ať už se jedná o interiér nebo exteriér. Od zadání nebo nápadu
+                        přes vizualizaci, cenovou nabídku až k samotné realizaci. Od malby textu po velkoplošné muraly.
+                    </p>
                 </div>
 
-                <div class="box-text">
-                    <div class="box-right">
-                        <div class="content">
+                <div class="service-card">
+                    <i class="fas fa-users service-icon"></i>
+                    <h3>Exhibice a workshop</h3>
+                    <p>
+                        Máte zájem udělat ve svém podniku výstavu originálních obrazů,
+                        doprovodnou graffiti exhibici pro zaměstnance či workshop pro děti ze škol nebo z centra
+                        volného času?
+                    </p>
+                </div>
 
-                            <h1>Malba na zakázku</h1>
+                <div class="service-card">
+                    <i class="fas fa-city service-icon"></i>
+                    <h3>Veřejný prostor</h3>
+                    <p>
+                        Úzce spolupracuji s Magistrátem města Opavy na tématu vyhledávání nových legálních graffiti
+                        ploch. Nabízím možnost jednorázové autorské malby na vaše soukromé plochy.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                            <p>Vytvářím malby na zakázku, ať už se jedná o interiér nebo exteriér. Od zadání nebo nápadu
-                                přes vizualizaci, cenovou nabídku až k samotné realizaci. Od malby textu po velkoplošné
-                                muraly.
-                                Štětcem nebo sprejem, fantazii se meze nekladou. Na vaše přání vyzdobím originálně
-                                dětské pokojíčky, kanceláře, cluby nebo vytvořím reklamní malbu na fasádu.
-                                Veškeré venkovní malby finálně lakuji ochrannou bezbarvou vrstvou.
-                            </p>
-
-                            <p>Dle požadavku jsem schopný vytvořit obraz na míru.
-                                Stačí se dohodnout na velikosti, barvě, technice a samozřejmě motivu.
-                            </p>
-
-                            <p>Dále nabízím zhotovení loga v digitální formě, které je dnes nedílnou součástí identity
-                                jak soukromníka tak společnosti.
-
-                            </p>
-                        </div>
+    <!-- Gallery Preview -->
+    <section id="gallery">
+        <div class="container">
+            <h2 class="section-title">Galerie</h2>
+            <p class="section-subtitle">Výběr z mých prací</p>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-index="0">
+                    <img src="./images/verejny/verejny_prostor_3.jpg" alt="Graffiti work">
+                    <div class="gallery-overlay">
+                        <span>Street Art</span>
                     </div>
                 </div>
-
-            </article>
-
-            <article id="exhibice" class="art">
-
-                <div class="box-image">
-                    <img src="./images/skull.jpg" alt="skull">
-
-                    <small></i><a href="./galerie.html">galerie</a><i class="fa-solid fa-arrow-right"></i></small>
-                </div>
-
-                <div class="box-text">
-                    <div class="box-left">
-                        <div class="content">
-
-                            <h1>Exhibice a workshop</h1>
-
-                            <p>
-                                Máte zájem udělat ve svém podniku výstavu originálních obrazů,
-                                doprovodnou graffiti exhibici pro zaměstnance či workshop pro děti ze škol nebo z centra
-                                volného času? Stačí se ozvat.
-                            </p>
-
-                        </div>
+                <div class="gallery-item" data-index="1">
+                    <img src="./images/verejny/ext_3.jpg" alt="Mural">
+                    <div class="gallery-overlay">
+                        <span>Mural</span>
                     </div>
                 </div>
-
-            </article>
-
-            <article id="verejny" class="art">
-                <div class="box-image">
-                    <img src="./images/bauer.jpg" alt="bauer">
-
-                    <small></i><a href="./galerie.html">galerie</a><i class="fa-solid fa-arrow-right"></i></small>
-                </div>
-                <div class="box-text">
-                    <div class="box-right">
-                        <div class="content">
-
-                            <h1>Veřejný prostor</h1>
-
-                            <p>Úzce spolupracuji s Magistrátem města Opavy na téma vyhledávání nových legálních graffiti
-                                ploch. Ty slouží pro realizaci začínajících výtvarníků, a eliminují tak ničení veřejného
-                                prostoru.</p>
-
-                            <p>Pokud jste soukromým vlastníkem betonového, plechového oplocení, garáže nebo jiné plochy,
-                                nabízím možnost jednorázové autorské malby.
-                                Zdi v okolí vašeho bydliště už nemusí být jen šedé a prostor kolem pouhou platformou pro
-                                cestu do práce. Můžou rozzářit celé okolí, a výrazně tak zlepšit život a prostředí okolo
-                                nás.
-                            </p>
-
-                        </div>
+                <div class="gallery-item" data-index="2">
+                    <img src="./images/dentist.jpg" alt="Design">
+                    <div class="gallery-overlay">
+                        <span>Design</span>
                     </div>
                 </div>
+                <div class="gallery-item" data-index="3">
+                    <img src="./images/workshop/obr_6.jpg" alt="Exhibition">
+                    <div class="gallery-overlay">
+                        <span>Exhibition</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            </article>
 
-        </section>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Kontakt</h2>
+            <p class="section-subtitle">Spojme se a vytvoříme něco úžasného</p>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fa fa-envelope"></i>
+                        <a href="mailto:dyazart@seznam.cz">dyazart@seznam.cz</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa fa-phone"></i>
+                        <a href="tel:+420728280013">+420 728 280 013</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa fa-id-card"></i>
+                        <span style="color: var(--text-light);">IČ: 17126614</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/dyas.17/" target="_blank"><i class="fa fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/vojtech.kral.399" target="_blank"><i class="fa fa-facebook"></i></a>
+                    </div>
+                </div>
+                <!-- <div class="bio-image">
+                    <img src="" alt="Contact">
+                </div> -->
+            </div>
+        </div>
+    </section>
 
-    </main>
-
+    <!-- Footer -->
     <footer>
         <div class="container">
-
-            <div id="contact" class="footer-contact">
-
-                <ul class="contact">
-                    <li>
-                        <h1>Kontakt</h1>
-                    </li>
-                    <li><i class="fa fa-envelope"></i><a href="mailto:dyazart@seznam.cz">dyazart@seznam.cz</a></li>
-                    <li><i class="fa fa-phone"></i><a href="tel:+420728280013">+420728280013</a></li>
-                    <li>ič. 17126614</li>
-                </ul>
-
-                <ul class="social">
-                    <li>
-                        <h1>Sleduj mě</h1>
-                    </li>
-                    <div class="social-icons">
-                        <li><a href="https://www.instagram.com/dyas.17/" class="social-icon"><i
-                                    class="fa fa-instagram"></i></a></li>
-                        <li><a href="https://www.facebook.com/vojtech.kral.399" class="social-icon"><i
-                                    class="fa fa-facebook"></i></a></li>
-                    </div>                   
-                </ul>
-
-            </div>
-
+            <p>&copy; 2025 Dyazart. Všechna práva vyhrazena.</p>
+            <img src="./images/logo-red.png" alt="Contact">
+            <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7;">Built by <strong style="color: var(--accent-gold);">VNG</strong></p>
         </div>
-
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script src="./js/simple-lightbox.jquery.min.js"></script>
-    <script src="js/script.js"></script>
+    <!-- Scroll to Top -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
 
+     <!-- Carousel Modal -->
+    <div class="carousel-modal" id="carouselModal">
+        <button class="carousel-close" id="carouselClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="carousel-container">
+            <button class="carousel-nav carousel-prev" id="carouselPrev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <img class="carousel-image" id="carouselImage" src="" alt="Gallery image">
+            <button class="carousel-nav carousel-next" id="carouselNext">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="carousel-counter" id="carouselCounter">1 / 4</div>
+        </div>
+    </div>    
+
+    <script>
+        let galleryImages = [];
+        let currentImageIndex = 0;
+
+        // Fetch gallery images from external JSON file
+        async function loadGalleryImages() {
+            try {
+                const response = await fetch('./gallery.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load gallery.json');
+                }
+                galleryImages = await response.json();
+                console.log('Gallery images loaded successfully:', galleryImages);
+            } catch (error) {
+                console.error('Error loading gallery images:', error);
+                // Fallback to default images if JSON file is not found
+                galleryImages = [
+                {
+                    "src": "./images/verejny/verejny_prostor_3.jpg",
+                    "alt": "Street Art"
+                },
+                {
+                    "src": "./images/verejny/ext_3.jpg",
+                    "alt": "Mural"
+                },
+                {
+                    "src": "./images/dentist.jpg",
+                    "alt": "Design"
+                },
+                {
+                    "src": "./images/workshop/obr_6.jpg",
+                    "alt": "Exhibition"
+                }
+            ]
+            }
+        }
+
+        // Load images when page starts
+        loadGalleryImages();      
+
+        // Carousel elements
+        const carouselModal = document.getElementById('carouselModal');
+        const carouselImage = document.getElementById('carouselImage');
+        const carouselCounter = document.getElementById('carouselCounter');
+        const carouselClose = document.getElementById('carouselClose');
+        const carouselPrev = document.getElementById('carouselPrev');
+        const carouselNext = document.getElementById('carouselNext');
+
+        // Open carousel
+        function openCarousel(index) {
+            currentImageIndex = index;
+            updateCarousel();
+            carouselModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close carousel
+        function closeCarousel() {
+            carouselModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Update carousel image and counter
+        function updateCarousel() {
+            carouselImage.src = galleryImages[currentImageIndex].src;
+            carouselImage.alt = galleryImages[currentImageIndex].alt;
+           carouselCounter.textContent = galleryImages[currentImageIndex].alt;
+        }
+
+        // Navigate carousel
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+            updateCarousel();
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+            updateCarousel();
+        }
+
+        // Event listeners for gallery items
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const index = parseInt(item.getAttribute('data-index'));
+                openCarousel(index);
+            });
+        });
+
+        // Event listeners for carousel controls
+        carouselClose.addEventListener('click', closeCarousel);
+        carouselNext.addEventListener('click', nextImage);
+        carouselPrev.addEventListener('click', prevImage);
+
+        // Close on background click
+        carouselModal.addEventListener('click', (e) => {
+            if (e.target === carouselModal) {
+                closeCarousel();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!carouselModal.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') closeCarousel();
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const scrollTop = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+                scrollTop.classList.add('show');
+            } else {
+                navbar.classList.remove('scrolled');
+                scrollTop.classList.remove('show');
+            }
+        });
+
+        // Scroll to top
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+          // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+          // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
-
 </html>
