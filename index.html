@@ -212,6 +212,15 @@
             }
         }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
         .hero h1 {
             font-family: 'Coolvetica', sans-serif;
             font-size: clamp(4rem, 12vw, 10rem);
@@ -226,8 +235,12 @@
         }
 
         @keyframes gradientShift {
-            0%, 100% { filter: hue-rotate(0deg); }
-            50% { filter: hue-rotate(20deg); }
+            0%, 100% {
+                filter: hue-rotate(0deg);
+            }
+            50% {
+                filter: hue-rotate(20deg);
+            }
         }
 
         .hero h2 {
@@ -473,6 +486,209 @@
             font-weight: 600;
         }
 
+        /* Gallery Preview Modal */
+        .gallery-preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .gallery-preview-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .preview-image {
+            width: 100%;
+            border-radius: 15px;
+            object-fit: cover;
+            max-height: 70vh;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+        }
+
+        .preview-info {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .preview-title {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .preview-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .preview-btn-carousel {
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .preview-btn-carousel:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        .preview-btn-close {
+            background: rgba(255, 23, 68, 0.2);
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .preview-btn-close:hover {
+            background: var(--accent-red);
+            color: var(--text-light);
+        }
+
+        /* Carousel Modal */
+        .carousel-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-modal.active {
+            display: flex;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+        }
+
+        .carousel-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 215, 0, 0.9);
+            border: none;
+            border-radius: 50%;
+            color: var(--bg-dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+        }
+
+        .carousel-close:hover {
+            transform: scale(1.1) rotate(90deg);
+            background: var(--accent-red);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 215, 0, 0.9);
+            border: none;
+            border-radius: 50%;
+            color: var(--bg-dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-nav:hover {
+            background: var(--accent-gold);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-prev {
+            left: 2rem;
+        }
+
+        .carousel-next {
+            right: 2rem;
+        }
+
+        .carousel-counter {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
         /* Contact Section */
         .contact {
             background: var(--bg-card);
@@ -582,6 +798,20 @@
         .scroll-top:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
         }
 
         /* Responsive */
@@ -761,6 +991,23 @@
                 font-size: 1rem;
                 padding: 0.5rem 1.5rem;
             }
+
+            .preview-container {
+                gap: 1.5rem;
+            }
+
+            .preview-info {
+                padding: 1.5rem;
+            }
+
+            .preview-title {
+                font-size: clamp(1.2rem, 2.5vw, 2rem);
+            }
+
+            .preview-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -890,159 +1137,42 @@
                 bottom: 1rem;
             }
 
+            .gallery-preview-modal {
+                padding: 0.5rem;
+            }
+
+            .preview-container {
+                gap: 1rem;
+            }
+
+            .preview-image {
+                max-height: 50vh;
+                border-radius: 10px;
+            }
+
+            .preview-info {
+                padding: 1rem;
+            }
+
+            .preview-title {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+
+            .preview-actions {
+                gap: 0.8rem;
+            }
+
+            .preview-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
             .scroll-top {
                 bottom: 1rem;
                 right: 1rem;
                 width: 45px;
                 height: 45px;
-            }
-        }
-
-        /* Carousel Modal */
-        .carousel-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .carousel-modal.active {
-            display: flex;
-        }
-
-        .carousel-container {
-            position: relative;
-            width: 90%;
-            max-width: 1200px;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .carousel-image {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
-        }
-
-        .carousel-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 215, 0, 0.9);
-            border: none;
-            border-radius: 50%;
-            color: var(--bg-dark);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2001;
-        }
-
-        .carousel-close:hover {
-            transform: scale(1.1) rotate(90deg);
-            background: var(--accent-red);
-        }
-
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 215, 0, 0.9);
-            border: none;
-            border-radius: 50%;
-            color: var(--bg-dark);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .carousel-nav:hover {
-            background: var(--accent-gold);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .carousel-prev {
-            left: 2rem;
-        }
-
-        .carousel-next {
-            right: 2rem;
-        }
-
-        .carousel-counter {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--accent-gold);
-            font-size: 1.3rem;
-            font-weight: 600;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 0.75rem 2rem;
-            border-radius: 50px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .carousel-modal.active {
-            animation: fadeIn 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .carousel-nav {
-                width: 45px;
-                height: 45px;
-                font-size: 1.2rem;
-            }
-
-            .carousel-prev {
-                left: 1rem;
-            }
-
-            .carousel-next {
-                right: 1rem;
-            }
-
-            .carousel-close {
-                top: 1rem;
-                right: 1rem;
-                width: 40px;
-                height: 40px;
             }
         }
     </style>
@@ -1151,7 +1281,7 @@
             <p class="section-subtitle">Výběr z mých prací</p>
             <div class="gallery-grid">
                 <div class="gallery-item" data-index="0">
-                    <img src="https://images.unsplash.com/photo-1561077338-dbc90e6b0927?w=600&q=80" alt="Graffiti work">
+                    <img src="https://images.unsplash.com/photo-1561077338-dbc90e6b0927?w=600&q=80" alt="Street Art">
                     <div class="gallery-overlay">
                         <span>Street Art</span>
                     </div>
@@ -1220,6 +1350,24 @@
     <!-- Scroll to Top -->
     <div class="scroll-top" id="scrollTop">
         <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Gallery Preview Modal -->
+    <div class="gallery-preview-modal" id="previewModal">
+        <div class="preview-container">
+            <img class="preview-image" id="previewImage" src="" alt="Gallery preview">
+            <div class="preview-info">
+                <div class="preview-title" id="previewTitle">Loading...</div>
+                <div class="preview-actions">
+                    <button class="preview-btn preview-btn-carousel" id="openCarouselBtn">
+                        <i class="fas fa-expand"></i> Otevřít galerii
+                    </button>
+                    <button class="preview-btn preview-btn-close" id="closePreviewBtn">
+                        <i class="fas fa-times"></i> Zavřít
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Carousel Modal -->
@@ -1295,6 +1443,35 @@
         const carouselPrev = document.getElementById('carouselPrev');
         const carouselNext = document.getElementById('carouselNext');
 
+        // Preview modal elements
+        const previewModal = document.getElementById('previewModal');
+        const previewImage = document.getElementById('previewImage');
+        const previewTitle = document.getElementById('previewTitle');
+        const openCarouselBtn = document.getElementById('openCarouselBtn');
+        const closePreviewBtn = document.getElementById('closePreviewBtn');
+
+        // Open preview modal (for touch devices)
+        function openPreview(index) {
+            currentImageIndex = index;
+            previewImage.src = galleryImages[currentImageIndex].src;
+            previewTitle.textContent = galleryImages[currentImageIndex].alt;
+            previewModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close preview modal
+        function closePreview() {
+            previewModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Open carousel from preview
+        function openCarouselFromPreview() {
+            closePreview();
+            updateCarousel();
+            carouselModal.classList.add('active');
+        }
+
         // Open carousel
         function openCarousel(index) {
             currentImageIndex = index;
@@ -1331,7 +1508,20 @@
         document.querySelectorAll('.gallery-item').forEach(item => {
             item.addEventListener('click', () => {
                 const index = parseInt(item.getAttribute('data-index'));
-                openCarousel(index);
+                // Check if touch device
+                const isTouchDevice = () => {
+                    return (('ontouchstart' in window) ||
+                            (navigator.maxTouchPoints > 0) ||
+                            (navigator.msMaxTouchPoints > 0));
+                };
+
+                if (isTouchDevice()) {
+                    // Show preview first on touch devices
+                    openPreview(index);
+                } else {
+                    // Open carousel directly on desktop
+                    openCarousel(index);
+                }
             });
         });
 
@@ -1340,10 +1530,20 @@
         carouselNext.addEventListener('click', nextImage);
         carouselPrev.addEventListener('click', prevImage);
 
+        // Event listeners for preview controls
+        openCarouselBtn.addEventListener('click', openCarouselFromPreview);
+        closePreviewBtn.addEventListener('click', closePreview);
+
         // Close on background click
         carouselModal.addEventListener('click', (e) => {
             if (e.target === carouselModal) {
                 closeCarousel();
+            }
+        });
+
+        previewModal.addEventListener('click', (e) => {
+            if (e.target === previewModal) {
+                closePreview();
             }
         });
 
