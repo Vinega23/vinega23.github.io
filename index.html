@@ -69,10 +69,9 @@
             font-size: 2rem;
             color: var(--accent-gold);
             font-weight: bold;
-            letter-spacing: -1px;
+            letter-spacing: 2px;
             text-transform: lowercase;
             transition: all 0.3s ease;
-            text-decoration: none;
         }
 
         .logo:hover {
@@ -168,7 +167,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('./images/whaleBG.jpg');
+            background-image: url('./images/whaleFrontPageBackground.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -215,10 +214,10 @@
 
         .hero h1 {
             font-family: 'Coolvetica', sans-serif;
-            font-size: clamp(6rem, 12vw, 10rem);
+            font-size: clamp(4rem, 12vw, 10rem);
             color: var(--text-light);
             margin-bottom: 1rem;
-            letter-spacing: -6px;
+            letter-spacing: -2px;
             background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-red) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -233,10 +232,10 @@
 
         .hero h2 {
             font-size: clamp(1rem, 2vw, 1.5rem);
-            color: var(--text-light);
+            color: var(--text-muted);
             letter-spacing: 4px;
             text-transform: uppercase;
-            font-weight: 400;
+            font-weight: 300;
         }
 
         .cta-button {
@@ -534,7 +533,6 @@
             color: var(--accent-gold);
             font-size: 1.5rem;
             transition: all 0.3s ease;
-            text-decoration: none;
         }
 
         .social-links a:hover {
@@ -554,8 +552,7 @@
         footer p {
             color: var(--text-muted);
             font-size: 0.9rem;
-            margin: 0 0 1rem 0;
-        }       
+        }
 
         /* Scroll to Top Button */
         .scroll-top {
@@ -587,8 +584,36 @@
             box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
         }
 
-         /* Responsive */
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            section {
+                padding: 6rem 0;
+            }
+
+            .section-title {
+                font-size: clamp(2rem, 4vw, 3rem);
+            }
+
+            .service-grid,
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
         @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
             .nav-links {
                 display: none;
                 position: fixed;
@@ -603,6 +628,7 @@
                 align-items: center;
                 gap: 3rem;
                 z-index: 999;
+                padding-top: 80px;
             }
 
             .nav-links.active {
@@ -634,23 +660,245 @@
                 transform: rotate(-45deg) translate(7px, -7px);
             }
 
+            .hero h1 {
+                font-size: clamp(2.5rem, 10vw, 6rem);
+            }
+
+            .hero h2 {
+                font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+            }
+
+            .cta-button {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
+            }
+
             .bio-grid,
             .contact-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
 
+            .bio-image {
+                border-radius: 15px;
+            }
+
+            .bio-content p {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
             .service-grid,
             .gallery-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .service-card {
+                padding: 2rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .service-card p {
+                font-size: 0.95rem;
+            }
+
+            .section-title {
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
+            }
+
+            .section-title::after {
+                width: 100%;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
             }
 
             section {
                 padding: 4rem 0;
             }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .contact-info {
+                padding: 2rem;
+            }
+
+            .contact-item {
+                gap: 1rem;
+                font-size: 1rem;
+            }
+
+            .carousel-nav {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+
+            .carousel-prev {
+                left: 1rem;
+            }
+
+            .carousel-next {
+                right: 1rem;
+            }
+
+            .carousel-close {
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .carousel-counter {
+                font-size: 1rem;
+                padding: 0.5rem 1.5rem;
+            }
         }
 
-         /* Carousel Modal */
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 0.5rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+                letter-spacing: 1px;
+            }
+
+            .hero {
+                height: 80vh;
+            }
+
+            .hero h1 {
+                font-size: clamp(2rem, 8vw, 4rem);
+            }
+
+            .hero h2 {
+                font-size: clamp(0.8rem, 1.2vw, 1rem);
+            }
+
+            .cta-button {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.8rem;
+                margin-top: 2rem;
+            }
+
+            .section-title {
+                font-size: clamp(1.5rem, 4vw, 2rem);
+                margin-bottom: 0.8rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 2rem;
+            }
+
+            section {
+                padding: 3rem 0;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .bio-content p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                margin-bottom: 1rem;
+            }
+
+            .service-card {
+                padding: 1.5rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .service-card p {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+
+            .service-icon {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .gallery-item {
+                aspect-ratio: 1;
+            }
+
+            .contact-info {
+                padding: 1.5rem;
+            }
+
+            .contact-item {
+                gap: 0.8rem;
+                font-size: 0.95rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .social-links {
+                gap: 1rem;
+            }
+
+            .social-links a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+
+            .carousel-container {
+                width: 95%;
+                height: 60vh;
+            }
+
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .carousel-prev {
+                left: 0.5rem;
+            }
+
+            .carousel-next {
+                right: 0.5rem;
+            }
+
+            .carousel-close {
+                top: 0.5rem;
+                right: 0.5rem;
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            .carousel-counter {
+                font-size: 0.9rem;
+                padding: 0.4rem 1rem;
+                bottom: 1rem;
+            }
+
+            .scroll-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        /* Carousel Modal */
         .carousel-modal {
             display: none;
             position: fixed;
@@ -746,15 +994,17 @@
             bottom: 2rem;
             left: 50%;
             transform: translateX(-50%);
-            color: var(--text-light);
-            font-size: 1.2rem;
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+            font-weight: 600;
             background: rgba(0, 0, 0, 0.7);
-            padding: 0.5rem 1.5rem;
+            padding: 0.75rem 2rem;
             border-radius: 50px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-
-         /* Animations */
+        /* Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
@@ -801,7 +1051,7 @@
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
-            <a href="#home" class="logo">dyazart</a>
+            <a href="#" class="logo">dyazart</a>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#bio">O mně</a></li>
@@ -851,7 +1101,7 @@
                     </p>
                 </div>
                 <div class="bio-image">
-                    <img src="./images/profile.jpg" alt="Dyaz">
+                    <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&q=80" alt="Dyaz">
                 </div>
             </div>
         </div>
@@ -901,25 +1151,25 @@
             <p class="section-subtitle">Výběr z mých prací</p>
             <div class="gallery-grid">
                 <div class="gallery-item" data-index="0">
-                    <img src="./images/verejny/verejny_prostor_3.jpg" alt="Graffiti work">
+                    <img src="https://images.unsplash.com/photo-1561077338-dbc90e6b0927?w=600&q=80" alt="Graffiti work">
                     <div class="gallery-overlay">
                         <span>Street Art</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-index="1">
-                    <img src="./images/verejny/ext_3.jpg" alt="Mural">
+                    <img src="https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=600&q=80" alt="Mural">
                     <div class="gallery-overlay">
                         <span>Mural</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-index="2">
-                    <img src="./images/dentist.jpg" alt="Design">
+                    <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600&q=80" alt="Design">
                     <div class="gallery-overlay">
                         <span>Design</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-index="3">
-                    <img src="./images/workshop/obr_6.jpg" alt="Exhibition">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&q=80" alt="Exhibition">
                     <div class="gallery-overlay">
                         <span>Exhibition</span>
                     </div>
@@ -927,7 +1177,6 @@
             </div>
         </div>
     </section>
-
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
@@ -953,9 +1202,9 @@
                         <a href="https://www.facebook.com/vojtech.kral.399" target="_blank"><i class="fa fa-facebook"></i></a>
                     </div>
                 </div>
-                <!-- <div class="bio-image">
-                    <img src="" alt="Contact">
-                </div> -->
+                <div class="bio-image">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Contact">
+                </div>
             </div>
         </div>
     </section>
@@ -964,7 +1213,6 @@
     <footer>
         <div class="container">
             <p>&copy; 2025 Dyazart. Všechna práva vyhrazena.</p>
-            <img src="./images/logo-red.png" alt="Contact">
             <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7;">Built by <strong style="color: var(--accent-gold);">VNG</strong></p>
         </div>
     </footer>
@@ -974,7 +1222,7 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
-     <!-- Carousel Modal -->
+    <!-- Carousel Modal -->
     <div class="carousel-modal" id="carouselModal">
         <button class="carousel-close" id="carouselClose">
             <i class="fas fa-times"></i>
@@ -989,7 +1237,7 @@
             </button>
             <div class="carousel-counter" id="carouselCounter">1 / 4</div>
         </div>
-    </div>    
+    </div>
 
     <script>
         let galleryImages = [];
@@ -998,38 +1246,46 @@
         // Fetch gallery images from external JSON file
         async function loadGalleryImages() {
             try {
+                console.log('Attempting to load gallery.json...');
                 const response = await fetch('./gallery.json');
+                console.log('Response status:', response.status);
+                
                 if (!response.ok) {
-                    throw new Error('Failed to load gallery.json');
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                
                 galleryImages = await response.json();
                 console.log('Gallery images loaded successfully:', galleryImages);
+                console.log('Total images:', galleryImages.length);
             } catch (error) {
-                console.error('Error loading gallery images:', error);
+                console.error('Error loading gallery.json:', error);
+                console.warn('Using fallback gallery images');
+                
                 // Fallback to default images if JSON file is not found
                 galleryImages = [
-                {
-                    "src": "./images/verejny/verejny_prostor_3.jpg",
-                    "alt": "Street Art"
-                },
-                {
-                    "src": "./images/verejny/ext_3.jpg",
-                    "alt": "Mural"
-                },
-                {
-                    "src": "./images/dentist.jpg",
-                    "alt": "Design"
-                },
-                {
-                    "src": "./images/workshop/obr_6.jpg",
-                    "alt": "Exhibition"
-                }
-            ]
+                    {
+                        src: 'https://images.unsplash.com/photo-1561077338-dbc90e6b0927?w=1200&q=80',
+                        alt: 'Street Art'
+                    },
+                    {
+                        src: 'https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=1200&q=80',
+                        alt: 'Mural'
+                    },
+                    {
+                        src: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=1200&q=80',
+                        alt: 'Design'
+                    },
+                    {
+                        src: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=1200&q=80',
+                        alt: 'Exhibition'
+                    }
+                ];
+                console.log('Fallback images loaded');
             }
         }
 
         // Load images when page starts
-        loadGalleryImages();      
+        loadGalleryImages();
 
         // Carousel elements
         const carouselModal = document.getElementById('carouselModal');
@@ -1057,7 +1313,7 @@
         function updateCarousel() {
             carouselImage.src = galleryImages[currentImageIndex].src;
             carouselImage.alt = galleryImages[currentImageIndex].alt;
-           carouselCounter.textContent = galleryImages[currentImageIndex].alt;
+            carouselCounter.textContent = galleryImages[currentImageIndex].alt;
         }
 
         // Navigate carousel
@@ -1119,7 +1375,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-          // Mobile menu toggle
+        // Mobile menu toggle
         const mobileToggle = document.querySelector('.mobile-toggle');
         const navLinks = document.querySelector('.nav-links');
 
@@ -1129,7 +1385,7 @@
             document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
         });
 
-          // Close mobile menu when clicking on a link
+        // Close mobile menu when clicking on a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
