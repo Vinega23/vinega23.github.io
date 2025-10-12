@@ -1295,36 +1295,7 @@
         const carouselCounter = document.getElementById('carouselCounter');
         const carouselClose = document.getElementById('carouselClose');
         const carouselPrev = document.getElementById('carouselPrev');
-        const carouselNext = document.getElementById('carouselNext');
-
-        // Preview modal elements
-        const previewModal = document.getElementById('previewModal');
-        const previewImage = document.getElementById('previewImage');
-        const previewTitle = document.getElementById('previewTitle');
-        const openCarouselBtn = document.getElementById('openCarouselBtn');
-        const closePreviewBtn = document.getElementById('closePreviewBtn');
-
-        // Open preview modal (for touch devices)
-        function openPreview(index) {
-            currentImageIndex = index;
-            previewImage.src = galleryImages[currentImageIndex].src;
-            previewTitle.textContent = galleryImages[currentImageIndex].alt;
-            previewModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Close preview modal
-        function closePreview() {
-            previewModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Open carousel from preview
-        function openCarouselFromPreview() {
-            closePreview();
-            updateCarousel();
-            carouselModal.classList.add('active');
-        }
+        const carouselNext = document.getElementById('carouselNext');      
 
         // Open carousel
         function openCarousel(index) {
@@ -1371,7 +1342,7 @@
 
                 if (isTouchDevice()) {
                     // Show preview first on touch devices
-                    openPreview(index);
+                    openCarousel(index);
                 } else {
                     // Open carousel directly on desktop
                     openCarousel(index);
