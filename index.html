@@ -69,9 +69,10 @@
             font-size: 2rem;
             color: var(--accent-gold);
             font-weight: bold;
-            letter-spacing: 2px;
+            letter-spacing: -1px;
             text-transform: lowercase;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         .logo:hover {
@@ -167,7 +168,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('./images/whaleFrontPageBackground.jpg');
+            background-image: url('./images/whaleBGone.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -226,7 +227,7 @@
             font-size: clamp(4rem, 12vw, 10rem);
             color: var(--text-light);
             margin-bottom: 1rem;
-            letter-spacing: -2px;
+            letter-spacing: -6px;
             background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-red) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -245,10 +246,10 @@
 
         .hero h2 {
             font-size: clamp(1rem, 2vw, 1.5rem);
-            color: var(--text-muted);
+            color: var(--text-light);
             letter-spacing: 4px;
             text-transform: uppercase;
-            font-weight: 300;
+            font-weight: 400;            
         }
 
         .cta-button {
@@ -679,8 +680,8 @@
             bottom: 2rem;
             left: 50%;
             transform: translateX(-50%);
-            color: var(--accent-gold);
-            font-size: 1.3rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
             font-weight: 600;
             background: rgba(0, 0, 0, 0.7);
             padding: 0.75rem 2rem;
@@ -735,7 +736,7 @@
         .social-links {
             display: flex;
             gap: 1.5rem;
-            margin-top: 3rem;
+            margin-top: 3rem;            
         }
 
         .social-links a {
@@ -749,6 +750,7 @@
             color: var(--accent-gold);
             font-size: 1.5rem;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         .social-links a:hover {
@@ -768,6 +770,10 @@
         footer p {
             color: var(--text-muted);
             font-size: 0.9rem;
+        }
+
+        .logo-red img {
+            margin: 1rem
         }
 
         /* Scroll to Top Button */
@@ -891,11 +897,11 @@
             }
 
             .hero h1 {
-                font-size: clamp(2.5rem, 10vw, 6rem);
+                font-size: clamp(4rem, 10vw, 8rem);
             }
 
             .hero h2 {
-                font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+                font-size: clamp(1.2rem, 1.5vw, 1.6rem);
             }
 
             .cta-button {
@@ -1025,11 +1031,11 @@
             }
 
             .hero h1 {
-                font-size: clamp(2rem, 8vw, 4rem);
+                font-size: clamp(4rem, 8vw, 6rem);
             }
 
             .hero h2 {
-                font-size: clamp(0.8rem, 1.2vw, 1rem);
+                font-size: clamp(1rem, 1.2vw, 1.2rem);
             }
 
             .cta-button {
@@ -1231,7 +1237,7 @@
                     </p>
                 </div>
                 <div class="bio-image">
-                    <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&q=80" alt="Dyaz">
+                    <img src="./images/profile.jpg" alt="Dyaz">
                 </div>
             </div>
         </div>
@@ -1281,25 +1287,25 @@
             <p class="section-subtitle">Výběr z mých prací</p>
             <div class="gallery-grid">
                 <div class="gallery-item" data-index="0">
-                    <img src="https://images.unsplash.com/photo-1561077338-dbc90e6b0927?w=600&q=80" alt="Street Art">
+                    <img src="./images/verejny/verejny_prostor_3.jpg" alt="Street Art">
                     <div class="gallery-overlay">
                         <span>Street Art</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-index="1">
-                    <img src="https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=600&q=80" alt="Mural">
+                    <img src="./images/verejny/ext_3.jpg" alt="Mural">
                     <div class="gallery-overlay">
                         <span>Mural</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-index="2">
-                    <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600&q=80" alt="Design">
+                    <img src="./images/dentist.jpg" alt="Design">
                     <div class="gallery-overlay">
                         <span>Design</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-index="3">
-                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&q=80" alt="Exhibition">
+                    <img src="./images/workshop/obr_6.jpg" alt="Exhibition">
                     <div class="gallery-overlay">
                         <span>Exhibition</span>
                     </div>
@@ -1332,9 +1338,9 @@
                         <a href="https://www.facebook.com/vojtech.kral.399" target="_blank"><i class="fa fa-facebook"></i></a>
                     </div>
                 </div>
-                <div class="bio-image">
+                <!-- <div class="bio-image">
                     <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Contact">
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -1343,6 +1349,7 @@
     <footer>
         <div class="container">
             <p>&copy; 2025 Dyazart. Všechna práva vyhrazena.</p>
+            <div class="logo-red"><img src="./images/logo-red.png" alt="logo-red"></div>            
             <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7;">Built by <strong style="color: var(--accent-gold);">VNG</strong></p>
         </div>
     </footer>
