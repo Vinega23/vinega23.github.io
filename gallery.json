@@ -16,6 +16,18 @@
         "alt": "Street Art"
     },
     {
+        "src": "./images/verejny/verejny_prostor_2.jpg",
+        "alt": "Street Art"
+    },
+    {
+        "src": "./images/verejny/verejny_prostor_5.jpg",
+        "alt": "Street Art"
+    },
+    {
+        "src": "./images/verejny/verejny_prostor_6.jpg",
+        "alt": "Street Art"
+    },
+    {
         "src": "./images/verejny/ext_3.jpg",
         "alt": "Mural"
     },
@@ -36,6 +48,30 @@
         "alt": "Design"
     },
     {
+        "src": "./images/zakazka/auto_1.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/zakazka/auto_2.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/zakazka/ext_2.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/zakazka/ext_4.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/zakazka/ext_5.jpg.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/zakazka/int_3.jpg.jpg",
+        "alt": "Design"
+    }, 
+    {
         "src": "./images/workshop/obr_6.jpg",
         "alt": "Exhibition"
     },
@@ -46,5 +82,18 @@
     {
         "src": "./images/workshop/obr_2.jpg",
         "alt": "Exhibition"
+    },
+    {
+        "src": "./images/workshop/obr_1.jpg",
+        "alt": "Exhibition"
+    },
+    {
+        "src": "./images/workshop/obr_4.jpg",
+        "alt": "Exhibition"
+    },
+    {
+        "src": "./images/workshop/obr_5.jpg",
+        "alt": "Exhibition"
     }
+
 ]
