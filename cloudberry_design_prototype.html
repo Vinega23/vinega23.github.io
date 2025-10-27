@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudberry Escapes - Design Prototype</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #5A2946;
+            line-height: 1.7;
+            background: #ffffff;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(48, 25, 69, 0);
+            backdrop-filter: blur(0px);
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(48, 25, 69, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 60px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #F66E56;
+            letter-spacing: 0.05em;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled .logo {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            margin-left: auto;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #F9EBE0;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .nav-menu a:hover {
+            color: #F66E56;
+        }
+
+        /* Hero Section - Full Screen with Centered Logo */
+        .hero {
+            height: 100vh;
+            /* background: linear-gradient(135deg, #301945 0%, #5A2946 100%); */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;            
+        }
+
+       .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* MODIFICATION: Set background to the *first* image in the JS array */
+            background: url('./Images/7U1A4441.steinar.jpg'); 
+            background-size:cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity 10s ease-in-out; /* Smoother fade */
+            opacity: 1;
+            z-index: -1;
+             /* MODIFICATION: Add the zoom animation */
+            animation: slowZoom 15s ease-out forwards;
+        }
+
+        .hero-bg.fade-out {
+                opacity: 0;
+                /* MODIFICATION: Stop animation on outgoing slide
+                animation: none; */
+        }
+
+        /* MODIFICATION: Made fade-in slower to match fade-out */
+        .hero-bg.fade-in {
+            opacity: 0;
+            /* MODIFICATION: Only run fadeIn anim, zoom will apply when class is removed */
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* MODIFICATION: Added keyframes for slow zoom */
+        @keyframes slowZoom {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05); /* 5% zoom */
+            }
+        }
+        /* 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23F66E56;stop-opacity:0.15"/><stop offset="100%" style="stop-color:%23301945;stop-opacity:0.3"/></linearGradient></defs><rect fill="url(%23grad)" width="1200" height="800"/><path d="M0,400 Q300,350 600,400 T1200,400 L1200,800 L0,800 Z" fill="%23F9EBE0" opacity="0.03"/></svg>') no-repeat center/cover; */
+        .hero-logo-large {
+            position: relative;
+            z-index: 2;
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            font-weight: 700;
+            color: #F66E56;
+            letter-spacing: 0.05em;
+            margin-bottom: 30px;
+            animation: fadeInScale 1.5s ease-out;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .hero-logo-large.fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .hero-tagline {
+            position: relative;
+            z-index: 2;
+            font-size: 20px;
+            color: #F9EBE0;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 300;
+            animation: fadeInUp 1.5s ease-out 0.3s both;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            margin-bottom: 40px;
+        }
+
+        .hero-tagline.fade-out {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .hero-cta {
+            background: #F66E56;
+            color: #301945;
+            padding: 14px 38px;
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-transform: uppercase;
+            animation: fadeInUp 1.5s ease-out 0.6s both;
+            opacity: 0;
+        }
+
+        .hero-cta.show {
+            opacity: 1;
+        }
+
+        .hero-cta:hover {
+            background: #F9EBE0;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(246, 110, 86, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }      
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        @keyframes scroll {
+            0% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(12px);
+            }
+        }
+
+        /* Our Story Section */
+        .our-story-section {
+            padding: 100px 60px;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .story-content {
+            max-width: 800px; /* Consistent with parallax content */
+        }
+
+        .story-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #301945;
+            margin-bottom: 40px;
+            letter-spacing: -0.01em;
+        }
+
+        .story-content p {
+            font-size: 18px;
+            color: #5A2946;
+            line-height: 1.8;
+            margin-bottom: 24px; /* Space between paragraphs */
+        }
+
+        .story-content p:last-of-type {
+            margin-bottom: 40px; /* Space before button */
+        }
+
+        /* Image Gallery Section */
+        .gallery-showcase {
+            padding: 100px 60px;
+            background: #ffffff;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative; /* Needed for positioning arrows */
+        }
+
+        .gallery-showcase h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #301945;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .gallery-showcase > p {
+            font-size: 18px;
+            color: #5A2946;
+            margin-bottom: 60px;
+            max-width: 600px;
+        }
+        
+       /* Text controls below the carousel */
+        .carousel-controls {
+            display: flex;
+            justify-content: center; /* Center the buttons */
+            gap: 40px; /* Space between Prev and Next */
+            margin-top: 40px; /* Space below the carousel */
+        }
+
+        .carousel-button {
+            background: transparent;
+            border: none;
+            color: #5A2946; /* Dark purple text */
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 10px 0;
+            transition: color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            outline: none;
+            user-select: none; /* Prevent text selection on rapid clicks */
+        }
+
+        .carousel-button:hover:not(:disabled) {
+            color: #F66E56; /* Orange accent on hover */
+            transform: translateY(-2px);
+        }
+
+        .carousel-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background-color: #F66E56;
+            transition: width 0.3s ease;
+        }
+
+        .carousel-button:hover:not(:disabled)::after {
+            width: 100%;
+        }
+        
+        .carousel-button:disabled, .carousel-button.disabled {
+            color: #a0a0a0; /* Lighter gray for disabled */
+            cursor: default;
+            transform: none;
+        }
+
+        .carousel-button:disabled::after, .carousel-button.disabled:hover::after {
+            width: 0;
+        }
+        
+        /* Parallax Section */
+        .parallax-section {
+            height: 60vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background: url(./Images/_DSC7628.jpg);
+            background-size: cover;
+            background-position: center;
+            transform: translateY(0);
+            will-change: transform;
+        }
+
+        /* background: linear-gradient(135deg, rgba(48, 25, 69, 0.7), rgba(90, 41, 70, 0.7)), 
+                        linear-gradient(45deg, #301945 0%, #5A2946 50%, #F66E56 100%); */
+
+        .parallax-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #F9EBE0;
+            max-width: 800px;
+            padding: 0 40px;
+        }
+
+        .parallax-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 700;
+            color: #F9EBE0;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .parallax-content p {
+            font-size: 20px;
+            color: #F66E56;
+            letter-spacing: 0.02em;
+            line-height: 1.8;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-carousel {
+            display: flex;
+            overflow-x: auto; /* Allows horizontal scrolling */
+            gap: 20px;
+            scroll-snap-type: x mandatory; /* Enforces snapping */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            padding-bottom: 20px; /* Space for scrollbar if it appears */
+
+            /* Hide scrollbar for a cleaner look */
+            scrollbar-width: none; /* Firefox */
+        }
+        .gallery-carousel::-webkit-scrollbar {
+            display: none; /* Chrome, Safari */
+        }
+
+        .gallery-item {            
+            flex: 0 0 85%;
+            max-width: 900px; /* Cap max width */
+            aspect-ratio: 16 / 9; /* Wider aspect ratio */
+            scroll-snap-align: start; 
+            background-size: cover;
+            background-position: center; 
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            /* box-shadow: 0 16px 40px rgba(0,0,0,0.2); Deeper shadow */
+            overflow: hidden; 
+            cursor: pointer;
+        }          
+      
+        .gallery-item:nth-child(1) {
+            background-image: url('./Images/Bjørnfjell - Fotograf Mads Suhr Pettersen - 9G9A0598 - 171102.jpg');
+        }
+
+        .gallery-item:nth-child(2) {
+            background-image: url('./Images/_MAB3906 copy.jpg');
+        }
+
+        .gallery-item:nth-child(3) {
+            background-image: url('./Images/Bilde 19.02.2021, 21 22 04 (1).jpg');
+        }   
+
+           /* New structure for always-on label and hover-reveal description */
+        .gallery-info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            /* Dark transparent overlay */
+            background: rgba(0, 0, 0, 0.4); 
+            transition: background 0.4s ease;
+            padding: 30px;
+        }
+
+            /* Make overlay darker on hover */
+        .gallery-item:hover .gallery-info {
+            background: rgba(0, 0, 0, 0.7); 
+        }
+
+
+       .gallery-label {
+            /* Always visible, centered in the info block */
+            font-size: 16px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #F9EBE0; /* Light text color */
+            padding-bottom: 10px;
+            position: relative;
+            opacity: 1; /* Always visible */
+            transition: all 0.4s ease;
+        }
+
+       /* Subtle label color change on hover */
+        .gallery-item:hover .gallery-label {
+            color: #F66E56; /* Accent color on hover */
+            transform: translateY(-5px); /* Move label up slightly */
+        }
+        
+
+        .gallery-description {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px; /* Larger font for description in center */
+            color: #F9EBE0; 
+            line-height: 1.5;
+            max-width: 80%; /* Limit width of text */
+            opacity: 0; /* Hidden by default */
+            transform: translateY(10px); /* Start slightly below center */
+            overflow: hidden;
+            transition: all 0.4s ease-out;
+        }
+
+        .gallery-item:hover .gallery-description {            
+            opacity: 1;
+            transform: translateY(0); /* Bring text back to center */
+        }
+
+        /* Why Choose Us Section */
+        .value-props {
+            padding: 100px 60px;
+            background: #F9EBE0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .value-props h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #301945;
+            margin-bottom: 60px;
+            letter-spacing: -0.01em;
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+        }
+
+        .value-card {
+            text-align: left;
+        }
+
+        .value-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 700;
+            color: #F66E56;
+            margin-bottom: 12px;
+        }
+
+        .value-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #301945;
+            margin-bottom: 16px;
+        }
+
+        .value-card p {
+            font-size: 16px;
+            color: #5A2946;
+            line-height: 1.8;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 100px 60px;
+            background: #ffffff;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #301945;
+            margin-bottom: 60px;
+            letter-spacing: -0.01em;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .testimonial-card {
+            background: #f8f8f8;
+            padding: 40px;
+            border-radius: 2px;
+            border-left: 4px solid #F66E56;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .testimonial-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 24px;
+            color: #301945;
+            line-height: 1.6;
+        }
+
+        .testimonial-author h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #301945;
+            margin-bottom: 4px;
+        }
+
+        .testimonial-author p {
+            font-size: 12px;
+            color: #5A2946;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+         /* New Newsletter Section Styles */
+        .newsletter-section {
+            padding: 100px 60px;
+            background: #F9EBE0; /* Light background to contrast with CTA */
+            text-align: center;
+            max-width: 100%; /* Full width container */
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: #301945;
+            margin-bottom: 15px;
+            letter-spacing: -0.01em;
+        }
+
+        .newsletter-content p {
+            font-size: 16px;
+            color: #5A2946;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input[type="email"] {
+            flex-grow: 1;
+            padding: 14px 20px;
+            border: 1px solid #c9c9c9;
+            border-radius: 2px;
+            font-size: 16px;
+            color: #301945;
+            background: #ffffff;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .newsletter-form input[type="email"]:focus {
+            outline: none;
+            border-color: #F66E56;
+            box-shadow: 0 0 0 2px rgba(246, 110, 86, 0.3);
+        }
+
+        .newsletter-form button {
+            /* Inherits btn-primary styles for look, but customized dimensions */
+            background: #F66E56;
+            color: #301945;
+            padding: 14px 25px;
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-transform: uppercase;
+        }
+        
+        .newsletter-form button:hover {
+            background: #301945;
+            color: #F9EBE0;
+            transform: translateY(0); /* Don't want bounce effect here */
+            box-shadow: 0 5px 15px rgba(48, 25, 69, 0.2);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 60px;
+            background: linear-gradient(135deg, #301945 0%, #5A2946 100%);
+            text-align: center;
+            color: #F9EBE0;
+        }
+
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #F9EBE0;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #F66E56;
+        }
+
+        .btn-primary {
+            background: #F66E56;
+            color: #301945;
+            padding: 14px 38px;
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-transform: uppercase;
+        }
+
+        .btn-primary:hover {
+            background: #F9EBE0;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(246, 110, 86, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #301945;
+            color: #F9EBE0;
+            padding: 60px;
+            margin-top: 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+        }
+
+        footer h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #F66E56;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        footer p, footer a {
+            font-size: 14px;
+            color: #d4a8a8;
+            line-height: 2;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #F66E56;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: #F66E56;
+            margin-bottom: 16px;
+            letter-spacing: 0.05em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px 20px;
+            }
+
+            nav.scrolled {
+                padding: 12px 20px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-logo-large {
+                font-size: 48px;
+            }
+
+            .hero-tagline {
+                font-size: 14px;
+            }
+
+            section, .gallery-showcase, .value-props, .testimonials-section {
+                padding: 60px 30px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .gallery-item:nth-child(1),
+            .gallery-item:nth-child(2),
+            .gallery-item:nth-child(6) {
+                grid-column: span 1;
+                grid-row: span 1;
+            }          
+           
+            .parallax-section {
+                height: 50vh;
+            }
+
+            .parallax-content h2 {
+                font-size: 36px;
+            }
+
+            .parallax-content p {
+                font-size: 16px;
+            }
+
+            .value-grid, .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="mainNav">
+        <div class="logo">Cloudberry Escapes</div>
+        <ul class="nav-menu">
+            <li><a href="#experiences">Services</a></li>
+            <li><a href="#gallery-showcase">Inspiration</a></li>
+            <li><a href="#testimonials">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section with Centered Logo -->
+    <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-logo-large"><img src="./Images/Logo/Cloudberry Escapes Orange.png" alt=""></div>
+        <div class="hero-tagline">the arctic redefined</div>
+        <!-- <button class="hero-cta show">Get Inspired</button> -->
+    </div>
+    <!-- Our Story Section -->
+    <section class="our-story-section">
+        <div class="story-content">
+            <h2>This Is Our Story</h2>
+            <p>Cloudberry Escapes emerged from our deep connection to Northern Norway. Here, time slows down, the sea kisses rugged cliffs, and winter nights dazzle with vibrant colors. We wanted to share this enchantment in a personal and unforgettable way.</p>
+            <p>Our trips go beyond ticking off sights; they touch the heart. We blend luxury with nature's raw beauty, making every moment memorable. Our mission? To reveal Northern Norway's wonder, peace, and discovery.</p>
+            <p>Every trip we design reflects our passion for unique experiences. Sailing under the midnight sun, immersing in local culture—it's the unexpected moments that truly captivate.</p>
+            <p>This is our story. We can't wait to help you write yours.&nbsp;</p>
+            <button class="btn-primary">Read More</button>
+        </div>
+    </section>
+
+     <!-- Parallax Section -->
+    <section class="parallax-section" id="parallaxSection">
+        <div class="parallax-bg" id="parallaxBg"></div>
+        <!-- <div class="parallax-content">
+            <h2>Where Nature Meets Luxury</h2>
+            <p>Every journey begins with a vision. Let us transform yours into an unforgettable Arctic adventure.</p>
+        </div> -->
+    </section>
+
+     <!-- Why Choose Us -->
+    <section class="value-props">
+        <h2>Why Cloudberry Escapes</h2>
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-number">01</div>
+                <h3>Local Expert Guides</h3>
+                <p>Our guides aren’t just knowledgeable – they’re part of the fabric of Northern Norway. Born storytellers and passionate adventurers, they bring the land to life with personal insights and deep connections to the places you’ll visit.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">02</div>
+                <h3>Handpicked Adventures</h3>
+                <p>Every experience we offer is carefully curated. From husky sledding under the aurora to kayaking through secluded fjords, we choose adventures that blend excitement with authenticity. Nothing is off the shelf – every journey is unique, crafted to match your sense of wonder.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">03</div>
+                <h3>Hidden Gem Destinations</h3>
+                <p>We take you beyond the postcards and into the heart of Northern Norway. Discover coastal villages tucked away from crowds, stay in charming boutique lodges, and experience the region as the locals do – with warmth, intimacy, and a touch of the unexpected.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Showcase -->
+    <section class="gallery-showcase">
+        <h2>Inspiration</h2>
+        <p>Immerse yourself in the raw beauty of Northern Norway with carefully curated adventures designed for discerning travelers.</p>
+        
+        <!-- Gallery Carousel Container -->
+         <div class="gallery-carousel" id="galleryCarousel">
+            <div class="gallery-item">
+                <div class="gallery-info">
+                    <div class="gallery-label">Lodgings</div>
+                    <div class="gallery-description">Cloudberry Escapes offers exclusive lodgings that blend luxury with authentic Arctic experiences. From glass igloos under the Northern Lights to private fjord lodges, each stay is tailored for discerning travelers seeking comfort and uniqueness.</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-info">
+                    <div class="gallery-label">Experiences</div>
+                    <div class="gallery-description">Glide through snowy landscapes on private dog sledding tours, cruise fjords on exclusive boat trips, or witness the Northern Lights from a secluded lodge. Experience Sami culture firsthand, embark on guided wildlife safaris, or savor gourmet meals in remote Arctic settings.</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-info">
+                    <div class="gallery-label">Itineraries</div>
+                    <div class="gallery-description">Each journey is carefully curated, combining seamless logistics with exclusive activities like private fjord cruises, dog sledding, and Northern Lights viewing. Designed for discerning travelers, our itineraries ensure a unique and unforgettable exploration of Northern Norway.</div>
+                </div>
+            </div>          
+        </div>
+        
+           <!-- Text Buttons below carousel -->
+        <div class="carousel-controls">
+            <button class="carousel-button" onclick="scrollCarousel(-1)">Previous</button>
+            <button class="carousel-button" onclick="scrollCarousel(1)">Next</button>
+        </div>
+        
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <h2>What Clients Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-quote">"An experience that surpassed every expectation. The attention to detail was extraordinary."</p>
+                <div class="testimonial-author">
+                    <h4>Sarah & James</h4>
+                    <p>March 2024</p>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-quote">"Luxury travel completely redefined. Personal, authentic, and truly transformative."</p>
+                <div class="testimonial-author">
+                    <h4>Michael</h4>
+                    <p>February 2024</p>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-quote">"They made planning effortless while ensuring every moment felt magical and perfectly curated."</p>
+                <div class="testimonial-author">
+                    <h4>Emma & David</h4>
+                    <p>January 2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Newsletter Subscription Section -->
+    <section class="newsletter-section">
+        <div class="newsletter-content">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Discover exclusive Arctic destinations, receive travel insights, and get inspired with curated itineraries from Cloudberry Escapes, delivered straight to your inbox.</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault(); handleSubscription();">
+                <input type="email" id="emailInput" placeholder="Enter your email address" required aria-label="Email address for newsletter subscription">
+                <button type="submit">Subscribe</button>
+            </form>
+            <div id="subscriptionMessage" style="margin-top: 20px; color: #F66E56; font-weight: 600; min-height: 20px;"></div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Discover Your Arctic Adventure?</h2>
+        <p>Let us craft your perfect Northern Norway escape. Reach out to our team to begin the conversation.</p>
+        <button class="btn-primary">Get in Touch</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">CLOUDBERRY ESCAPES</div>
+                <p>Designing bespoke Arctic itineraries in Northern Norway for discerning travelers seeking authentic luxury.</p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <p><a href="#">Experiences</a></p>
+                <p><a href="#">About Us</a></p>
+                <p><a href="#">Gallery</a></p>
+                <p><a href="#">Travel Guide</a></p>
+            </div>
+            <div>
+                <h4>Connect</h4>
+                <p>hello@cloudberryescapes.com</p>
+                <p>+47 XXX XX XXX</p>
+                <p style="margin-top: 24px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- SCROLL LOGIC FOR NAV, HERO FADE, AND PARALLAX ---
+        window.addEventListener('scroll', function() {
+            // Get elements needed for scroll effects
+            const nav = document.getElementById('mainNav');
+            const heroLogo = document.querySelector('.hero-logo-large');
+            const heroTagline = document.querySelector('.hero-tagline');
+            const parallaxBg = document.getElementById('parallaxBg');
+            const parallaxSection = document.getElementById('parallaxSection');
+            
+            const scrollPosition = window.scrollY;
+            
+            // Start fading out hero logo and tagline at 200px
+            if (heroLogo && heroTagline) {
+                if (scrollPosition > 0) {
+                    heroLogo.classList.add('fade-out');
+                    heroTagline.classList.add('fade-out');
+                } else {
+                    heroLogo.classList.remove('fade-out');
+                    heroTagline.classList.remove('fade-out');
+                }
+            }
+            
+            // Show nav logo after hero logo fades (at 200px)
+            if (nav) {
+                if (scrollPosition > 0) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+
+            // Parallax effect
+            if (parallaxSection && parallaxBg) {
+                const parallaxOffset = parallaxSection.offsetTop;
+                const parallaxHeight = parallaxSection.offsetHeight;
+                
+                // Only apply parallax when section is in view
+                if (scrollPosition + window.innerHeight > parallaxOffset && 
+                    scrollPosition < parallaxOffset + parallaxHeight) {
+                    const offset = (scrollPosition - parallaxOffset) * 0.5;
+                    parallaxBg.style.transform = `translateY(${offset}px)`;
+                }
+            }
+        }); // --- END OF SCROLL LOGIC ---
+
+         // --- GALLERY CAROUSEL CONTROL LOGIC ---
+
+        // Function to update the disabled state of the carousel buttons
+        const updateCarouselButtons = () => {
+            const carousel = document.getElementById('galleryCarousel');
+            const buttons = document.querySelectorAll('.carousel-button');
+            const prevBtn = buttons[0];
+            const nextBtn = buttons[1];
+
+            if (!carousel || !prevBtn || !nextBtn) return;
+
+            // Use a small tolerance (5px) for boundary checks due to floating point math
+            const isAtStart = carousel.scrollLeft <= 2; 
+            const isAtEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 2;
+
+            // Disable/Enable the buttons and update the visual class
+            prevBtn.disabled = isAtStart;
+            nextBtn.disabled = isAtEnd;
+
+            if (isAtStart) {
+                prevBtn.classList.add('disabled');
+            } else {
+                prevBtn.classList.remove('disabled');
+            }
+
+            if (isAtEnd) {
+                nextBtn.classList.add('disabled');
+            } else {
+                nextBtn.classList.remove('disabled');
+            }
+        };
+
+
+        const scrollCarousel = (direction) => {
+            const carousel = document.getElementById('galleryCarousel');
+            // Check if the button is disabled before scrolling
+            const isNext = direction === 1;
+            const targetButton = document.querySelectorAll('.carousel-button')[isNext ? 1 : 0];
+            if (targetButton.disabled) return;
+
+
+            if (carousel) {
+                // Determine the distance to scroll based on the width of one item + gap (450px + 20px)
+                const scrollDistance = 470;
+                
+                // Use scrollBy for relative scrolling and 'smooth' for the transition
+                carousel.scrollBy({
+                    left: direction * scrollDistance,
+                    behavior: 'smooth'
+                });
+                // Wait for the smooth scroll to finish before updating state (approx 350ms)
+                setTimeout(updateCarouselButtons, 350);
+            }
+        };
+
+        // --- HERO BACKGROUND SLIDER LOGIC ---
+        // This runs once after the page structure is loaded
+        window.addEventListener('DOMContentLoaded', () => {
+            const heroBgContainer = document.querySelector('.hero');
+            let heroBg = document.querySelector('.hero-bg'); // Use 'let' as this element gets replaced
+
+            // Ensure elements exist before running
+            if (!heroBgContainer || !heroBg) {
+                console.error("Hero background slider elements not found.");
+                return;
+            }
+
+            const images = [
+                './Images/7U1A4441.steinar.jpg',
+                './Images/IMG_5142.jpg',
+                './Images/PXL_20240125_110049315.jpg',
+                './Images/IMG_20191019_085619.jpg'
+            ];
+
+            let currentIndex = 0;
+
+            // 1. Set the first image on load (matches the new CSS default)
+            heroBg.style.backgroundImage = `url(${images[0]})`;
+
+            // 2. Define the function to change the background
+            function changeBackground() {
+                currentIndex = (currentIndex + 1) % images.length;
+
+                const newBg = document.createElement('div');
+                newBg.className = 'hero-bg fade-in'; // Starts at opacity 0, fades in
+                newBg.style.backgroundImage = `url(${images[currentIndex]})`;
+
+                heroBgContainer.appendChild(newBg);
+
+                // Short delay to ensure newBg is in the DOM
+                setTimeout(() => {
+                    heroBg.classList.add('fade-out'); // Fades out the *old* heroBg (takes 1s)
+                    
+                    // After fade-out is complete (1s), remove old element
+                    setTimeout(() => {
+                        if (heroBg.parentElement) {
+                            heroBg.remove();
+                        }
+                        heroBg = newBg; // The new bg is now the main one
+                        heroBg.classList.remove('fade-in'); // Clean up class
+                    }, 1000); // This MUST match the CSS transition/animation time
+                }, 50); // Small delay
+            }
+
+            // 3. Start the interval timer (10 seconds)
+            setInterval(changeBackground, 10000);
+        });
+         // --- NEWSLETTER SUBSCRIPTION HANDLER ---
+        function handleSubscription() {
+            const email = document.getElementById('emailInput').value;
+            const messageElement = document.getElementById('subscriptionMessage');
+            
+            // Simple email validation
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                messageElement.textContent = "Please enter a valid email address.";
+                messageElement.style.color = '#F66E56';
+                return;
+            }
+
+            // Simulate API call success/failure
+            const success = Math.random() > 0.1; // 90% success rate for demo
+
+            if (success) {
+                messageElement.textContent = `Thank you for subscribing, ${email}! Welcome to the Cloudberry community.`;
+                messageElement.style.color = '#301945'; // Success color
+                document.getElementById('emailInput').value = ''; // Clear input
+            } else {
+                messageElement.textContent = "Oops! We hit a snag. Please try subscribing again later.";
+                messageElement.style.color = '#F66E56'; // Error color
+            }
+
+            // Clear the message after a few seconds
+            setTimeout(() => {
+                messageElement.textContent = '';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
