@@ -578,6 +578,38 @@
             font-weight: 600;
         }
 
+       /* Full Width Image Row */
+        .full-width-row {
+            padding: 0px;
+        }
+
+        .image-row {
+            display: flex;
+            justify-content: space-between;            
+            width: 100%;
+        }
+
+        .image-col {
+            flex: 1; 
+            overflow: hidden; 
+            position: relative;
+            aspect-ratio: 3 / 3;    
+        }
+
+        .image-col img {
+            width: 100%;
+            height: 100%; 
+            object-fit: cover;          
+            filter: brightness(50%); /* FILTR PRO ZTLUMENÍ */
+            transition: filter 0.5s ease;
+        }
+        
+        .image-col:hover img {
+            transform: none; 
+            filter: brightness(85%); /* Lehké zesvětlení při najetí */
+        }
+        /* End Full Width Image Row */
+
         /* Carousel Modal */
         .carousel-modal {
             display: none;
@@ -588,8 +620,11 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.95);
             z-index: 2000;
+            /* Use flex-direction column to stack container and thumbnails */
+            flex-direction: column; 
             align-items: center;
             justify-content: center;
+            padding: 1rem 0; /* Add some padding */
         }
 
         .carousel-modal.active {
@@ -597,10 +632,10 @@
         }
 
         .carousel-container {
-            position: relative;
+             position: relative;
             width: 90%;
             max-width: 1200px;
-            height: 80vh;
+            height: 75vh; /* Reduced height to make space for thumbnails */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -994,8 +1029,74 @@
                 font-size: 1rem;
                 padding: 0.5rem 1.5rem;
             }
+                /* Thumbnail Styles */
+            .carousel-thumbnails {
+                width: 90%;
+                max-width: 1200px;
+                margin-top: 1rem;
+                height: 100px; /* Set a fixed height */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                overflow-x: auto; /* Allow horizontal scrolling if many thumbs */
+                overflow-y: hidden;
+                padding: 10px 0;
+                /* Custom scrollbar (optional but nice) */
+                scrollbar-width: thin;
+                scrollbar-color: var(--accent-gold) var(--bg-card);
+            }
+
+            .carousel-thumbnails::-webkit-scrollbar {
+                height: 8px;
+            }
+
+            .carousel-thumbnails::-webkit-scrollbar-track {
+                background: var(--bg-card);
+                border-radius: 10px;
+            }
+
+            .carousel-thumbnails::-webkit-scrollbar-thumb {
+                background-color: var(--accent-gold);
+                border-radius: 10px;
+            }
+
+
+            .thumbnail-image {
+                width: 80px;
+                height: 80px;
+                object-fit: cover;
+                border-radius: 8px;
+                cursor: pointer;
+                border: 3px solid transparent;
+                opacity: 0.5;
+                transition: all 0.3s ease;
+                flex-shrink: 0; /* Prevent thumbnails from shrinking */
+            }
+
+            .thumbnail-image:hover {
+                opacity: 0.8;
+                border-color: rgba(255, 215, 0, 0.5);
+            }
+
+            .thumbnail-image.active {
+                opacity: 1;
+                border-color: var(--accent-gold);
+                transform: scale(1.05);
+            }
+            /* END: Thumbnail Styles */
+
              .gallery-overlay{
                 opacity: 1;
+            }
+
+              /* Full Width Image Row */
+            .image-row {
+                flex-direction: column; /* Obrázky pod sebou na mobilu */
+            }
+
+            .image-col {
+                margin-bottom: 4px; /* Tenká mezera */
             }
 
         }
@@ -1168,7 +1269,7 @@
         <div class="hero-content">
             <h1>dyazart</h1>
             <h2>streetart · graffiti · design</h2>
-            <!-- <a href="#services" class="cta-button">Prozkoumat tvorbu</a> -->
+            <a href="#services" class="cta-button">Prozkoumat tvorbu</a>
         </div>
     </section>
 
@@ -1198,12 +1299,28 @@
             </div>
         </div>
     </section>
+     <!-- Full Width Image Row Section -->
+    <section class="full-width-row">
+        <div class="image-row">
+            <div class="image-col">               
+                <img src="./images/pictures_mix/verejny_prosto_1.jpg" alt="Street Art v Opavě">
+            </div>
+            <div class="image-col">
+                <img src="./images/pictures_mix/exhibition_5.JPG" alt="Mural malba">
+            </div>
+            <div class="image-col">
+                <img src="./images/dentist.jpg" alt="Design interiéru">
+            </div>  
+        </div>           
+    </section>
+    <!-- End Full Width Image Row Section -->
+
 
     <!-- Services Section -->
     <section id="services" class="services">
         <div class="container">
             <h2 class="section-title">Moje tvorba</h2>
-            <p class="section-subtitle">Komplexní služby v oblasti street artu a designu</p>
+            <p class="section-subtitle"></p>
             <div class="service-grid">
                 <div class="service-card">
                     <i class="fas fa-spray-can service-icon"></i>
@@ -1294,9 +1411,9 @@
                         <a href="https://www.facebook.com/vojtech.kral.399" target="_blank"><i class="fa fa-facebook"></i></a>
                     </div>
                 </div>
-                <!-- <div class="bio-image">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Contact">
-                </div> -->
+                <div class="bio-image">
+                    <img src="./images/pictures_mix/verejny_prostor.jpg" alt="Contact">
+                </div>
             </div>
         </div>
     </section>
@@ -1329,6 +1446,9 @@
                 <i class="fas fa-chevron-right"></i>
             </button>
             <div class="carousel-counter" id="carouselCounter">1 / 4</div>
+            <!-- Thumbnail Container -->
+            <div class="carousel-thumbnails" id="carouselThumbnails">           
+            </div>
         </div>
     </div>
 
@@ -1386,7 +1506,8 @@
         const carouselCounter = document.getElementById('carouselCounter');
         const carouselClose = document.getElementById('carouselClose');
         const carouselPrev = document.getElementById('carouselPrev');
-        const carouselNext = document.getElementById('carouselNext');      
+        const carouselNext = document.getElementById('carouselNext');     
+        const carouselThumbnails = document.getElementById('carouselThumbnails'); 
 
          // Open carousel with category prioritization
         function openCarousel(index) {
@@ -1408,6 +1529,7 @@
             galleryImages = reorderedImages;
             
             updateCarousel();
+            buildThumbnails();
             carouselModal.classList.add('active');
             document.body.style.overflow = 'hidden';
             
@@ -1419,18 +1541,65 @@
         function closeCarousel() {
             carouselModal.classList.remove('active');
             document.body.style.overflow = 'auto';
+            carouselThumbnails.innerHTML = '';
             
             // Restore original order
             if (window.originalGalleryOrder) {
                 galleryImages = window.originalGalleryOrder;
             }
         }
+         // thumbnail strip
+        function buildThumbnails() {
+            carouselThumbnails.innerHTML = ''; // Clear existing
+            galleryImages.forEach((image, index) => {
+                const thumb = document.createElement('img');
+                thumb.src = image.src;
+                thumb.alt = image.alt;
+                thumb.classList.add('thumbnail-image');
+                if (index === currentImageIndex) {
+                    thumb.classList.add('active');
+                }
+                // Add click event to change image
+                thumb.addEventListener('click', () => {
+                    currentImageIndex = index;
+                    updateCarousel();
+                });
+                carouselThumbnails.appendChild(thumb);
+            });
+            // Ensure the active one is in view
+            scrollToActiveThumbnail();
+        }
 
         // Update carousel image and counter
-        function updateCarousel() {
+         function updateCarousel() {
+            if (!galleryImages[currentImageIndex]) return; // Safety check
             carouselImage.src = galleryImages[currentImageIndex].src;
             carouselImage.alt = galleryImages[currentImageIndex].alt;
             carouselCounter.textContent = galleryImages[currentImageIndex].alt;
+
+            // NEW: Update active thumbnail
+            document.querySelectorAll('.thumbnail-image').forEach((thumb, index) => {
+                if (index === currentImageIndex) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+            
+            // NEW: Scroll to active thumbnail
+            scrollToActiveThumbnail();
+        }
+
+        // NEW: Helper function to scroll thumbnail strip
+        function scrollToActiveThumbnail() {
+            const activeThumb = document.querySelector('.thumbnail-image.active');
+            if (activeThumb) {
+                activeThumb.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'nearest', 
+                    inline: 'center' 
+                });
+            }
         }
 
         // Navigate carousel
@@ -1566,6 +1735,48 @@
                 }
             });
         });
+         // --- Parallax Effect for Image Row ---
+        const parallaxImages = document.querySelectorAll('.full-width-row .image-col img');
+
+        /**
+         * Parallax
+         */
+        function handleParallax() {
+            // Použijeme requestAnimationFrame pro plynulejší animaci
+            requestAnimationFrame(() => {
+                const viewportHeight = window.innerHeight;
+
+                parallaxImages.forEach(img => {
+                    // Získání pozice kontejneru obrázku
+                    const rect = img.parentElement.getBoundingClientRect(); 
+                    
+                    // Kontrola, zda je prvek v dosahu viewportu (+ malý přesah)
+                    if (rect.bottom > -50 && rect.top < viewportHeight + 50) {
+                        
+                        // Výpočet pozice středu elementu relativně k viewportu
+                        const center = rect.top + (rect.height / 2);
+                        
+                        // scrollProgress se mění od záporné hodnoty (element je nahoře) 
+                        // přes nulu (element uprostřed) k kladné hodnotě (element dole)
+                        const scrollProgress = (viewportHeight / 2) - center;
+                        
+                        // Rychlost paralaxy (0.35 je pomalý pohyb)
+                        const speed = 0.35; 
+                        const movement = scrollProgress * speed;
+
+                        // Aplikace transformace. Pohybem dolů při rolování dolů 
+                        // se image opticky pohybuje pomaleji.
+                        img.style.transform = `translateY(${movement}px)`;
+                    }
+                });
+            });
+        }
+
+        // Inicializace paralaxy na načtení
+        handleParallax(); 
+        // Přidání listeneru k události scroll
+        window.addEventListener('scroll', handleParallax);
+        window.addEventListener('resize', handleParallax); // Pro případ změny velikosti okna
     </script>
 </body>
 </html>
