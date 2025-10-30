@@ -28,11 +28,11 @@
         "alt": "Street Art"
     },
     {
-        "src": "./images/verejny/ext_3.jpg",
+        "src": "./images/pictures/ext_3.jpg",
         "alt": "Mural"
     },
     {
-        "src": "./images/verejny/ext_1.jpg",
+        "src": "./images/pictures/ext_1.jpg",
         "alt": "Mural"
     },
     {
@@ -72,27 +72,27 @@
         "alt": "Design"
     }, 
     {
-        "src": "./images/workshop/obr_6.jpg",
+        "src": "./images/pictures/obr_6.jpg",
         "alt": "Exhibition"
     },
     {
-        "src": "./images/workshop/obr_3.jpg",
+        "src": "./images/pictures/obr_3.jpg",
         "alt": "Exhibition"
     },
     {
-        "src": "./images/workshop/obr_2.jpg",
+        "src": "./images/pictures/obr_2.jpg",
         "alt": "Exhibition"
     },
     {
-        "src": "./images/workshop/obr_1.jpg",
+        "src": "./images/pictures/obr_1.jpg",
         "alt": "Exhibition"
     },
     {
-        "src": "./images/workshop/obr_4.jpg",
+        "src": "./images/pictures/obr_4.jpg",
         "alt": "Exhibition"
     },
     {
-        "src": "./images/workshop/obr_5.jpg",
+        "src": "./images/pictures/obr_5.jpg",
         "alt": "Exhibition"
     }
 
