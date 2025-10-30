@@ -619,9 +619,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            /* Use flex-direction column to stack container and thumbnails */
-            flex-direction: column; 
+            z-index: 2000;         
             align-items: center;
             justify-content: center;
             padding: 1rem 0; /* Add some padding */
@@ -632,10 +630,10 @@
         }
 
         .carousel-container {
-             position: relative;
+            position: relative;
             width: 90%;
             max-width: 1200px;
-            height: 75vh; /* Reduced height to make space for thumbnails */
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -717,6 +715,7 @@
             border-radius: 50px;
             letter-spacing: 1px;
             text-transform: uppercase;
+            white-space: nowrap; /* Prevent line break */
         }
 
         /* Contact Section */
@@ -834,6 +833,43 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
         }
+        /* Fixed Social Icons */
+        .fixed-social {
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 999;
+        }
+
+       .social-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 1.3rem;
+        }
+
+        .social-icon.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }       
 
         /* Animations */
         @keyframes float {
@@ -1028,65 +1064,8 @@
             .carousel-counter {
                 font-size: 1rem;
                 padding: 0.5rem 1.5rem;
-            }
-                /* Thumbnail Styles */
-            .carousel-thumbnails {
-                width: 90%;
-                max-width: 1200px;
-                margin-top: 1rem;
-                height: 100px; /* Set a fixed height */
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 10px;
-                overflow-x: auto; /* Allow horizontal scrolling if many thumbs */
-                overflow-y: hidden;
-                padding: 10px 0;
-                /* Custom scrollbar (optional but nice) */
-                scrollbar-width: thin;
-                scrollbar-color: var(--accent-gold) var(--bg-card);
-            }
-
-            .carousel-thumbnails::-webkit-scrollbar {
-                height: 8px;
-            }
-
-            .carousel-thumbnails::-webkit-scrollbar-track {
-                background: var(--bg-card);
-                border-radius: 10px;
-            }
-
-            .carousel-thumbnails::-webkit-scrollbar-thumb {
-                background-color: var(--accent-gold);
-                border-radius: 10px;
-            }
-
-
-            .thumbnail-image {
-                width: 80px;
-                height: 80px;
-                object-fit: cover;
-                border-radius: 8px;
-                cursor: pointer;
-                border: 3px solid transparent;
-                opacity: 0.5;
-                transition: all 0.3s ease;
-                flex-shrink: 0; /* Prevent thumbnails from shrinking */
-            }
-
-            .thumbnail-image:hover {
-                opacity: 0.8;
-                border-color: rgba(255, 215, 0, 0.5);
-            }
-
-            .thumbnail-image.active {
-                opacity: 1;
-                border-color: var(--accent-gold);
-                transform: scale(1.05);
-            }
-            /* END: Thumbnail Styles */
-
-             .gallery-overlay{
+            }          
+            .gallery-overlay{
                 opacity: 1;
             }
 
@@ -1194,6 +1173,8 @@
                 height: 45px;
                 font-size: 1.3rem;
             }
+
+            
 
             .carousel-container {
                 width: 95%;
@@ -1303,10 +1284,10 @@
     <section class="full-width-row">
         <div class="image-row">
             <div class="image-col">               
-                <img src="./images/pictures_mix/verejny_prosto_1.jpg" alt="Street Art v Opavě">
+                <img src="./images/pictures/verejny_prosto_1.jpg" alt="Street Art v Opavě">
             </div>
             <div class="image-col">
-                <img src="./images/pictures_mix/exhibition_5.JPG" alt="Mural malba">
+                <img src="./images/pictures/exhibition_5.JPG" alt="Mural malba">
             </div>
             <div class="image-col">
                 <img src="./images/dentist.jpg" alt="Design interiéru">
@@ -1360,25 +1341,25 @@
             <p class="section-subtitle">Výběr z mých prací</p>
             <div class="gallery-grid">
                 <div class="gallery-item" data-index="0">
-                    <img src="./images/verejny/verejny_prostor_3.jpg" alt="Street Art">
+                    <img src="./images/pictures/street_art_2.jpg" alt="Street Art">
                     <div class="gallery-overlay">
                         <span>Street Art</span>                        
                     </div>
                 </div>
                 <div class="gallery-item" data-index="1">
-                    <img src="./images/verejny/ext_3.jpg" alt="Mural">
+                    <img src="./images/pictures/commision_9.JPG" alt="Mural">
                     <div class="gallery-overlay">
                         <span>Mural</span>                        
                     </div>
                 </div>
                 <div class="gallery-item" data-index="2">
-                    <img src="./images/dentist.jpg" alt="Design">
+                    <img src="./images/pictures/commision_3.jpg" alt="Design">
                     <div class="gallery-overlay">
                         <span>Design</span>                        
                     </div>
                 </div>
                 <div class="gallery-item" data-index="3">
-                    <img src="./images/workshop/obr_6.jpg" alt="Exhibition">
+                    <img src="./images/pictures/exhibition.jpg" alt="Exhibition">
                     <div class="gallery-overlay">
                         <span>Exhibition</span>                        
                     </div>
@@ -1412,7 +1393,7 @@
                     </div>
                 </div>
                 <div class="bio-image">
-                    <img src="./images/pictures_mix/verejny_prostor.jpg" alt="Contact">
+                    <img src="./images/pictures/verejny_prostor.jpg" alt="Contact">
                 </div>
             </div>
         </div>
@@ -1427,10 +1408,20 @@
         </div>
     </footer>
 
-    <!-- Scroll to Top -->
+    <!-- Fixed Social Icons & Scroll to Top -->
+    <div class="fixed-social">
+        <a href="https://www.instagram.com/dyas.17/" target="_blank" class="social-icon" id="fixedInstagram">
+            <i class="fa fa-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com/vojtech.kral.399" target="_blank" class="social-icon" id="fixedFacebook">
+            <i class="fa fa-facebook"></i>
+        </a>
+    </div>
+
     <div class="scroll-top" id="scrollTop">
         <i class="fas fa-arrow-up"></i>
-    </div>  
+    </div>
+    
 
     <!-- Carousel Modal -->
     <div class="carousel-modal" id="carouselModal">
@@ -1445,10 +1436,7 @@
             <button class="carousel-nav carousel-next" id="carouselNext">
                 <i class="fas fa-chevron-right"></i>
             </button>
-            <div class="carousel-counter" id="carouselCounter">1 / 4</div>
-            <!-- Thumbnail Container -->
-            <div class="carousel-thumbnails" id="carouselThumbnails">           
-            </div>
+            <div class="carousel-counter" id="carouselCounter">1 / 4</div>            
         </div>
     </div>
 
@@ -1477,19 +1465,19 @@
                 // Fallback to default images if JSON file is not found
                 galleryImages = [
                     {
-                        src: 'https://images.unsplash.com/photo-1561077338-dbc90e6b0927?w=1200&q=80',
+                        src: './images/pictures/street_art_2.jpg',
                         alt: 'Street Art'
                     },
                     {
-                        src: 'https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=1200&q=80',
+                        src: './images/pictures/commision_9.JPG',
                         alt: 'Mural'
                     },
                     {
-                        src: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=1200&q=80',
+                        src: './images/pictures/commision_3.jpg',
                         alt: 'Design'
                     },
                     {
-                        src: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=1200&q=80',
+                        src: './images/pictures/exhibition.jpg',
                         alt: 'Exhibition'
                     }
                 ];
@@ -1506,9 +1494,8 @@
         const carouselCounter = document.getElementById('carouselCounter');
         const carouselClose = document.getElementById('carouselClose');
         const carouselPrev = document.getElementById('carouselPrev');
-        const carouselNext = document.getElementById('carouselNext');     
-        const carouselThumbnails = document.getElementById('carouselThumbnails'); 
-
+        const carouselNext = document.getElementById('carouselNext');   
+       
          // Open carousel with category prioritization
         function openCarousel(index) {
             const clickedImage = galleryImages[index];
@@ -1528,8 +1515,7 @@
             const originalImages = galleryImages;
             galleryImages = reorderedImages;
             
-            updateCarousel();
-            buildThumbnails();
+            updateCarousel();           
             carouselModal.classList.add('active');
             document.body.style.overflow = 'hidden';
             
@@ -1540,67 +1526,29 @@
         // Close carousel and restore original order
         function closeCarousel() {
             carouselModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            carouselThumbnails.innerHTML = '';
+            document.body.style.overflow = 'auto';           
             
             // Restore original order
             if (window.originalGalleryOrder) {
                 galleryImages = window.originalGalleryOrder;
             }
-        }
-         // thumbnail strip
-        function buildThumbnails() {
-            carouselThumbnails.innerHTML = ''; // Clear existing
-            galleryImages.forEach((image, index) => {
-                const thumb = document.createElement('img');
-                thumb.src = image.src;
-                thumb.alt = image.alt;
-                thumb.classList.add('thumbnail-image');
-                if (index === currentImageIndex) {
-                    thumb.classList.add('active');
-                }
-                // Add click event to change image
-                thumb.addEventListener('click', () => {
-                    currentImageIndex = index;
-                    updateCarousel();
-                });
-                carouselThumbnails.appendChild(thumb);
-            });
-            // Ensure the active one is in view
-            scrollToActiveThumbnail();
-        }
+        }       
 
-        // Update carousel image and counter
+          // Update carousel image and counter
          function updateCarousel() {
             if (!galleryImages[currentImageIndex]) return; // Safety check
-            carouselImage.src = galleryImages[currentImageIndex].src;
-            carouselImage.alt = galleryImages[currentImageIndex].alt;
-            carouselCounter.textContent = galleryImages[currentImageIndex].alt;
-
-            // NEW: Update active thumbnail
-            document.querySelectorAll('.thumbnail-image').forEach((thumb, index) => {
-                if (index === currentImageIndex) {
-                    thumb.classList.add('active');
-                } else {
-                    thumb.classList.remove('active');
-                }
-            });
             
-            // NEW: Scroll to active thumbnail
-            scrollToActiveThumbnail();
-        }
-
-        // NEW: Helper function to scroll thumbnail strip
-        function scrollToActiveThumbnail() {
-            const activeThumb = document.querySelector('.thumbnail-image.active');
-            if (activeThumb) {
-                activeThumb.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'nearest', 
-                    inline: 'center' 
-                });
-            }
-        }
+            const currentImage = galleryImages[currentImageIndex];
+            const totalImages = galleryImages.length;
+            const currentIndexDisplay = currentImageIndex + 1;
+            
+            carouselImage.src = currentImage.src;
+            carouselImage.alt = currentImage.alt;
+            
+            // counter format: "1 / 10 | Street Art"
+            carouselCounter.textContent = `${currentIndexDisplay} / ${totalImages} | ${currentImage.alt}`;       
+                     
+        }       
 
         // Navigate carousel
         function nextImage() {
@@ -1690,14 +1638,20 @@
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
         const scrollTop = document.getElementById('scrollTop');
+        const fixedInstagram = document.getElementById('fixedInstagram');
+        const fixedFacebook = document.getElementById('fixedFacebook');
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
                 navbar.classList.add('scrolled');
                 scrollTop.classList.add('show');
+                fixedInstagram.classList.add('show');
+                fixedFacebook.classList.add('show');
             } else {
                 navbar.classList.remove('scrolled');
                 scrollTop.classList.remove('show');
+                fixedInstagram.classList.remove('show');
+                fixedFacebook.classList.remove('show');
             }
         });
 
