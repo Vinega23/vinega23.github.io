@@ -1352,31 +1352,31 @@
         </div>
     </section>
 
-    <!-- Gallery Preview -->
+       <!-- Gallery Preview -->
     <section id="gallery">
         <div class="container">
             <h2 class="section-title">Galerie</h2>
             <p class="section-subtitle">Výběr z mých prací</p>
-            <div class="gallery-grid">
-                <div class="gallery-item" data-index="0">
+            <div class="gallery-grid">                
+                <div class="gallery-item" data-src="./images/pictures/street_art_2.jpg">
                     <img src="./images/pictures/street_art_2.jpg" alt="Street Art">
                     <div class="gallery-overlay">
                         <span>Street Art</span>                        
                     </div>
-                </div>
-                <div class="gallery-item" data-index="1">
+                </div>                
+                <div class="gallery-item" data-src="./images/pictures/commision_9.JPG">
                     <img src="./images/pictures/commision_9.JPG" alt="Mural">
                     <div class="gallery-overlay">
                         <span>Mural</span>                        
                     </div>
-                </div>
-                <div class="gallery-item" data-index="2">
+                </div>                
+                <div class="gallery-item" data-src="./images/pictures/commision_3.jpg">
                     <img src="./images/pictures/commision_3.jpg" alt="Design">
                     <div class="gallery-overlay">
                         <span>Design</span>                        
                     </div>
-                </div>
-                <div class="gallery-item" data-index="3">
+                </div>                
+                <div class="gallery-item" data-src="./images/pictures/exhibition.jpg">
                     <img src="./images/pictures/exhibition.jpg" alt="Exhibition">
                     <div class="gallery-overlay">
                         <span>Exhibition</span>                        
@@ -1515,46 +1515,36 @@
         const carouselNext = document.getElementById('carouselNext');   
        
          // Open carousel with category prioritization
-        function openCarousel(index) {
-            const clickedImage = galleryImages[index];
-            const clickedCategory = clickedImage.alt;
+        function openCarousel(imageSrc) {
+            // Find the index of the clicked image in the main gallery array
+            currentImageIndex = galleryImages.findIndex(img => img.src === imageSrc);
+
+            // If the image isn't found (e.g., gallery.json hasn't loaded or src mismatch), default to 0
+            if (currentImageIndex === -1) {
+                console.warn(`Image src not found in galleryImages: ${imageSrc}. Defaulting to index 0.`);
+                currentImageIndex = 0;
+            }
+
+            if (galleryImages.length === 0) {
+                console.warn(`No gallery images loaded.`);
+                return;
+            }
             
-            // Reorder images: clicked category first, then others
-            const categoryImages = galleryImages.filter(img => img.alt === clickedCategory);
-            const otherImages = galleryImages.filter(img => img.alt !== clickedCategory);
-            const reorderedImages = [...categoryImages, ...otherImages];
-            
-            // Find the index of the clicked image in the reordered array
-            currentImageIndex = reorderedImages.findIndex(img => 
-                img.src === clickedImage.src && img.alt === clickedImage.alt
-            );
-            
-            // Temporarily use reordered array
-            const originalImages = galleryImages;
-            galleryImages = reorderedImages;
-            
-            updateCarousel();           
+            updateCarousel(); // Update with the found image
             carouselModal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
-            // Store original order to restore later if needed
-            window.originalGalleryOrder = originalImages;
         }
 
         // Close carousel and restore original order
         function closeCarousel() {
             carouselModal.classList.remove('active');
-            document.body.style.overflow = 'auto';           
-            
-            // Restore original order
-            if (window.originalGalleryOrder) {
-                galleryImages = window.originalGalleryOrder;
-            }
-        }       
+            document.body.style.overflow = 'auto';          
+            currentImageIndex = 0;
+        }        
 
-          // Update carousel image and counter
-         function updateCarousel() {
-            if (!galleryImages[currentImageIndex]) return; // Safety check
+        //Uses the main galleryImages array
+        function updateCarousel() {
+            if (galleryImages.length === 0) return; // Safety check
             
             const currentImage = galleryImages[currentImageIndex];
             const totalImages = galleryImages.length;
@@ -1570,73 +1560,32 @@
 
         // Navigate carousel
         function nextImage() {
+            if (galleryImages.length === 0) return;
             currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
             updateCarousel();
         }
 
         function prevImage() {
+            if (galleryImages.length === 0) return;
             currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
             updateCarousel();
-        }
+        }        
 
-        // Event listeners for gallery items
         document.querySelectorAll('.gallery-item').forEach(item => {
             item.addEventListener('click', () => {
-                const index = parseInt(item.getAttribute('data-index'));
-                // Check if touch device
-                const isTouchDevice = () => {
-                    return (('ontouchstart' in window) ||
-                            (navigator.maxTouchPoints > 0) ||
-                            (navigator.msMaxTouchPoints > 0));
-                };
-
-                if (isTouchDevice()) {
-                    // Show preview first on touch devices
-                    openCarousel(index);
+                const imageSrc = item.getAttribute('data-src'); // Get image src
+                if (imageSrc) {
+                    openCarousel(imageSrc);
                 } else {
-                    // Open carousel directly on desktop
-                    openCarousel(index);
+                    console.error('Gallery item is missing data-src attribute');
                 }
             });
         });
-
-                // Event listeners for gallery open buttons
-        document.querySelectorAll('.gallery-open-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent item click event
-                const item = btn.closest('.gallery-item');
-                const index = parseInt(item.getAttribute('data-index'));
-                openCarousel(index);
-            });
-        });
-
-        // Toggle gallery overlay on mobile tap
-        if (window.innerWidth <= 768) {
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                item.addEventListener('click', (e) => {
-                    // If button is clicked, let it handle it
-                    if (e.target.classList.contains('gallery-open-btn')) return;
-                    
-                    item.classList.toggle('active');
-                    e.stopPropagation();
-                });
-            });
-
-            // Close overlay when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.gallery-item')) {
-                    document.querySelectorAll('.gallery-item.active').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                }
-            });
-        }
-
         // Event listeners for carousel controls
         carouselClose.addEventListener('click', closeCarousel);
         carouselNext.addEventListener('click', nextImage);
-        carouselPrev.addEventListener('click', prevImage);        
-
+        carouselPrev.addEventListener('click', prevImage);     
+    
         // Close on background click
         carouselModal.addEventListener('click', (e) => {
             if (e.target === carouselModal) {
