@@ -1,34 +1,46 @@
 [
     {
-        "src": "./images/pictures/verejny_prosto_1.jpg.jpg",
+        "src": "./images/pictures/street_art_2.jpg",
         "alt": "Street Art"
     },
     {
-        "src": "./images/pictures/verejny_prosto_2.jpg.jpg",
+        "src": "./images/pictures/verejny_prosto_1.jpg",
         "alt": "Street Art"
     },
     {
-        "src": "./images/pictures/verejny_prosto_3.jpg.jpg",
+        "src": "./images/pictures/verejny_prostor_1.jpg",
         "alt": "Street Art"
     },
     {
-        "src": "./images/pictures/verejny_prosto_4.jpg.jpg",
+        "src": "./images/pictures/verejny_prostor_3.jpg",
         "alt": "Street Art"
     },
     {
-        "src": "./images/pictures/verejny_prosto_5.jpg.jpg",
+        "src": "./images/pictures/verejny_prostor_4.jpg",
         "alt": "Street Art"
     },
     {
-        "src": "./images/pictures/verejny_prosto_6.jpg.jpg",
+        "src": "./images/pictures/verejny_prostor_5.jpg",
         "alt": "Street Art"
     },
     {
-        "src": "./images/pictures/verejny_prosto_7.jpg.jpg",
+        "src": "./images/pictures/verejny_prostor_6.jpg",
         "alt": "Street Art"
     },
     {
-        "src": "./images/pictures/ext_3.jpg",
+        "src": "./images/pictures/verejny_prostor_7.jpg",
+        "alt": "Street Art"
+    },
+    {
+        "src": "./images/pictures/verejny_prostor_2.jpg",
+        "alt": "Street Art"
+    },
+    {
+        "src": "./images/pictures/streert_art_2.jpg",
+        "alt": "Street Art"
+    },
+    {
+        "src": "./images/pictures/commision_9.JPG",
         "alt": "Mural"
     },
     {
@@ -36,47 +48,119 @@
         "alt": "Mural"
     },
     {
-        "src": "./images/pictures/int_1.jpg",
+        "src": "./images/pictures/ext_3.jpg",
+        "alt": "Mural"
+    },
+    {
+        "src": "./images/pictures/commision_8.jpg",
+        "alt": "Mural"
+    },
+    {
+        "src": "./images/pictures/commision_1.jpg",
         "alt": "Design"
     },
     {
-        "src": "./images/pictures/int_2.jpg",
+        "src": "./images/pictures/commision_2.jpg",
         "alt": "Design"
     },
+    {
+        "src": "./images/pictures/commision_3.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/pictures/commision_4.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/pictures/commision_5.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/pictures/commision_6.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/pictures/commision_7.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/pictures/commision_10.jpg",
+        "alt": "Design"
+    },
+    {
+        "src": "./images/pictures/designcalendary.jpg",
+        "alt": "Design"
+    }, 
+    {
+        "src": "./images/pictures/auto_1.jpg",
+        "alt": "Design"
+    }, 
+    {
+        "src": "./images/pictures/auto_2.jpg",
+        "alt": "Design"
+    }, 
+    {
+        "src": "./images/pictures/auto_3.jpg",
+        "alt": "Design"
+    }, 
+    {
+        "src": "./images/pictures/auto_4.jpg",
+        "alt": "Design"
+    }, 
+    {
+        "src": "./images/pictures/ext_2.jpg",
+        "alt": "Design"
+    }, 
+    {
+        "src": "./images/pictures/ext_4.jpg",
+        "alt": "Design"
+    }, 
+    {
+        "src": "./images/pictures/ext_5.jpg",
+        "alt": "Design"
+    }, 
+    {
+        "src": "./images/pictures/int_1.jpg",
+        "alt": "Design"
+    }, 
+    {
+        "src": "./images/pictures/int_2.jpg",
+        "alt": "Design"
+    }, 
     {
         "src": "./images/pictures/int_3.jpg",
         "alt": "Design"
     },
     {
-        "src": "./images/pictures/auto_4.jpg",
+        "src": "./images/pictures/int_4.jpg",
         "alt": "Design"
-    },
+    },  
     {
-        "src": "./images/pictures/auto_2.jpg",
-        "alt": "Design"
-    },
-    {
-        "src": "./images/pictures/ext_2.jpg",
-        "alt": "Design"
-    },
-    {
-        "src": "./images/pictures/ext_4.jpg",
-        "alt": "Design"
-    },
-    {
-        "src": "./images/pictures/ext_5.jpg.jpg",
-        "alt": "Design"
-    },
-    {
-        "src": "./images/pictures/int_3.jpg.jpg",
-        "alt": "Design"
-    }, 
-    {
-        "src": "./images/pictures/obr_6.jpg",
+        "src": "./images/pictures/exhibition.jpg",
         "alt": "Exhibition"
     },
     {
-        "src": "./images/pictures/obr_3.jpg",
+        "src": "./images/pictures/exhibition_1.jpg",
+        "alt": "Exhibition"
+    },
+    {
+        "src": "./images/pictures/exhibition_2.jpg",
+        "alt": "Exhibition"
+    },
+    {
+        "src": "./images/pictures/exhibition_3.jpg",
+        "alt": "Exhibition"
+    },
+    {
+        "src": "./images/pictures/exhibition_4.jpg",
+        "alt": "Exhibition"
+    },
+    {
+        "src": "./images/pictures/exhibition_5.jpg",
+        "alt": "Exhibition"
+    },
+    {
+        "src": "./images/pictures/obr_1.jpg",
         "alt": "Exhibition"
     },
     {
@@ -84,7 +168,7 @@
         "alt": "Exhibition"
     },
     {
-        "src": "./images/pictures/obr_1.jpg",
+        "src": "./images/pictures/obr_3.jpg",
         "alt": "Exhibition"
     },
     {
@@ -94,6 +178,13 @@
     {
         "src": "./images/pictures/obr_5.jpg",
         "alt": "Exhibition"
+    },  
+    {
+        "src": "./images/pictures/obr_6.jpg",
+        "alt": "Exhibition"
+    },
+    {
+        "src": "./images/pictures/obr_7.jpg",
+        "alt": "Exhibition"
     }
-
 ]
