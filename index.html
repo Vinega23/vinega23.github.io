@@ -6,6 +6,15 @@
     <title>Cloudberry Escapes - Design Prototype</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --color-dark-primary: #102632;
+            --color-dark-secondary: #25414E;
+            --color-grey-medium: #f8f8f8;
+            --color-light-bg: #FFEADB;
+            --color-accent: #F66E56;;
+            --color-white: #FFFFFF;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,9 +23,14 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            color: #5A2946;
+            color: var(--color-dark-secondary);
             line-height: 1.7;
-            background: #ffffff;
+            background: var(--color-white);
+        }
+
+        /* Style for body when menu is open */
+        body.mobile-menu-open {
+            overflow: hidden; /* Prevent background scroll */
         }
 
         /* Navigation */
@@ -24,7 +38,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(48, 25, 69, 0);
+            background: rgba(21, 20, 25, 0); /* from --color-dark-primary */
             backdrop-filter: blur(0px);
             padding: 20px 60px;
             display: flex;
@@ -35,7 +49,7 @@
         }
 
         nav.scrolled {
-            background: rgba(48, 25, 69, 0.95);
+            background: rgba(21, 20, 25, 0.95); /* from --color-dark-primary */
             backdrop-filter: blur(10px);
             padding: 16px 60px;
             box-shadow: 0 2px 20px rgba(0,0,0,0.1);
@@ -45,7 +59,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 20px;
             font-weight: 700;
-            color: #F66E56;
+            color: var(--color-accent);
             letter-spacing: 0.05em;
             opacity: 0;
             transform: translateX(-20px);
@@ -66,7 +80,7 @@
 
         .nav-menu a {
             text-decoration: none;
-            color: #F9EBE0;
+            color: var(--color-light-bg);
             font-size: 13px;
             font-weight: 500;
             letter-spacing: 0.05em;
@@ -75,7 +89,90 @@
         }
 
         .nav-menu a:hover {
-            color: #F66E56;
+            color: var(--color-accent);
+        }
+
+        /* Hamburger Menu Button */
+        .hamburger-menu {
+            display: none; /* Hidden by default */
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 101; /* Above nav logo, but below overlay */
+            position: relative;
+        }
+
+        .hamburger-line {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--color-light-bg); /* Light color */
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+        
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(21, 20, 25, 0.98); /* from --color-dark-primary */
+            backdrop-filter: blur(15px);
+            z-index: 1000; /* Highest z-index */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-100%);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .mobile-menu-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--color-accent);
+            font-size: 40px;
+            font-weight: 300;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .mobile-nav-menu {
+            list-style: none;
+            text-align: center;
+            padding: 0; /* Reset padding */
+        }
+
+        .mobile-nav-menu li {
+            margin: 20px 0;
+        }
+
+        .mobile-nav-menu a {
+            text-decoration: none;
+            color: var(--color-light-bg);
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-menu a:hover {
+            color: var(--color-accent);
         }
 
         /* Hero Section - Full Screen with Centered Logo */
@@ -143,7 +240,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 80px;
             font-weight: 700;
-            color: #F66E56;
+            color: var(--color-accent);
             letter-spacing: 0.05em;
             margin-bottom: 30px;
             animation: fadeInScale 1.5s ease-out;
@@ -170,7 +267,7 @@
             position: relative;
             z-index: 2;
             font-size: 20px;
-            color: #F9EBE0;
+            color: var(--color-light-bg);
             letter-spacing: 0.1em;
             text-transform: uppercase;
             font-weight: 300;
@@ -185,8 +282,8 @@
         }
 
         .hero-cta {
-            background: #F66E56;
-            color: #301945;
+            background: var(--color-accent);
+            color: var(--color-dark-primary);
             padding: 14px 38px;
             border-radius: 2px;
             text-decoration: none;
@@ -207,9 +304,9 @@
         }
 
         .hero-cta:hover {
-            background: #F9EBE0;
+            background: var(--color-light-bg);
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(246, 110, 86, 0.4);
+            box-shadow: 0 12px 30px rgba(245, 110, 15, 0.4); /* from --color-accent */
         }
 
         @keyframes fadeInUp {
@@ -264,14 +361,14 @@
             font-family: 'Playfair Display', serif;
             font-size: 48px;
             font-weight: 700;
-            color: #301945;
+            color: var(--color-dark-secondary);
             margin-bottom: 40px;
             letter-spacing: -0.01em;
         }
 
         .story-content p {
             font-size: 18px;
-            color: #5A2946;
+            color: var(--color-dark-secondary);
             line-height: 1.8;
             margin-bottom: 24px; /* Space between paragraphs */
         }
@@ -293,14 +390,14 @@
             font-family: 'Playfair Display', serif;
             font-size: 48px;
             font-weight: 700;
-            color: #301945;
+            color: var(--color-dark-secondary);
             margin-bottom: 10px;
             letter-spacing: -0.01em;
         }
 
         .gallery-showcase > p {
             font-size: 18px;
-            color: #5A2946;
+            color: var(--color-dark-secondary);
             margin-bottom: 60px;
             max-width: 600px;
         }
@@ -316,7 +413,7 @@
         .carousel-button {
             background: transparent;
             border: none;
-            color: #5A2946; /* Dark purple text */
+            color: var(--color-dark-secondary); /* Dark blue text */
             font-size: 14px;
             font-weight: 600;
             letter-spacing: 0.1em;
@@ -330,7 +427,7 @@
         }
 
         .carousel-button:hover:not(:disabled) {
-            color: #F66E56; /* Orange accent on hover */
+            color: var(--color-accent); /* Orange accent on hover */
             transform: translateY(-2px);
         }
 
@@ -342,7 +439,7 @@
             transform: translateX(-50%);
             width: 0;
             height: 1px;
-            background-color: #F66E56;
+            background-color: var(--color-accent);
             transition: width 0.3s ease;
         }
 
@@ -351,7 +448,7 @@
         }
         
         .carousel-button:disabled, .carousel-button.disabled {
-            color: #a0a0a0; /* Lighter gray for disabled */
+            color: var(--color-grey-medium); /* Lighter gray for disabled */
             cursor: default;
             transform: none;
         }
@@ -390,7 +487,7 @@
             position: relative;
             z-index: 2;
             text-align: center;
-            color: #F9EBE0;
+            color: var(--color-light-bg);
             max-width: 800px;
             padding: 0 40px;
         }
@@ -399,7 +496,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 52px;
             font-weight: 700;
-            color: #F9EBE0;
+            color: var(--color-light-bg);
             margin-bottom: 20px;
             letter-spacing: -0.01em;
             text-shadow: 0 2px 20px rgba(0,0,0,0.3);
@@ -407,7 +504,7 @@
 
         .parallax-content p {
             font-size: 20px;
-            color: #F66E56;
+            color: var(--color-accent);
             letter-spacing: 0.02em;
             line-height: 1.8;
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
@@ -484,7 +581,7 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             font-weight: 700;
-            color: #F9EBE0; /* Light text color */
+            color: var(--color-light-bg); /* Light text color */
             padding-bottom: 10px;
             position: relative;
             opacity: 1; /* Always visible */
@@ -493,7 +590,7 @@
 
        /* Subtle label color change on hover */
         .gallery-item:hover .gallery-label {
-            color: #F66E56; /* Accent color on hover */
+            color: var(--color-accent); /* Accent color on hover */
             transform: translateY(-5px); /* Move label up slightly */
         }
         
@@ -501,7 +598,7 @@
         .gallery-description {
             font-family: 'Playfair Display', serif;
             font-size: 24px; /* Larger font for description in center */
-            color: #F9EBE0; 
+            color: var(--color-light-bg); 
             line-height: 1.5;
             max-width: 80%; /* Limit width of text */
             opacity: 0; /* Hidden by default */
@@ -518,7 +615,7 @@
         /* Why Choose Us Section */
         .value-props {
             padding: 100px 60px;
-            background: #F9EBE0;
+            background: var(--color-light-bg);
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -527,7 +624,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 48px;
             font-weight: 700;
-            color: #301945;
+            color: var(--color-dark-secondary);
             margin-bottom: 60px;
             letter-spacing: -0.01em;
         }
@@ -546,7 +643,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 56px;
             font-weight: 700;
-            color: #F66E56;
+            color: var(--color-accent);
             margin-bottom: 12px;
         }
 
@@ -554,20 +651,20 @@
             font-family: 'Playfair Display', serif;
             font-size: 22px;
             font-weight: 700;
-            color: #301945;
+            color: var(--color-dark-secondary);
             margin-bottom: 16px;
         }
 
         .value-card p {
             font-size: 16px;
-            color: #5A2946;
+            color: var(--color-dark-secondary);
             line-height: 1.8;
         }
 
         /* Testimonials */
         .testimonials-section {
             padding: 100px 60px;
-            background: #ffffff;
+            background: var(--color-white);
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -576,7 +673,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 48px;
             font-weight: 700;
-            color: #301945;
+            color: var(--color-dark-secondary);
             margin-bottom: 60px;
             letter-spacing: -0.01em;
         }
@@ -588,10 +685,10 @@
         }
 
         .testimonial-card {
-            background: #f8f8f8;
+            background: var(--color-grey-medium);
             padding: 40px;
             border-radius: 2px;
-            border-left: 4px solid #F66E56;
+            border-left: 4px solid var(--color-accent);
             transition: all 0.3s ease;
         }
 
@@ -605,7 +702,7 @@
             font-size: 20px;
             font-style: italic;
             margin-bottom: 24px;
-            color: #301945;
+            color: var(--color-dark-secondary);
             line-height: 1.6;
         }
 
@@ -613,13 +710,13 @@
             font-family: 'Inter', sans-serif;
             font-size: 14px;
             font-weight: 600;
-            color: #301945;
+            color: var(--color-dark-secondary);
             margin-bottom: 4px;
         }
 
         .testimonial-author p {
             font-size: 12px;
-            color: #5A2946;
+            color: var(--color-dark-secondary);
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
@@ -627,7 +724,7 @@
          /* New Newsletter Section Styles */
         .newsletter-section {
             padding: 100px 60px;
-            background: #F9EBE0; /* Light background to contrast with CTA */
+            background: var(--color-light-bg); /* Light background to contrast with CTA */
             text-align: center;
             max-width: 100%; /* Full width container */
         }
@@ -641,14 +738,14 @@
             font-family: 'Playfair Display', serif;
             font-size: 40px;
             font-weight: 700;
-            color: #301945;
+            color: var(--color-dark-secondary);
             margin-bottom: 15px;
             letter-spacing: -0.01em;
         }
 
         .newsletter-content p {
             font-size: 16px;
-            color: #5A2946;
+            color: var(--color-dark-secondary);
             margin-bottom: 30px;
             line-height: 1.8;
         }
@@ -667,21 +764,21 @@
             border: 1px solid #c9c9c9;
             border-radius: 2px;
             font-size: 16px;
-            color: #301945;
-            background: #ffffff;
+            color: var(--color-dark-secondary);
+            background: var(--color-white);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .newsletter-form input[type="email"]:focus {
             outline: none;
-            border-color: #F66E56;
-            box-shadow: 0 0 0 2px rgba(246, 110, 86, 0.3);
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 2px rgba(245, 110, 15, 0.3); /* from --color-accent */
         }
 
         .newsletter-form button {
             /* Inherits btn-primary styles for look, but customized dimensions */
-            background: #F66E56;
-            color: #301945;
+            background: var(--color-accent);
+            color: var(--color-dark-primary);
             padding: 14px 25px;
             border-radius: 2px;
             text-decoration: none;
@@ -695,25 +792,25 @@
         }
         
         .newsletter-form button:hover {
-            background: #301945;
-            color: #F9EBE0;
+            background: var(--color-dark-primary);
+            color: var(--color-light-bg);
             transform: translateY(0); /* Don't want bounce effect here */
-            box-shadow: 0 5px 15px rgba(48, 25, 69, 0.2);
+            box-shadow: 0 5px 15px rgba(21, 20, 25, 0.2); /* from --color-dark-primary */
         }
 
         /* CTA Section */
         .cta-section {
             padding: 100px 60px;
-            background: linear-gradient(135deg, #301945 0%, #5A2946 100%);
+            background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
             text-align: center;
-            color: #F9EBE0;
+            color: var(--color-light-bg);
         }
 
         .cta-section h2 {
             font-family: 'Playfair Display', serif;
             font-size: 48px;
             font-weight: 700;
-            color: #F9EBE0;
+            color: var(--color-light-bg);
             margin-bottom: 20px;
             letter-spacing: -0.01em;
         }
@@ -724,12 +821,12 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            color: #F66E56;
+            color: var(--color-accent);
         }
 
         .btn-primary {
-            background: #F66E56;
-            color: #301945;
+            background: var(--color-accent);
+            color: var(--color-dark-primary);
             padding: 14px 38px;
             border-radius: 2px;
             text-decoration: none;
@@ -744,15 +841,15 @@
         }
 
         .btn-primary:hover {
-            background: #F9EBE0;
+            background: var(--color-light-bg);
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(246, 110, 86, 0.4);
+            box-shadow: 0 12px 30px rgba(245, 110, 15, 0.4); /* from --color-accent */
         }
 
         /* Footer */
         footer {
-            background: #301945;
-            color: #F9EBE0;
+            background: var(--color-dark-primary);
+            color: var(--color-light-bg);
             padding: 60px;
             margin-top: 0;
         }
@@ -768,7 +865,7 @@
         footer h4 {
             font-family: 'Playfair Display', serif;
             font-size: 16px;
-            color: #F66E56;
+            color: var(--color-accent);
             margin-bottom: 16px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -776,19 +873,19 @@
 
         footer p, footer a {
             font-size: 14px;
-            color: #d4a8a8;
+            color: var(--color-light-bg);
             line-height: 2;
             text-decoration: none;
         }
 
         footer a:hover {
-            color: #F66E56;
+            color: var(--color-accent);
         }
 
         .footer-logo {
             font-family: 'Playfair Display', serif;
             font-size: 18px;
-            color: #F66E56;
+            color: var(--color-accent);
             margin-bottom: 16px;
             letter-spacing: 0.05em;
         }
@@ -807,6 +904,11 @@
                 display: none;
             }
 
+            /* Show hamburger on mobile */
+            .hamburger-menu {
+                display: block; 
+            }
+
             .hero-logo-large {
                 font-size: 48px;
             }
@@ -818,6 +920,44 @@
             section, .gallery-showcase, .value-props, .testimonials-section {
                 padding: 60px 30px;
             }
+
+            /* Make newsletter form stack on mobile */
+            .newsletter-form {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            /* --- Gallery Carousel Mobile Enhancements --- */
+            .gallery-showcase {
+                padding-left: 0; /* Remove horizontal padding for full-bleed */
+                padding-right: 0;
+            }
+
+            /* Add padding back to text elements */
+            .gallery-showcase h2,
+            .gallery-showcase > p {
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+
+            .gallery-carousel {
+                /* Add padding so first/last items can center */
+                /* (100% - 92%) / 2 = 4% */
+                padding-left: 4%;
+                padding-right: 4%;
+                
+                /* Adjust scroll-padding to match */
+                scroll-padding-left: 4%;
+                scroll-padding-right: 4%;
+            }
+
+            .gallery-item {
+                flex-basis: 92%; /* Make item wider (92% of screen) */
+                aspect-ratio: 4 / 3; /* Make item taller */
+                scroll-snap-align: center; /* Center item on snap */
+            }
+            /* --- End of Gallery Enhancements --- */
+
 
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -864,7 +1004,24 @@
             <li><a href="#testimonials">About</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
+        <!-- Hamburger Menu Button -->
+        <button class="hamburger-menu" id="hamburgerMenu" aria-label="Open menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
+        <ul class="mobile-nav-menu">
+            <li><a href="#experiences">Services</a></li>
+            <li><a href="#gallery-showcase">Inspiration</a></li>
+            <li><a href="#testimonials">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
 
     <!-- Hero Section with Centered Logo -->
     <div class="hero">
@@ -1174,7 +1331,37 @@
 
             // 3. Start the interval timer (10 seconds)
             setInterval(changeBackground, 10000);
-        });
+
+            // --- MOBILE MENU TOGGLE LOGIC ---
+            const hamburgerBtn = document.getElementById('hamburgerMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const closeBtn = document.getElementById('mobileMenuClose');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-menu a');
+
+            if (hamburgerBtn && mobileMenu && closeBtn) {
+                // Open menu
+                hamburgerBtn.addEventListener('click', () => {
+                    mobileMenu.classList.add('open');
+                    document.body.classList.add('mobile-menu-open');
+                });
+
+                // Close menu with 'X' button
+                closeBtn.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    document.body.classList.remove('mobile-menu-open');
+                });
+
+                // Close menu when a link is clicked
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('open');
+                        document.body.classList.remove('mobile-menu-open');
+                    });
+                });
+            } // --- END OF MOBILE MENU LOGIC ---
+
+        }); // --- END OF DOMContentLoaded ---
+
          // --- NEWSLETTER SUBSCRIPTION HANDLER ---
         function handleSubscription() {
             const email = document.getElementById('emailInput').value;
@@ -1183,7 +1370,7 @@
             // Simple email validation
             if (!email || !email.includes('@') || !email.includes('.')) {
                 messageElement.textContent = "Please enter a valid email address.";
-                messageElement.style.color = '#F66E56';
+                messageElement.style.color = 'var(--color-accent)';
                 return;
             }
 
@@ -1192,11 +1379,11 @@
 
             if (success) {
                 messageElement.textContent = `Thank you for subscribing, ${email}! Welcome to the Cloudberry community.`;
-                messageElement.style.color = '#301945'; // Success color
+                messageElement.style.color = 'var(--color-dark-secondary)'; // Success color
                 document.getElementById('emailInput').value = ''; // Clear input
             } else {
                 messageElement.textContent = "Oops! We hit a snag. Please try subscribing again later.";
-                messageElement.style.color = '#F66E56'; // Error color
+                messageElement.style.color = 'var(--color-accent)'; // Error color
             }
 
             // Clear the message after a few seconds
@@ -1207,3 +1394,8 @@
     </script>
 </body>
 </html>
+
+
+
+
+

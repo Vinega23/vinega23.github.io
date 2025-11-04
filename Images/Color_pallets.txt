@@ -1,0 +1,6 @@
+  --color-dark-primary: #151419;
+            --color-dark-secondary: #262626;
+            --color-grey-medium: #878787;
+            --color-light-bg: #FBFBFB;
+            --color-accent: #F56E0F;
+            --color-white: #FFFFFF;
