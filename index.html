@@ -298,6 +298,38 @@
             animation: fadeInUp 1.5s ease-out 0.6s both;
             opacity: 0;
         }
+        
+        /* --- NEW BUTTON STYLE --- */
+        .hero-cta-secondary {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            padding: 12px 30px;
+            border: 1px solid var(--color-light-bg);
+            border-radius: 2px; /* Consistent with other buttons */
+            color: var(--color-light-bg);
+            font-size: 14px; /* Slightly smaller */
+            font-weight: 400; /* A bit more weight than 300 */
+            letter-spacing: 0.1em; /* Match tagline */
+            text-transform: uppercase; /* Match tagline */
+            text-decoration: none;
+            background: transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            
+            /* Animation - delay it after tagline (tagline is 0.3s) */
+            animation: fadeInUp 1.5s ease-out 0.9s both;
+            opacity: 0; /* Start hidden for animation */
+        }
+
+        /* Add hover effect */
+        .hero-cta-secondary:hover {
+            background: rgba(255, 234, 219, 0.1); /* Faint light bg hover */
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+        /* --- END NEW BUTTON STYLE --- */
 
         .hero-cta.show {
             opacity: 1;
@@ -510,6 +542,32 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         
+        /* --- NEW BUTTON STYLE FOR PARALLAX --- */
+        .parallax-cta {
+            display: inline-block;
+            margin-top: 30px; /* Space from the h2 */
+            padding: 12px 35px;
+            border: 1px solid var(--color-light-bg);
+            border-radius: 2px;
+            color: var(--color-light-bg);
+            font-family: 'Playfair Display', serif; /* Match the h2 font family */
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            background: transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .parallax-cta:hover {
+            background: rgba(255, 234, 219, 0.1); /* Faint light bg hover */
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+        /* --- END NEW BUTTON STYLE --- */
+
         .gallery-carousel {
             display: flex;
             overflow-x: auto; /* Allows horizontal scrolling */
@@ -611,6 +669,54 @@
             opacity: 1;
             transform: translateY(0); /* Bring text back to center */
         }
+
+        /* --- NEW: Read More Button Style --- */
+        .gallery-read-more {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: var(--color-light-bg);
+            text-decoration: underline;
+            text-underline-offset: 4px; /* A little space */
+            text-transform: uppercase;
+            position: relative; /* Sits below description */
+            margin-top: 15px; /* Space from description */
+            
+            /* Hidden by default */
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease-out 0.1s; /* Slight delay */
+        }
+
+        .gallery-read-more:hover {
+            color: var(--color-accent);
+        }
+        
+        .gallery-item:hover .gallery-read-more {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* --- END: Read More Button Style --- */
+
+
+        /* --- Styles for JS-toggled active state (for touch/click) --- */
+        .gallery-item.is-active .gallery-info {
+            background: rgba(0, 0, 0, 0.7); 
+        }
+        .gallery-item.is-active .gallery-label {
+            color: var(--color-accent);
+            transform: translateY(-5px);
+        }
+        .gallery-item.is-active .gallery-description {            
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .gallery-item.is-active .gallery-read-more {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* --- End active state styles --- */
+
 
         /* Why Choose Us Section */
         .value-props {
@@ -846,6 +952,31 @@
             box-shadow: 0 12px 30px rgba(245, 110, 15, 0.4); /* from --color-accent */
         }
 
+        /* --- NEW: Social Icons in Footer --- */
+        .footer-social-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px; /* Space from phone number */
+        }
+
+        .footer-social-icons a {
+            display: block;
+            width: 30px;
+            height: 30px;
+        }
+
+        .footer-social-icons svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--color-light-bg); /* Match footer text color */
+            transition: fill 0.3s ease;
+        }
+
+        .footer-social-icons a:hover svg {
+            fill: var(--color-accent); /* Hover color */
+        }
+        /* --- END: Social Icons --- */
+
         /* Footer */
         footer {
             background: var(--color-dark-primary);
@@ -927,36 +1058,36 @@
                 gap: 15px;
             }
 
-            /* --- Gallery Carousel Mobile Enhancements --- */
-            .gallery-showcase {
-                padding-left: 0; /* Remove horizontal padding for full-bleed */
-                padding-right: 0;
+            @media (max-width: 768px) {
+                /* ... existing 768px styles ... */
             }
 
-            /* Add padding back to text elements */
-            .gallery-showcase h2,
-            .gallery-showcase > p {
-                padding-left: 30px;
-                padding-right: 30px;
-            }
-
-            .gallery-carousel {
-                /* Add padding so first/last items can center */
-                /* (100% - 92%) / 2 = 4% */
-                padding-left: 4%;
-                padding-right: 4%;
-                
-                /* Adjust scroll-padding to match */
-                scroll-padding-left: 4%;
-                scroll-padding-right: 4%;
-            }
-
-            .gallery-item {
-                flex-basis: 92%; /* Make item wider (92% of screen) */
-                aspect-ratio: 4 / 3; /* Make item taller */
-                scroll-snap-align: center; /* Center item on snap */
-            }
             /* --- End of Gallery Enhancements --- */
+
+            /* --- UPDATE: Move hover effects to desktop-only --- */
+            @media (min-width: 769px) {
+                /* Make overlay darker on hover */
+                .gallery-item:hover .gallery-info {
+                    background: rgba(0, 0, 0, 0.7); 
+                }
+
+                /* Subtle label color change on hover */
+                .gallery-item:hover .gallery-label {
+                    color: var(--color-accent); /* Accent color on hover */
+                    transform: translateY(-5px); /* Move label up slightly */
+                }
+
+                .gallery-item:hover .gallery-description {            
+                    opacity: 1;
+                    transform: translateY(0); /* Bring text back to center */
+                }
+                
+                .gallery-item:hover .gallery-read-more {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            /* --- END HOVER MEDIA QUERY --- */
 
 
             .gallery-grid {
@@ -992,6 +1123,77 @@
                 gap: 30px;
             }
         }
+        
+        /* --- NEW: Responsive for very small mobile --- */
+        @media (max-width: 480px) {
+            section, .gallery-showcase, .value-props, .testimonials-section {
+                padding: 60px 20px; /* Tighter horizontal padding */
+            }
+            
+            .gallery-showcase h2,
+            .gallery-showcase > p {
+                padding-left: 20px; /* Match section padding */
+                padding-right: 20px;
+            }
+
+            .hero-logo-large {
+                font-size: 40px; /* Smaller logo */
+            }
+            
+            .hero-logo-large img {
+                width: 240px; /* Control image logo size */
+                height: auto;
+            }
+
+            .hero-tagline {
+                font-size: 12px; /* Smaller tagline */
+                margin-bottom: 30px; /* Pull button up slightly */
+            }
+            
+            .hero-cta-secondary {
+                padding: 10px 24px;
+                font-size: 13px;
+            }
+
+            .story-content h2,
+            .gallery-showcase h2,
+            .value-props h2,
+            .testimonials-section h2,
+            .cta-section h2 {
+                font-size: 34px; /* Reduce standard h2 size */
+            }
+
+            .parallax-content h2 {
+                font-size: 30px; /* Reduce parallax h2 size */
+            }
+            
+            .parallax-cta {
+                padding: 10px 28px;
+                font-size: 15px;
+            }
+
+            .story-content p {
+                font-size: 16px; /* Reduce story text size */
+            }
+            
+            .value-number {
+                font-size: 48px; /* Smaller number */
+            }
+
+            .newsletter-content h2 {
+                font-size: 30px; /* Smaller newsletter title */
+            }
+            
+            .newsletter-form input[type="email"],
+            .newsletter-form button {
+                font-size: 14px; /* Smaller form text */
+            }
+
+            footer {
+                padding: 60px 30px; /* Footer padding */
+            }
+        }
+        /* --- END NEW RESPONSIVE BLOCK --- */
     </style>
 </head>
 <body>
@@ -1028,6 +1230,8 @@
         <div class="hero-bg"></div>
         <div class="hero-logo-large"><img src="./Images/Logo/Cloudberry Escapes Orange.png" alt=""></div>
         <div class="hero-tagline">the arctic redefined</div>
+        <!-- NEW BUTTON ADDED HERE -->
+        <a href="#gallery-showcase" id="heroInspireBtn" class="hero-cta-secondary">Get Inspired</a>
         <!-- <button class="hero-cta show">Get Inspired</button> -->
     </div>
     <!-- Our Story Section -->
@@ -1047,6 +1251,8 @@
         <div class="parallax-bg" id="parallaxBg"></div>
         <div class="parallax-content">
             <h2>Where Nature Meets Luxury</h2>
+            <!-- NEW BUTTON ADDED HERE -->
+            <a href="#" class="parallax-cta">Our services</a>
             <!-- <p>Every journey begins with a vision. Let us transform yours into an unforgettable Arctic adventure.</p> -->
         </div>
     </section>
@@ -1073,8 +1279,8 @@
         </div>
     </section>
 
-    <!-- Gallery Showcase -->
-    <section class="gallery-showcase">
+    <!-- Gallery Showcase - ID ADDED HERE -->
+    <section class="gallery-showcase" id="gallery-showcase">
         <h2>Inspiration</h2>
         <p>Immerse yourself in the raw beauty of Northern Norway with carefully curated adventures designed for discerning travelers.</p>
         
@@ -1084,18 +1290,21 @@
                 <div class="gallery-info">
                     <div class="gallery-label">Lodgings</div>
                     <div class="gallery-description">Cloudberry Escapes offers exclusive lodgings that blend luxury with authentic Arctic experiences. From glass igloos under the Northern Lights to private fjord lodges, each stay is tailored for discerning travelers seeking comfort and uniqueness.</div>
+                    <a href="#" class="gallery-read-more">Read more</a>
                 </div>
             </div>
             <div class="gallery-item">
                 <div class="gallery-info">
                     <div class="gallery-label">Experiences</div>
                     <div class="gallery-description">Glide through snowy landscapes on private dog sledding tours, cruise fjords on exclusive boat trips, or witness the Northern Lights from a secluded lodge. Experience Sami culture firsthand, embark on guided wildlife safaris, or savor gourmet meals in remote Arctic settings.</div>
+                    <a href="#" class="gallery-read-more">Read more</a>
                 </div>
             </div>
             <div class="gallery-item">
                 <div class="gallery-info">
                     <div class="gallery-label">Itineraries</div>
                     <div class="gallery-description">Each journey is carefully curated, combining seamless logistics with exclusive activities like private fjord cruises, dog sledding, and Northern Lights viewing. Designed for discerning travelers, our itineraries ensure a unique and unforgettable exploration of Northern Norway.</div>
+                    <a href="#" class="gallery-read-more">Read more</a>
                 </div>
             </div>          
         </div>
@@ -1174,7 +1383,18 @@
                 <h4>Connect</h4>
                 <p>hello@cloudberryescapes.com</p>
                 <p>+47 XXX XX XXX</p>
-                <p style="margin-top: 24px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
+                
+                <!-- NEW SOCIAL ICONS -->
+                <div class="footer-social-icons">
+                    <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37.2-2.1-147.9-2.1-185.1 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37.2-2.1 147.9 0 185.1 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.4 93.9 36.2 37.2 2.1 147.9 2.1 185.1 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37.2 2.1-147.8 0-185.1zM416 397.2c-1.7 29.4-9.7 50.7-32.2 73.2s-43.8 30.5-73.2 32.2c-29.7 1.7-118.2 1.7-147.9 0-29.4-1.7-50.7-9.7-73.2-32.2s-30.5-43.8-32.2-73.2c-1.7-29.7-1.7-118.2 0-147.9 1.7-29.4 9.7-50.7 32.2-73.2s43.8-30.5 73.2-32.2c29.7-1.7 118.2-1.7 147.9 0 29.4 1.7 50.7 9.7 73.2 32.2s30.5 43.8 32.2 73.2c1.7 29.7 1.7 118.2 0 147.9z"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5L194.2 318.1H133.4L133.4 256H194.2L194.2 205.6C194.2 146.6 230.1 113.2 284.5 113.2C310.5 113.2 332.4 115.1 336.7 115.8L336.7 171.1L303.8 171.1C274.9 171.1 268.8 189.9 268.8 210.1L268.8 256H333.6L322.6 318.1H268.8L268.8 504.5C429.3 476.8 512 376 512 256z"/></svg>
+                    </a>
+                </div>
+
+                <p style="margin-top: 16px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
             </div>
         </div>
     </footer>
@@ -1186,19 +1406,22 @@
             const nav = document.getElementById('mainNav');
             const heroLogo = document.querySelector('.hero-logo-large');
             const heroTagline = document.querySelector('.hero-tagline');
+            const heroInspireBtn = document.getElementById('heroInspireBtn'); // Get new button
             const parallaxBg = document.getElementById('parallaxBg');
             const parallaxSection = document.getElementById('parallaxSection');
             
             const scrollPosition = window.scrollY;
             
             // Start fading out hero logo and tagline at 200px
-            if (heroLogo && heroTagline) {
+            if (heroLogo && heroTagline && heroInspireBtn) { // Check for new button
                 if (scrollPosition > 0) {
                     heroLogo.classList.add('fade-out');
                     heroTagline.classList.add('fade-out');
+                    heroInspireBtn.classList.add('fade-out'); // Fade out new button
                 } else {
                     heroLogo.classList.remove('fade-out');
                     heroTagline.classList.remove('fade-out');
+                    heroInspireBtn.classList.remove('fade-out'); // Fade in new button
                 }
             }
             
@@ -1359,6 +1582,52 @@
                     });
                 });
             } // --- END OF MOBILE MENU LOGIC ---
+
+            // --- NEW: SMOOTH SCROLL FOR 'GET INSPIRED' BUTTON ---
+            const inspireBtn = document.getElementById('heroInspireBtn');
+            if (inspireBtn) {
+                inspireBtn.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default anchor jump
+                    const targetSection = document.getElementById('gallery-showcase');
+                    if (targetSection) {
+                        // Use smooth scroll into view
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            }
+            // --- END OF NEW SCRIPT ---
+
+
+            // --- NEW: GALLERY ITEM CLICK/TAP TOGGLE ---
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            if (galleryItems.length > 0) {
+                galleryItems.forEach(item => {
+                    item.addEventListener('click', function(e) {
+                        // If the click is on the 'read more' link, let it proceed
+                        if (e.target.classList.contains('gallery-read-more')) {
+                            return;
+                        }
+                        
+                        // Otherwise, we're toggling the card visibility
+                        e.preventDefault(); 
+                        
+                        const wasActive = this.classList.contains('is-active');
+                        
+                        // Remove active from all items
+                        galleryItems.forEach(i => i.classList.remove('is-active'));
+                        
+                        // If it wasn't active, make it active
+                        if (!wasActive) {
+                            this.classList.add('is-active');
+                        }
+                        // If it *was* active, the click just closes it (which we already did)
+                    });
+                });
+            }
+            // --- END OF NEW SCRIPT ---
 
         }); // --- END OF DOMContentLoaded ---
 
