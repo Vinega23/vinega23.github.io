@@ -261,13 +261,14 @@ body {
 /* Left panel - Information with subtle transparency */
 .info-panel {
     flex: 0 0 40%;
-    /* background-color: #25414E;     */
+    background-color: #102632;  
     padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     transition: all 0.4s ease;
-    /* box-shadow: 0 4px 20px rgba(16, 38, 50, 0.08); */
+    position: relative; /* For close btn positioning */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
 }
 
 .info-content {
@@ -278,6 +279,40 @@ body {
 .info-content.fade-out {
     opacity: 0;
 }
+
+/* Close button - hidden by default (desktop) */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(16, 38, 50, 0.6);
+    border: none;
+    color: #EA5D24;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    display: none; /* Hidden on Desktop */
+    z-index: 20;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.close-btn:hover {
+    background: rgba(16, 38, 50, 0.9);
+}
+
+/* We explicitly hide it on desktop via media query just to be safe if display:none wasn't enough */
+@media (min-width: 481px) {
+    .close-btn {
+        display: none !important;
+    }
+}
+
 
 .destination-image {
     width: 100%;
@@ -491,10 +526,58 @@ body {
     .map-panel {
         min-height: 400px;
     }
+}
+
+/* NEW: Specific rules for 480px and below */
+@media (max-width: 480px) {
+    /* Center the info panel as a popup overlay */
+    .info-panel {
+        display: none; /* Hide info panel by default */
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 350px;
+        max-height: 85vh;
+        overflow-y: auto;
+        background-color: #102632; /* Solid background color (Navy) */
+        /* border: 1px solid rgba(234, 93, 36, 0.3); */
+        z-index: 2000; /* Ensure it's above the map */
+        /* border-radius: 16px; */
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        margin: 0; /* Remove any flex margin */
+        padding: 40px 24px 24px 24px; /* Top padding for close button */
+    }
+
+    .info-panel.visible {
+        display: flex !important; /* Added !important to override display:none and force flex */
+        flex-direction: column;
+        animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .close-btn {
+        display: flex !important; /* Force show on mobile */
+    }
+
+    .map-panel {
+        min-height: 350px; /* Adjust map panel height */
+        width: 100%;
+    }
 
     .map-background {
-        opacity: 0.6;
+        position: absolute;
+        top: 7rem;
+        left: -6rem;
+        width: 120%;
+        height: 100%;
+        pointer-events: none;
     }
+}
+
+@keyframes popIn {
+    0% { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
 /* Loading state */
@@ -526,6 +609,9 @@ body {
             <div class="map-container">
                 <!-- Left Panel: Information Display -->
                 <div class="info-panel">
+                    <!-- CLOSE BUTTON for Mobile -->
+                    <button class="close-btn" id="close-info-panel" aria-label="Close info panel">&times;</button>
+                    
                     <div class="info-content" id="info-content">
                         <div class="default-content">
                             <h2 class="destination-name">Northern Norway</h2>
@@ -618,10 +704,14 @@ body {
             }
         ];
 
+        // Get the default zoom level
+        const defaultZoom = 5;
+        const mobileZoom = 4;
+
         // Initialize the BACKGROUND map - full width, with markers
         const backgroundMap = L.map('background-map', {
             center: [65.0, 12.0],
-            zoom: 5,
+            zoom: defaultZoom, // Start with default zoom
             zoomControl: false,
             dragging: false,
             touchZoom: false,
@@ -629,7 +719,7 @@ body {
             doubleClickZoom: false,
             boxZoom: false,
             keyboard: false,
-            tap: false,
+            tap: true, // MODIFIED: Set to true to detect map clicks
             preferCanvas: true
         });
 
@@ -648,13 +738,12 @@ body {
                 if (norwayFeature) {
                     // Add ONLY Norway's coastal border line to BACKGROUND map
                     L.geoJSON(norwayFeature, {
-                        style: {
-                            color: '#000000',
-                            weight: 2,
-                            fillColor: 'transparent',
-                            fillOpacity: 0,
-                            opacity: 0.3,
-                            smoothFactor: 1.0,
+                       style: {
+                            color: '#ffffff',
+                            weight: 1.5,
+                            fillColor: 'rgba(255, 234, 219, 0.05)', 
+                            fillOpacity: 1,
+                            opacity: 0.8,
                             lineJoin: 'round',
                             lineCap: 'round'
                         }
@@ -669,25 +758,6 @@ body {
 
         // Fallback function to load Norway data from alternative source
         function loadFallbackNorwayData() {
-            fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/NOR.geo.json')
-                .then(response => response.json())
-                .then(data => {
-                    L.geoJSON(data, {
-                        style: {
-                            color: '#000000',
-                            weight: 2,
-                            fillColor: 'transparent',
-                            fillOpacity: 0,
-                            opacity: 0.3,
-                            smoothFactor: 1.0,
-                            lineJoin: 'round',
-                            lineCap: 'round'
-                        }
-                    }).addTo(backgroundMap);
-                })
-                .catch(error => {
-                    console.error('Error loading fallback Norway GeoJSON:', error);
-                });
         }
 
         // Custom marker icon
@@ -698,8 +768,10 @@ body {
             popupAnchor: [0, -12]
         });
 
-        // Get info panel element
+        // Get info panel elements
         const infoContent = document.getElementById('info-content');
+        const infoPanel = document.querySelector('.info-panel');
+        const closeInfoPanelBtn = document.getElementById('close-info-panel'); // New Button
         let currentMarker = null;
 
         // Function to update info panel
@@ -735,7 +807,7 @@ body {
             const marker = L.marker([destination.lat, destination.lon], {
                 icon: customIcon,
                 interactive: true,
-                bubblingMouseEvents: true
+                bubblingMouseEvents: false // IMPORTANT: Changed to false to prevent map click closing
             }).addTo(backgroundMap);
 
             // Store destination data with marker
@@ -751,6 +823,9 @@ body {
 
             // Update info panel on hover
             marker.on('mouseover', function(e) {
+                // MODIFIED: Only run hover effect on larger screens
+                if (window.innerWidth <= 480) return;
+
                 console.log('Marker hover:', destination.name);
                 currentMarker = this;
                 updateInfoPanel(destination);
@@ -762,11 +837,20 @@ body {
                 console.log('Marker click:', destination.name);
                 currentMarker = this;
                 updateInfoPanel(destination);
+                
+                // ADDED: Show the info panel on mobile
+                if (window.innerWidth <= 480) {
+                    infoPanel.classList.add('visible');
+                }
+                
                 e.originalEvent.stopPropagation();
             });
 
             // Add mouseenter event as backup
             marker.on('mouseenter', function() {
+                // MODIFIED: Only run hover effect on larger screens
+                if (window.innerWidth <= 480) return;
+
                 console.log('Marker mouseenter:', destination.name);
                 currentMarker = this;
                 updateInfoPanel(destination);
@@ -775,10 +859,40 @@ body {
             // Keep info displayed on mouseout - removed auto-reset for better UX
         });
 
+        // ADDED: Close button logic
+        if (closeInfoPanelBtn) {
+            closeInfoPanelBtn.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent click from bubbling to map
+                infoPanel.classList.remove('visible');
+            });
+        }
+
+        // ADDED: Click on map to hide info panel on mobile
+        backgroundMap.on('click', function() {
+            if (window.innerWidth <= 480) {
+                infoPanel.classList.remove('visible');
+            }
+        });
+
+
+        // ADDED: Function to adjust map zoom based on screen size
+        function adjustMapZoom() {
+            if (window.innerWidth <= 480) {
+                backgroundMap.setZoom(mobileZoom);
+            } else {
+                backgroundMap.setZoom(defaultZoom);
+            }
+            backgroundMap.invalidateSize(); // Ensure map resizes correctly
+        }
+
         // Adjust map on window resize
         window.addEventListener('resize', () => {
-            backgroundMap.invalidateSize();
+            adjustMapZoom(); // MODIFIED: Call new zoom function
         });
+
+        // ADDED: Call adjustMapZoom on initial load
+        adjustMapZoom();
+
     </script>
 </body>
 </html>
