@@ -725,36 +725,89 @@ body {
 
         // Load high-resolution Norway GeoJSON data from Natural Earth
         // Using medium scale (1:10m) for detailed coastline with fjords
-        fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_countries.geojson')
-            .then(response => response.json())
-            .then(data => {
-                // Filter for Norway
-                const norwayFeature = data.features.find(feature => 
-                    feature.properties.NAME === 'Norway' || 
-                    feature.properties.ADMIN === 'Norway' ||
-                    feature.properties.ISO_A3 === 'NOR'
-                );
+   fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_countries.geojson')
+    .then(response => response.json())
+    .then(data => {
+        // Filter for Norway
+        const norwayFeature = data.features.find(feature => 
+            feature.properties.NAME === 'Norway' || 
+            feature.properties.ADMIN === 'Norway' ||
+            feature.properties.ISO_A3 === 'NOR'
+        );
 
-                if (norwayFeature) {
-                    // Add ONLY Norway's coastal border line to BACKGROUND map
-                    L.geoJSON(norwayFeature, {
-                       style: {
-                            color: '#ffffff',
-                            weight: 1.5,
-                            fillColor: 'rgba(255, 234, 219, 0.05)', 
-                            fillOpacity: 1,
-                            opacity: 0.8,
-                            lineJoin: 'round',
-                            lineCap: 'round'
-                        }
-                    }).addTo(backgroundMap);
-                }
-            })
-            .catch(error => {
-                console.error('Error loading Norway GeoJSON:', error);
-                // Fallback: Load from alternative source
-                loadFallbackNorwayData();
-            });
+        if (norwayFeature) {
+            const geometry = norwayFeature.geometry;
+            
+            if (geometry.type === 'MultiPolygon') {
+                // Find the largest polygon (mainland)
+                let largestPolygon = null;
+                let maxArea = 0;
+                let mainlandBounds = null;
+                
+                geometry.coordinates.forEach(polygon => {
+                    const area = polygon[0].length;
+                    if (area > maxArea) {
+                        maxArea = area;
+                        largestPolygon = polygon;
+                        // Calculate rough center/bounds of mainland
+                        const lats = polygon[0].map(coord => coord[1]);
+                        const lons = polygon[0].map(coord => coord[0]);
+                        mainlandBounds = {
+                            minLat: Math.min(...lats),
+                            maxLat: Math.max(...lats),
+                            minLon: Math.min(...lons),
+                            maxLon: Math.max(...lons),
+                            centerLat: (Math.min(...lats) + Math.max(...lats)) / 2,
+                            centerLon: (Math.min(...lons) + Math.max(...lons)) / 2
+                        };
+                    }
+                });
+                
+                // Filter polygons: keep mainland + nearby islands
+                const filteredPolygons = geometry.coordinates.filter(polygon => {
+                    // Get center of this polygon
+                    const lats = polygon[0].map(coord => coord[1]);
+                    const lons = polygon[0].map(coord => coord[0]);
+                    const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
+                    const centerLon = (Math.min(...lons) + Math.max(...lons)) / 2;
+                    
+                    // Calculate distance from mainland center
+                    const latDiff = Math.abs(centerLat - mainlandBounds.centerLat);
+                    const lonDiff = Math.abs(centerLon - mainlandBounds.centerLon);
+                    
+                    // Keep if within reasonable distance (adjust threshold as needed)
+                    // ~15 degrees covers coastal islands but excludes Svalbard (77°N) and Jan Mayen
+                    return latDiff < 15 && lonDiff < 15;
+                });
+                
+                // Create feature with mainland + nearby islands
+                const mainlandFeature = {
+                    type: 'Feature',
+                    properties: norwayFeature.properties,
+                    geometry: {
+                        type: 'MultiPolygon',
+                        coordinates: filteredPolygons
+                    }
+                };
+                
+                // Add mainland + coastal islands to BACKGROUND map
+                L.geoJSON(mainlandFeature, {
+                    style: {
+                        color: '#ffffff',
+                        weight: 1.5,
+                        fillColor: 'rgba(255, 234, 219, 0.05)', 
+                        fillOpacity: 1,
+                        opacity: 0.8,
+                        lineJoin: 'round',
+                        lineCap: 'round'
+                    }
+                }).addTo(backgroundMap);
+            }
+        }
+    })
+    .catch(error => console.error('Error loading Norway border:', error));
+
+
 
         // Fallback function to load Norway data from alternative source
         function loadFallbackNorwayData() {
@@ -773,6 +826,24 @@ body {
         const infoPanel = document.querySelector('.info-panel');
         const closeInfoPanelBtn = document.getElementById('close-info-panel'); // New Button
         let currentMarker = null;
+
+        // Function to toggle z-index between map background and info panel
+        function toggleZIndex(showPanel) {
+        const mapBackground = document.querySelector('.map-background');
+        const mapPanel = document.querySelector('.map-panel');
+    
+            if (showPanel) {
+            mapBackground.style.zIndex = '1';
+            mapPanel.style.zIndex = '1000';
+            console.log('Z-index switched: Panel on top');
+            } 
+            
+            else {
+            mapBackground.style.zIndex = '1000';
+            mapPanel.style.zIndex = '1';
+            console.log('Z-index switched: Map on top');
+            }
+        }
 
         // Function to update info panel
         function updateInfoPanel(destination) {
@@ -841,6 +912,7 @@ body {
                 // ADDED: Show the info panel on mobile
                 if (window.innerWidth <= 480) {
                     infoPanel.classList.add('visible');
+                    toggleZIndex(true);
                 }
                 
                 e.originalEvent.stopPropagation();
@@ -864,6 +936,7 @@ body {
             closeInfoPanelBtn.addEventListener('click', function(e) {
                 e.stopPropagation(); // Prevent click from bubbling to map
                 infoPanel.classList.remove('visible');
+                toggleZIndex(false);
             });
         }
 
@@ -871,6 +944,7 @@ body {
         backgroundMap.on('click', function() {
             if (window.innerWidth <= 480) {
                 infoPanel.classList.remove('visible');
+                toggleZIndex(false);
             }
         });
 
