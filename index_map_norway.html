@@ -567,7 +567,7 @@ body {
 
     .map-background {
         position: absolute;
-        top: 7rem;
+        top: 2rem;
         left: -6rem;
         width: 120%;
         height: 100%;
@@ -692,6 +692,8 @@ body {
                 name: 'Alta',
                 lat: 71.200,
                 lon: 23.271,
+                // mobileLat: 73.000,
+                // mobileLon: 25.000,
                 image: 'https://pplx-res.cloudinary.com/image/upload/v1762704219/pplx_project_search_images/3f839fb08aea4ca565b80a83307a1fac64466570.png',
                 description: 'Alta is Norway\'s northern lights capital, offering spectacular aurora displays and serene Arctic landscape experiences.'
             },
@@ -721,7 +723,7 @@ body {
             keyboard: false,
             tap: true, // MODIFIED: Set to true to detect map clicks
             preferCanvas: true
-        });
+        });   
 
         // Load high-resolution Norway GeoJSON data from Natural Earth
         // Using medium scale (1:10m) for detailed coastline with fjords
@@ -777,7 +779,7 @@ body {
                     
                     // Keep if within reasonable distance (adjust threshold as needed)
                     // ~15 degrees covers coastal islands but excludes Svalbard (77°N) and Jan Mayen
-                    return latDiff < 15 && lonDiff < 15;
+                    return latDiff < 9 && lonDiff < 9;
                 });
                 
                 // Create feature with mainland + nearby islands
@@ -874,62 +876,69 @@ body {
         }
 
         // Add markers for each destination to the BACKGROUND map
-        destinations.forEach(destination => {
-            const marker = L.marker([destination.lat, destination.lon], {
-                icon: customIcon,
-                interactive: true,
-                bubblingMouseEvents: false // IMPORTANT: Changed to false to prevent map click closing
-            }).addTo(backgroundMap);
+       function getResponsiveCoords(destination) {
+            if (window.innerWidth <= 480 && destination.mobileLat !== undefined && destination.mobileLon !== undefined) {
+                return [destination.mobileLat, destination.mobileLon];
+            }
+            return [destination.lat, destination.lon];
+}
 
-            // Store destination data with marker
-            marker.destinationData = destination;
+    destinations.forEach(destination => {
+        const [lat, lon] = getResponsiveCoords(destination);
 
-            // Get the marker element and ensure it's interactive
-            const markerElement = marker.getElement();
-            if (markerElement) {
-                markerElement.style.pointerEvents = 'auto';
-                markerElement.style.cursor = 'pointer';
-                markerElement.style.zIndex = '1000';
+        const marker = L.marker([lat, lon], {
+            icon: customIcon,
+            interactive: true,
+            bubblingMouseEvents: false // Prevent map click closing
+        }).addTo(backgroundMap);
+
+        // Store destination data with marker
+        marker.destinationData = destination;
+
+        // Get the marker element and ensure it's interactive
+        const markerElement = marker.getElement();
+        if (markerElement) {
+            markerElement.style.pointerEvents = 'auto';
+            markerElement.style.cursor = 'pointer';
+            markerElement.style.zIndex = '1000';
+        }
+
+        // Update info panel on hover
+        marker.on('mouseover', function(e) {
+            if (window.innerWidth <= 480) return; // Only hover on desktop
+
+            console.log('Marker hover:', destination.name);
+            currentMarker = this;
+            updateInfoPanel(destination);
+            e.originalEvent.stopPropagation();
+        });
+
+        // Also update on click (for mobile)
+        marker.on('click', function(e) {
+            console.log('Marker click:', destination.name);
+            currentMarker = this;
+            updateInfoPanel(destination);
+
+            if (window.innerWidth <= 480) {
+                infoPanel.classList.add('visible');
+                toggleZIndex(true);
             }
 
-            // Update info panel on hover
-            marker.on('mouseover', function(e) {
-                // MODIFIED: Only run hover effect on larger screens
-                if (window.innerWidth <= 480) return;
-
-                console.log('Marker hover:', destination.name);
-                currentMarker = this;
-                updateInfoPanel(destination);
-                e.originalEvent.stopPropagation();
-            });
-
-            // Also update on click (for mobile)
-            marker.on('click', function(e) {
-                console.log('Marker click:', destination.name);
-                currentMarker = this;
-                updateInfoPanel(destination);
-                
-                // ADDED: Show the info panel on mobile
-                if (window.innerWidth <= 480) {
-                    infoPanel.classList.add('visible');
-                    toggleZIndex(true);
-                }
-                
-                e.originalEvent.stopPropagation();
-            });
-
-            // Add mouseenter event as backup
-            marker.on('mouseenter', function() {
-                // MODIFIED: Only run hover effect on larger screens
-                if (window.innerWidth <= 480) return;
-
-                console.log('Marker mouseenter:', destination.name);
-                currentMarker = this;
-                updateInfoPanel(destination);
-            });
-
-            // Keep info displayed on mouseout - removed auto-reset for better UX
+            e.originalEvent.stopPropagation();
         });
+
+        // Add mouseenter event as backup
+        marker.on('mouseenter', function() {
+            if (window.innerWidth <= 480) return; // Only on desktop
+
+            console.log('Marker mouseenter:', destination.name);
+            currentMarker = this;
+            updateInfoPanel(destination);
+        });
+
+        // Keep info displayed on mouseout - removed auto-reset for better UX
+    });
+
 
         // ADDED: Close button logic
         if (closeInfoPanelBtn) {
