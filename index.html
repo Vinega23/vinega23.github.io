@@ -13,8 +13,6 @@
             --color-light-bg: #FFEADB;
             --color-accent: #EA5D24;;
             --color-white: #FFFFFF;
-            /* --color-dark-gradient: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%) */
-            /* linear-gradient(135deg, #102632 0%, #25414E 100%) */
         }
 
         * {
@@ -44,10 +42,11 @@
             backdrop-filter: blur(0px);
             padding: 2px 70px;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Keeping this, but we will ignore the logo slot */
             align-items: center;
             z-index: 100;
             transition: all 0.4s ease;
+            height: 90px; /* Define explicit height for calculations */
         }
 
         nav.scrolled {
@@ -56,29 +55,11 @@
             box-shadow: 0 2px 20px rgba(0,0,0,0.1);
         }
 
+        /* Hide the original nav logo as we use the hero logo */
         .logo {
-            font-family: 'Playfair Display', serif;        
-            color: var(--color-accent);
-            letter-spacing: 0.05em;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.4s ease;
-            padding-top: 9px;    
-        }
-
-        .logo img {
-        width: 200px; /* Initial width before scroll */
-        height: auto; /* Maintain aspect ratio */
-        transition: width 0.4s ease; /* Smooth transition for size change */
-        }
-
-        nav.scrolled .logo {
-            opacity: 1;
-            transform: translateX(0);            
-        }
-
-        nav.scrolled .logo img{            
-            width: 150px;
+            opacity: 0; 
+            visibility: hidden;
+            width: 200px; /* Keep width to maintain spacing layout */
         }
 
         .nav-menu {
@@ -86,6 +67,7 @@
             gap: 40px;
             list-style: none;
             margin-left: auto;
+            display: none;
         }
 
         .nav-menu a {
@@ -104,13 +86,14 @@
 
         /* Hamburger Menu Button */
         .hamburger-menu {
-            display: none; /* Hidden by default */
+            /* display: none; Hidden by default */
             background: transparent;
             border: none;
             cursor: pointer;
-            padding: 10px;
+            /* padding: 10px; */
             z-index: 101; /* Above nav logo, but below overlay */
             position: relative;
+            left: 30px;
         }
 
         .hamburger-line {
@@ -123,13 +106,21 @@
         }
         
         /* Mobile Menu Overlay */
+
+        .mobile-menu-content {
+            display: flex;
+            flex-direction: row; /* horizontal split: left menu, right image */
+            width: 100%;
+            height: 100%;
+        }
+
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(21, 20, 25, 0.98); /* from --color-dark-primary */
+            background: var(--color-dark-primary);
             backdrop-filter: blur(15px);
             z-index: 1000; /* Highest z-index */
             display: flex;
@@ -138,23 +129,25 @@
             justify-content: center;
             opacity: 0;
             pointer-events: none;
-            transform: translateY(-100%);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateX(-100%);
+            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            justify-content: center; /* center the .mobile-menu-content */
         }
 
         .mobile-menu-overlay.open {
             opacity: 1;
             pointer-events: auto;
-            transform: translateY(0);
+            transform: translateX(0);
         }
 
         .mobile-menu-close {
             position: absolute;
             top: 20px;
-            right: 20px;
+            right: 40px;
             background: transparent;
             border: none;
-            color: var(--color-accent);
+            /* color: var(--color-accent); */
             font-size: 40px;
             font-weight: 300;
             cursor: pointer;
@@ -162,9 +155,14 @@
         }
 
         .mobile-nav-menu {
+            flex: 1;
+            margin-top: 80px;
+            padding: 0 0 0 200px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;           
+            text-decoration: none;
             list-style: none;
-            text-align: center;
-            padding: 0; /* Reset padding */
         }
 
         .mobile-nav-menu li {
@@ -185,10 +183,79 @@
             color: var(--color-accent);
         }
 
-        /* Hero Section - Full Screen with Centered Logo */
+        .mobile-nav-menu .social-icons {
+            display: flex;
+            justify-content: flex-start;
+            gap: 24px;
+            margin-top: 650px;
+        }
+
+        .mobile-nav-menu .social-icons a {
+            color: var(--color-light-bg);
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-menu .social-icons a:hover {
+            color: var(--color-accent);
+        }
+
+        .mobile-nav-menu .social-icons svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+        }
+
+        .mobile-menu-image {
+            flex: 1; /* occupy right half */
+            background: #222; /* fallback color */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .mobile-menu-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* image covers container */
+        }
+
+        .mobile-nav-menu .dropdown {
+            position: relative;
+        }
+
+        .mobile-nav-menu .dropdown-toggle {
+            cursor: pointer;
+            display: flex;
+            align-items: center;            
+        }
+
+        .mobile-nav-menu .arrow-icon {
+            margin-left: 8px;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Initially hide submenu */
+        .mobile-nav-menu .dropdown-menu {
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        /* Dropdown open state */
+        .mobile-nav-menu .dropdown.open > .dropdown-toggle .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        .mobile-nav-menu .dropdown.open > .dropdown-menu {
+            display: block;
+        }
+
+        /* Hero Section */
         .hero {
             height: 100vh;
-            /* background: linear-gradient(135deg, #301945 0%, #5A2946 100%); */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -204,28 +271,19 @@
             left: 0;
             right: 0;
             bottom: 0;
-            /* MODIFICATION: Set background to the *first* image in the JS array */
             background: url('./Images/7U1A4441.steinar.jpg'); 
             background-size:cover;
             background-position: center;
             background-repeat: no-repeat;
-            transition: opacity 10s ease-in-out; /* Smoother fade */
+            transition: opacity 10s ease-in-out;
             opacity: 1;
             z-index: -1;
-             /* MODIFICATION: Add the zoom animation */
             animation: slowZoom 15s ease-out forwards;
         }
 
-        .hero-bg.fade-out {
-                opacity: 0;
-                /* MODIFICATION: Stop animation on outgoing slide
-                animation: none; */
-        }
-
-        /* MODIFICATION: Made fade-in slower to match fade-out */
+        .hero-bg.fade-out { opacity: 0; }
         .hero-bg.fade-in {
             opacity: 0;
-            /* MODIFICATION: Only run fadeIn anim, zoom will apply when class is removed */
             animation: fadeIn 1s ease-in-out forwards;
         }
 
@@ -234,44 +292,39 @@
             to { opacity: 1; }
         }
         
-        /* MODIFICATION: Added keyframes for slow zoom */
         @keyframes slowZoom {
-            from {
-                transform: scale(1);
-            }
-            to {
-                transform: scale(1.05); /* 5% zoom */
-            }
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
         }
-        /* 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23F66E56;stop-opacity:0.15"/><stop offset="100%" style="stop-color:%23301945;stop-opacity:0.3"/></linearGradient></defs><rect fill="url(%23grad)" width="1200" height="800"/><path d="M0,400 Q300,350 600,400 T1200,400 L1200,800 L0,800 Z" fill="%23F9EBE0" opacity="0.03"/></svg>') no-repeat center/cover; */
-        .hero-logo-large {
-            position: relative;
-            z-index: 2;
-            font-family: 'Playfair Display', serif;
-            font-size: 80px;
-            font-weight: 700;
-            color: var(--color-accent);
-            letter-spacing: 0.05em;
+
+        /* --- NEW LOGO ANIMATION STYLES --- */
+        
+        /* Placeholder to keep spacing in Hero */
+        .hero-logo-placeholder {
+            width: 100%;
+            height: 150px; /* Increased slightly to account for bigger logo visual space */
             margin-bottom: 30px;
-            animation: fadeInScale 1.5s ease-out;
-            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
-        .hero-logo-large.fade-out {
-            opacity: 0;
-            transform: scale(0.95);
+        /* The Floating/Fixed Logo */
+        #dynamic-hero-logo {
+            position: fixed;
+            top: 40%; /* UPDATED: Starts higher (was 50%) */
+            left: 50%; /* Starts at horizontal center */
+            transform: translate(-50%, -50%);
+            z-index: 900; /* Above Nav */
+            width: 450px; /* UPDATED: Bigger initial Width (was 300px in CSS, 350 in JS) */
+            transform-origin: center center;
+            pointer-events: none; /* Allow clicking through to hero elements initially if needed, or auto */
         }
 
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        #dynamic-hero-logo img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
+        
+        /* -------------------------------- */
 
         .hero-tagline {
             position: relative;
@@ -282,7 +335,7 @@
             text-transform: uppercase;
             font-weight: 300;
             animation: fadeInUp 1.5s ease-out 0.3s both;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.8s ease, transform 0.8s ease; /* Slowed down from 0.3s */
             margin-bottom: 40px;
         }
 
@@ -291,64 +344,37 @@
             transform: translateY(-10px);
         }
 
-        .hero-cta {
-            background: var(--color-accent);
-            color: var(--color-dark-primary);
-            padding: 14px 38px;
-            border-radius: 2px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            display: inline-block;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            text-transform: uppercase;
-            animation: fadeInUp 1.5s ease-out 0.6s both;
-            opacity: 0;
-        }
-        
-        /* --- NEW BUTTON STYLE --- */
+        /* --- BUTTON STYLES --- */
         .hero-cta-secondary {
             position: relative;
             z-index: 2;
             display: inline-block;
             padding: 12px 30px;
             border: 1px solid var(--color-light-bg);
-            border-radius: 2px; /* Consistent with other buttons */
+            border-radius: 2px;
             color: var(--color-light-bg);
-            font-size: 14px; /* Slightly smaller */
-            font-weight: 400; /* A bit more weight than 300 */
-            letter-spacing: 0.1em; /* Match tagline */
-            text-transform: uppercase; /* Match tagline */
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             text-decoration: none;
             background: transparent;
-            transition: all 0.3s ease;
+            transition: all 0.8s ease; /* Slowed down from 0.3s */
             cursor: pointer;
-            
-            /* Animation - delay it after tagline (tagline is 0.3s) */
             animation: fadeInUp 1.5s ease-out 0.9s both;
-            opacity: 0; /* Start hidden for animation */
+            opacity: 0; 
         }
 
-        /* Add hover effect */
         .hero-cta-secondary:hover {
-            background: rgba(255, 234, 219, 0.1); /* Faint light bg hover */
+            background: rgba(255, 234, 219, 0.1); 
             border-color: var(--color-accent);
             color: var(--color-accent);
             transform: translateY(-2px);
         }
-        /* --- END NEW BUTTON STYLE --- */
-
-        .hero-cta.show {
-            opacity: 1;
-        }
-
-        .hero-cta:hover {
-            background: var(--color-light-bg);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(245, 110, 15, 0.4); /* from --color-accent */
+        
+        .hero-cta-secondary.fade-out {
+             opacity: 0;
+             transform: translateY(-10px);
         }
 
         @keyframes fadeInUp {
@@ -362,29 +388,6 @@
             }
         }      
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
-
-        @keyframes scroll {
-            0% {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateX(-50%) translateY(12px);
-            }
-        }
-
         /* Our Story Section */
         .our-story-section {
             padding: 100px 60px;
@@ -396,7 +399,7 @@
         }
 
         .story-content {
-            max-width: 800px; /* Consistent with parallax content */
+            max-width: 800px; 
         }
 
         .story-content h2 {
@@ -412,20 +415,19 @@
             font-size: 18px;
             color: var(--color-light-bg);
             line-height: 1.8;
-            margin-bottom: 24px; /* Space between paragraphs */
+            margin-bottom: 24px; 
         }
 
         .story-content p:last-of-type {
-            margin-bottom: 40px; /* Space before button */
+            margin-bottom: 40px; 
         }
 
-        /* Image Gallery Section */
+        /* Gallery Showcase */
         .gallery-showcase {
             padding: 100px 60px;
-            /* background: #ffffff; */
             max-width: 1400px;
             margin: 0 auto;
-            position: relative; /* Needed for positioning arrows */
+            position: relative;
         }
 
         .gallery-showcase h2 {
@@ -444,18 +446,18 @@
             max-width: 600px;
         }
         
-       /* Text controls below the carousel */
+       /* Carousel Controls */
         .carousel-controls {
             display: flex;
-            justify-content: center; /* Center the buttons */
-            gap: 40px; /* Space between Prev and Next */
-            margin-top: 40px; /* Space below the carousel */
+            justify-content: center; 
+            gap: 40px; 
+            margin-top: 40px; 
         }
 
         .carousel-button {
             background: transparent;
             border: none;
-            color: var(--color-light-bg); /* Dark blue text */
+            color: var(--color-light-bg); 
             font-size: 14px;
             font-weight: 600;
             letter-spacing: 0.1em;
@@ -465,11 +467,11 @@
             transition: color 0.3s ease, transform 0.3s ease;
             position: relative;
             outline: none;
-            user-select: none; /* Prevent text selection on rapid clicks */
+            user-select: none; 
         }
 
         .carousel-button:hover:not(:disabled) {
-            color: var(--color-accent); /* Orange accent on hover */
+            color: var(--color-accent); 
             transform: translateY(-2px);
         }
 
@@ -490,15 +492,11 @@
         }
         
         .carousel-button:disabled, .carousel-button.disabled {
-            color: var(--color-grey-medium); /* Lighter gray for disabled */
+            color: var(--color-grey-medium); 
             cursor: default;
             transform: none;
         }
 
-        .carousel-button:disabled::after, .carousel-button.disabled:hover::after {
-            width: 0;
-        }
-        
         /* Parallax Section */
         .parallax-section {
             height: 60vh;
@@ -522,9 +520,6 @@
             will-change: transform;
         }
 
-        /* background: linear-gradient(135deg, rgba(48, 25, 69, 0.7), rgba(90, 41, 70, 0.7)), 
-                        linear-gradient(45deg, #301945 0%, #5A2946 50%, #F66E56 100%); */
-
         .parallax-content {
             position: relative;
             z-index: 2;
@@ -543,24 +538,15 @@
             letter-spacing: -0.01em;
             text-shadow: 0 2px 20px rgba(0,0,0,0.3);
         }
-
-        .parallax-content p {
-            font-size: 20px;
-            color: var(--color-accent);
-            letter-spacing: 0.02em;
-            line-height: 1.8;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
         
-        /* --- NEW BUTTON STYLE FOR PARALLAX --- */
         .parallax-cta {
             display: inline-block;
-            margin-top: 30px; /* Space from the h2 */
+            margin-top: 30px;
             padding: 12px 35px;
             border: 1px solid var(--color-light-bg);
             border-radius: 2px;
             color: var(--color-light-bg);
-            font-family: 'Playfair Display', serif; /* Match the h2 font family */
+            font-family: 'Playfair Display', serif; 
             font-size: 16px;
             font-weight: 600;
             letter-spacing: 0.02em;
@@ -571,32 +557,30 @@
         }
 
         .parallax-cta:hover {
-            background: rgba(255, 234, 219, 0.1); /* Faint light bg hover */
+            background: rgba(255, 234, 219, 0.1); 
             border-color: var(--color-accent);
             color: var(--color-accent);
             transform: translateY(-2px);
         }
-        /* --- END NEW BUTTON STYLE --- */
 
+        /* Gallery Carousel */
         .gallery-carousel {
             display: flex;
-            overflow-x: auto; /* Allows horizontal scrolling */
+            overflow-x: auto; 
             gap: 20px;
-            scroll-snap-type: x mandatory; /* Enforces snapping */
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-            padding-bottom: 20px; /* Space for scrollbar if it appears */
-
-            /* Hide scrollbar for a cleaner look */
-            scrollbar-width: none; /* Firefox */
+            scroll-snap-type: x mandatory; 
+            -webkit-overflow-scrolling: touch; 
+            padding-bottom: 20px; 
+            scrollbar-width: none; 
         }
         .gallery-carousel::-webkit-scrollbar {
-            display: none; /* Chrome, Safari */
+            display: none; 
         }
 
         .gallery-item {            
             flex: 0 0 85%;
-            max-width: 900px; /* Cap max width */
-            aspect-ratio: 4 / 3; /* Wider aspect ratio */
+            max-width: 900px; 
+            aspect-ratio: 4 / 3; 
             scroll-snap-align: start; 
             background-size: cover;
             background-position: center; 
@@ -607,128 +591,84 @@
             cursor: pointer;
         }          
       
-        .gallery-item:nth-child(1) {
-            background-image: url('./Images/Bjørnfjell - Fotograf Mads Suhr Pettersen - 9G9A0598 - 171102.jpg');
-        }
+        .gallery-item:nth-child(1) { background-image: url('./Images/Bjørnfjell - Fotograf Mads Suhr Pettersen - 9G9A0598 - 171102.jpg'); }
+        .gallery-item:nth-child(2) { background-image: url('./Images/SD_20150410_2180288.jpg'); }
+        .gallery-item:nth-child(3) { background-image: url('./Images/Bilde 19.02.2021, 21 22 04 (1).jpg'); }   
 
-        .gallery-item:nth-child(2) {
-            background-image: url('./Images/SD_20150410_2180288.jpg');
-        }
-
-        .gallery-item:nth-child(3) {
-            background-image: url('./Images/Bilde 19.02.2021, 21 22 04 (1).jpg');
-        }   
-
-           /* New structure for always-on label and hover-reveal description */
         .gallery-info {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            /* Dark transparent overlay */
             background: rgba(0, 0, 0, 0.4); 
             transition: background 0.4s ease;
             padding: 30px;
         }
 
-            /* Make overlay darker on hover */
-        .gallery-item:hover .gallery-info {
-            background: rgba(0, 0, 0, 0.7); 
-        }
-
+        .gallery-item:hover .gallery-info { background: rgba(0, 0, 0, 0.7); }
 
        .gallery-label {
-            /* Always visible, centered in the info block */
             font-size: 16px;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             font-weight: 700;
-            color: var(--color-light-bg); /* Light text color */
+            color: var(--color-light-bg); 
             padding-bottom: 10px;
             position: relative;
-            opacity: 1; /* Always visible */
+            opacity: 1; 
             transition: all 0.4s ease;
         }
 
-       /* Subtle label color change on hover */
         .gallery-item:hover .gallery-label {
-            color: var(--color-accent); /* Accent color on hover */
-            transform: translateY(-5px); /* Move label up slightly */
+            color: var(--color-accent); 
+            transform: translateY(-5px); 
         }
         
-
         .gallery-description {
             font-family: 'Playfair Display', serif;
-            font-size: 24px; /* Larger font for description in center */
+            font-size: 24px; 
             color: var(--color-light-bg); 
             line-height: 1.5;
-            max-width: 80%; /* Limit width of text */
-            opacity: 0; /* Hidden by default */
-            transform: translateY(10px); /* Start slightly below center */
+            max-width: 80%; 
+            opacity: 0; 
+            transform: translateY(10px); 
             overflow: hidden;
             transition: all 0.4s ease-out;
         }
 
         .gallery-item:hover .gallery-description {            
             opacity: 1;
-            transform: translateY(0); /* Bring text back to center */
+            transform: translateY(0); 
         }
 
-        /* --- NEW: Read More Button Style --- */
         .gallery-read-more {
             font-size: 14px;
             font-weight: 600;
             letter-spacing: 0.05em;
             color: var(--color-light-bg);
             text-decoration: underline;
-            text-underline-offset: 4px; /* A little space */
+            text-underline-offset: 4px; 
             text-transform: uppercase;
-            position: relative; /* Sits below description */
-            margin-top: 15px; /* Space from description */
-            
-            /* Hidden by default */
+            position: relative; 
+            margin-top: 15px; 
             opacity: 0;
             transform: translateY(10px);
-            transition: all 0.4s ease-out 0.1s; /* Slight delay */
+            transition: all 0.4s ease-out 0.1s; 
         }
 
-        .gallery-read-more:hover {
-            color: var(--color-accent);
-        }
-        
-        .gallery-item:hover .gallery-read-more {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* --- END: Read More Button Style --- */
+        .gallery-read-more:hover { color: var(--color-accent); }
+        .gallery-item:hover .gallery-read-more { opacity: 1; transform: translateY(0); }
+
+        .gallery-item.is-active .gallery-info { background: rgba(0, 0, 0, 0.7); }
+        .gallery-item.is-active .gallery-label { color: var(--color-accent); transform: translateY(-5px); }
+        .gallery-item.is-active .gallery-description { opacity: 1; transform: translateY(0); }
+        .gallery-item.is-active .gallery-read-more { opacity: 1; transform: translateY(0); }
 
 
-        /* --- Styles for JS-toggled active state (for touch/click) --- */
-        .gallery-item.is-active .gallery-info {
-            background: rgba(0, 0, 0, 0.7); 
-        }
-        .gallery-item.is-active .gallery-label {
-            color: var(--color-accent);
-            transform: translateY(-5px);
-        }
-        .gallery-item.is-active .gallery-description {            
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .gallery-item.is-active .gallery-read-more {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* --- End active state styles --- */
-
-
-        /* Why Choose Us Section */
+        /* Value Props */
         .value-props {
             padding: 100px 60px;
             background: var(--color-light-bg);
@@ -751,10 +691,7 @@
             gap: 50px;
         }
 
-        .value-card {
-            text-align: left;
-        }
-
+        .value-card { text-align: left; }
         .value-number {
             font-family: 'Playfair Display', serif;
             font-size: 56px;
@@ -762,7 +699,6 @@
             color: var(--color-accent);
             margin-bottom: 12px;
         }
-
         .value-card h3 {
             font-family: 'Playfair Display', serif;
             font-size: 22px;
@@ -770,7 +706,6 @@
             color: var(--color-dark-secondary);
             margin-bottom: 16px;
         }
-
         .value-card p {
             font-size: 16px;
             color: var(--color-dark-secondary);
@@ -780,7 +715,6 @@
         /* Testimonials */
         .testimonials-section {
             padding: 100px 60px;
-            /* background: var(--color-white); */
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -838,19 +772,15 @@
             text-transform: uppercase;
         }
 
-         /* New Newsletter Section Styles */
+         /* Newsletter */
         .newsletter-section {
             padding: 100px 60px;
-            background: var(--color-light-bg); /* Light background to contrast with CTA */
+            background: var(--color-light-bg);
             text-align: center;
-            max-width: 100%; /* Full width container */
+            max-width: 100%; 
         }
 
-        .newsletter-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
+        .newsletter-content { max-width: 600px; margin: 0 auto; }
         .newsletter-content h2 {
             font-family: 'Playfair Display', serif;
             font-size: 40px;
@@ -859,7 +789,6 @@
             margin-bottom: 15px;
             letter-spacing: -0.01em;
         }
-
         .newsletter-content p {
             font-size: 16px;
             color: var(--color-dark-secondary);
@@ -889,11 +818,10 @@
         .newsletter-form input[type="email"]:focus {
             outline: none;
             border-color: var(--color-accent);
-            box-shadow: 0 0 0 2px rgba(245, 110, 15, 0.3); /* from --color-accent */
+            box-shadow: 0 0 0 2px rgba(245, 110, 15, 0.3); 
         }
 
         .newsletter-form button {
-            /* Inherits btn-primary styles for look, but customized dimensions */
             background: var(--color-accent);
             color: var(--color-dark-primary);
             padding: 14px 25px;
@@ -911,8 +839,7 @@
         .newsletter-form button:hover {
             background: var(--color-dark-primary);
             color: var(--color-light-bg);
-            transform: translateY(0); /* Don't want bounce effect here */
-            box-shadow: 0 5px 15px rgba(21, 20, 25, 0.2); /* from --color-dark-primary */
+            box-shadow: 0 5px 15px rgba(21, 20, 25, 0.2); 
         }
 
         /* CTA Section */
@@ -960,131 +887,14 @@
         .btn-primary:hover {
             background: var(--color-light-bg);
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(245, 110, 15, 0.4); /* from --color-accent */
+            box-shadow: 0 12px 30px rgba(245, 110, 15, 0.4); 
         }
-
-        /* --- NEW: Social Icons in Footer --- */
-        .footer-social-icons {
-            display: flex;
-            gap: 16px;
-            margin-top: 16px; /* Space from phone number */
-        }
-
-        .footer-social-icons a {
-            display: block;
-            width: 30px;
-            height: 30px;
-        }
-
-        .footer-social-icons svg {
-            width: 100%;
-            height: 100%;
-            fill: var(--color-light-bg); /* Match footer text color */
-            transition: fill 0.3s ease;
-        }
-
-        .footer-social-icons a:hover svg {
-            fill: var(--color-accent); /* Hover color */
-        }
-        /* --- END: Social Icons --- */
-
-        /* --- NEW: Floating Social Menu (Fixed Position) --- */
-        .floating-social-menu {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            z-index: 1000;
-            opacity: 0;
-            transform: translateY(20px);
-            pointer-events: none; /* Prevents clicking when hidden */
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .floating-social-menu.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        /* Scroll to Top Button inside Floating Menu - UPDATED TO MATCH ICONS */
-        .scroll-top-btn {
-            width: 30px; /* Match social links width */
-            height: 30px; /* Match social links height */
-            background: transparent; /* No background */
-            border: none;
-            border-radius: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            box-shadow: none;
-        }
-
-        .scroll-top-btn:hover {
-            background: transparent;
-            transform: scale(1.1); /* Match social hover scale */
-        }
-
-        .scroll-top-btn svg {
-            width: 100%;
-            height: 100%;
-            fill: var(--color-light-bg); /* Default light color */
-            transition: fill 0.3s ease;
-        }
-
-        .scroll-top-btn:hover svg {
-            fill: var(--color-accent); /* Accent on hover */
-        }
-
-        /* Social Icons inside Floating Menu */
-        .floating-icons-group {
-            display: flex;
-            flex-direction: column;
-            gap: 14px; /* Increased slightly for breathing room between arrow and icons */
-            background: rgba(16, 38, 50, 0.8); /* Semi-transparent dark bg */
-            padding: 15px 8px; /* Increased padding slightly */
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-            /* margin-top: 5px; REMOVED margin as they are now in same block */
-        }
-
-        .floating-icons-group a {
-            display: block;
-            width: 30px;
-            height: 30px;
-            transition: transform 0.3s ease;
-        }
-
-        .floating-icons-group a:hover {
-            transform: scale(1.1);
-        }
-
-        .floating-icons-group svg {
-            width: 100%;
-            height: 100%;
-            fill: var(--color-light-bg);
-        }
-
-        .floating-icons-group a:hover svg {
-            fill: var(--color-accent);
-        }
-        
-        /* Divider removed per user request */
-
-        /* --- END Floating Social Menu --- */
 
         /* Footer */
         footer {
             background: var(--color-dark-primary);
             color: var(--color-light-bg);
             padding: 60px;
-            margin-top: 0;
         }
 
         .footer-content {
@@ -1111,9 +921,7 @@
             text-decoration: none;
         }
 
-        footer a:hover {
-            color: var(--color-accent);
-        }
+        footer a:hover { color: var(--color-accent); }
 
         .footer-logo {
             font-family: 'Playfair Display', serif;
@@ -1123,240 +931,144 @@
             letter-spacing: 0.05em;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav {
-                display: flex;
-                align-items: center; /* This will vertically align the logo and menu */
-                padding: 0 20px;
-            }
-
-            nav.scrolled {
-                padding: 12px 20px;
-            }
-
-            nav.scrolled .logo img {
-            width: 120px; /* Adjusted scrolled width for mobile */
-            }
-
-            .nav-menu {
-                display: none;
-            }
-
-            .logo img {
-            width: 180px; /* Adjusted initial width for mobile */
-            }
-
-            /* Show hamburger on mobile */
-            .hamburger-menu {
-                display: block; 
-                margin-top: 5px; /* MODIFICATION: Aligns hamburger better with logo */
-            }
-
-            .hero-logo-large {
-                font-size: 48px;
-            }
-
-            .hero-tagline {
-                font-size: 14px;
-            }
-
-            section, .gallery-showcase, .value-props, .testimonials-section {
-                padding: 60px 30px;
-            }
-
-            /* Make newsletter form stack on mobile */
-            .newsletter-form {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            /* Adjust floating menu for mobile */
-            .floating-social-menu {
-                bottom: 20px;
-                right: 4px;
-            }
-
-            @media (max-width: 768px) {
-                /* ... existing 768px styles ... */
-            }
-
-            /* --- End of Gallery Enhancements --- */
-
-            /* --- UPDATE: Move hover effects to desktop-only --- */
-            @media (min-width: 769px) {
-                /* Make overlay darker on hover */
-                .gallery-item:hover .gallery-info {
-                    background: rgba(0, 0, 0, 0.7); 
-                }
-
-                /* Subtle label color change on hover */
-                .gallery-item:hover .gallery-label {
-                    color: var(--color-accent); /* Accent color on hover */
-                    transform: translateY(-5px); /* Move label up slightly */
-                }
-
-                .gallery-item:hover .gallery-description {            
-                    opacity: 1;
-                    transform: translateY(0); /* Bring text back to center */
-                }
-                
-                .gallery-item:hover .gallery-read-more {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            /* --- END HOVER MEDIA QUERY --- */
-
-
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-            }
-
-            .gallery-item:nth-child(1),
-            .gallery-item:nth-child(2),
-            .gallery-item:nth-child(6) {
-                grid-column: span 1;
-                grid-row: span 1;
-            }          
-           
-            .parallax-section {
-                height: 50vh;
-            }
-
-            .parallax-content h2 {
-                font-size: 36px;
-            }
-
-            .parallax-content p {
-                font-size: 16px;
-            }
-
-            .value-grid, .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-        }
-        
-        /* --- NEW: Responsive for very small mobile --- */
-        @media (max-width: 480px) {
-            section, .gallery-showcase, .value-props, .testimonials-section {
-                padding: 60px 20px; /* Tighter horizontal padding */
-            }
-            .gallery-item {           
-            aspect-ratio: 6 / 8; /* Wider aspect ratio */         
-            }  
-            .gallery-description{
-                font-size: 12px;
-            }
-            
-            .gallery-showcase h2,
-            .gallery-showcase > p {
-                padding-left: 20px; /* Match section padding */
-                padding-right: 20px;
-            }
-
-            .gallery-showcase > p{
-                margin-bottom: 40px;   
-            }
-
-            .carousel-controls{
-                margin-top: 0px;
-            }
-
-            .hero-logo-large {
-                font-size: 40px; /* Smaller logo */
-            }
-            
-            .hero-logo-large img {
-                width: 280px; /* Control image logo size */
-                height: auto;
-            }
-
-            .hero-tagline {
-                font-size: 12px; /* Smaller tagline */
-                margin-bottom: 30px; /* Pull button up slightly */
-            }
-            
-            .hero-cta-secondary {
-                padding: 10px 24px;
-                font-size: 13px;
-            }
-
-            .story-content h2,
-            .gallery-showcase h2,
-            .value-props h2,
-            .testimonials-section h2,
-            .cta-section h2 {
-                font-size: 34px; /* Reduce standard h2 size */
-            }
-
-            .parallax-content h2 {
-                font-size: 30px; /* Reduce parallax h2 size */
-            }
-            
-            .parallax-cta {
-                padding: 10px 28px;
-                font-size: 15px;
-            }
-
-            .story-content p {
-                font-size: 16px; /* Reduce story text size */
-            }
-            
-            .value-number {
-                font-size: 48px; /* Smaller number */
-            }
-
-            .newsletter-content h2 {
-                font-size: 30px; /* Smaller newsletter title */
-            }
-            
-            .newsletter-form input[type="email"],
-            .newsletter-form button {
-                font-size: 14px; /* Smaller form text */
-            }
-
-            footer {
-                padding: 60px 30px; /* Footer padding */
-            }
-        }
-        /* --- END NEW RESPONSIVE BLOCK --- */
-    
-        /* Map Section Styles */
-        .map-section {
-            width: 100%;
-            padding: 0;
-            background: transparent;
+        .footer-social-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px; 
         }
 
-        .map-container-wrapper {
-            width: 100%;
-            height: 1000px;
-            border: none;
+        .footer-social-icons a {
+            display: block;
+            width: 30px;
+            height: 30px;
         }
 
-        .map-iframe {
+        .footer-social-icons svg {
             width: 100%;
             height: 100%;
+            fill: var(--color-light-bg); 
+            transition: fill 0.3s ease;
+        }
+
+        .footer-social-icons a:hover svg { fill: var(--color-accent); }
+
+        /* Floating Menu */
+        .floating-social-menu {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none; 
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .floating-social-menu.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .scroll-top-btn {
+            width: 30px; 
+            height: 30px; 
+            background: transparent; 
             border: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .scroll-top-btn:hover { transform: scale(1.1); }
+        .scroll-top-btn svg { width: 100%; height: 100%; fill: var(--color-light-bg); transition: fill 0.3s ease; }
+        .scroll-top-btn:hover svg { fill: var(--color-accent); }
+
+        .floating-icons-group {
+            display: flex;
+            flex-direction: column;
+            gap: 14px; 
+            background: rgba(16, 38, 50, 0.8); 
+            padding: 15px 8px; 
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        .floating-icons-group a {
             display: block;
+            width: 30px;
+            height: 30px;
+            transition: transform 0.3s ease;
         }
 
+        .floating-icons-group a:hover { transform: scale(1.1); }
+        .floating-icons-group svg { width: 100%; height: 100%; fill: var(--color-light-bg); }
+        .floating-icons-group a:hover svg { fill: var(--color-accent); }
+        
+        /* Map Section */
+        .map-section { width: 100%; padding: 0; background: transparent; }
+        .map-container-wrapper { width: 100%; height: 1000px; border: none; }
+        .map-iframe { width: 100%; height: 100%; border: none; display: block; }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .map-container-wrapper {
-                height: 400px;
-            }
-        }
+            nav { padding: 0 20px; }
+            nav.scrolled { padding: 12px 20px; }
+            .nav-menu { display: none; }
+            .hamburger-menu { display: block; margin-top: 5px; }
+            
+            .hero-tagline { font-size: 14px; }
+            section, .gallery-showcase, .value-props, .testimonials-section { padding: 60px 30px; }
+            .newsletter-form { flex-direction: column; gap: 15px; }
+            .floating-social-menu { bottom: 20px; right: 4px; }
 
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .parallax-section { height: 50vh; }
+            .parallax-content h2 { font-size: 36px; }
+            .parallax-content p { font-size: 16px; }
+            .value-grid, .testimonials-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; gap: 30px; }
+            
+            .map-container-wrapper { height: 400px; }
+        }
+        
         @media (max-width: 480px) {
-            .map-container-wrapper {
-                height: 900px;
+            section, .gallery-showcase, .value-props, .testimonials-section { padding: 60px 20px; }
+            .gallery-item { aspect-ratio: 6 / 8; }  
+            .gallery-description{ font-size: 12px; }
+            .gallery-showcase h2, .gallery-showcase > p { padding-left: 20px; padding-right: 20px; }
+            .carousel-controls{ margin-top: 0px; }
+            .hero-tagline { font-size: 12px; margin-bottom: 30px; }
+            .hero-cta-secondary { padding: 10px 24px; font-size: 13px; }
+            .story-content h2, .gallery-showcase h2, .value-props h2, .testimonials-section h2, .cta-section h2 { font-size: 34px; }
+            .parallax-content h2 { font-size: 30px; }
+            .parallax-cta { padding: 10px 28px; font-size: 15px; }
+            .story-content p { font-size: 16px; }
+            .value-number { font-size: 48px; }
+            .newsletter-content h2 { font-size: 30px; }
+            .newsletter-form input[type="email"], .newsletter-form button { font-size: 14px; }
+            footer { padding: 60px 30px; }
+            .map-container-wrapper { height: 900px; }
+              .mobile-menu-content {
+            flex-direction: column; /* stack vertically */
+            }
+            .mobile-menu-image {
+                display: none; /* hide image area */
+            }
+            .mobile-nav-menu {
+                margin-top: 40px;
+                padding: 0 20px;
+                /* make menu full width when image hidden */
+                flex: unset;
+                width: 100%;
+                justify-content: flex-start;
             }
         }
 
@@ -1365,6 +1077,7 @@
 <body>
     <!-- Navigation -->
     <nav id="mainNav">
+        <!-- We keep the logic div for spacing if needed, but visual logo is handled by fixed element -->
         <div class="logo"><img src="./Images/Logo/CE_logo_beige.png" alt=""></div>
         <ul class="nav-menu">
             <li><a href="#experiences">Services</a></li>
@@ -1381,33 +1094,69 @@
     </nav>
 
     <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobileMenu">
+   <div class="mobile-menu-overlay" id="mobileMenu">
         <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
-        <ul class="mobile-nav-menu">
-            <li><a href="#experiences">Services</a></li>
-            <li><a href="#gallery-showcase">Inspiration</a></li>
-            <li><a href="#testimonials">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+            <div class="mobile-menu-content">
+                <ul class="mobile-nav-menu">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                            Services
+                            <span class="arrow-icon">&#x25BC;</span> <!-- down arrow -->
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#experiences1">Local Expertise</a></li>
+                            <li><a href="#experiences2">Off The Beaten Track</a></li>
+                            <li><a href="#experiences2">Unforgettable Experiences</a></li>
+                            <li><a href="#experiences3">Travel Concierge</a></li>
+                            <li><a href="#experiences3">Private Transport</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#gallery-showcase">Inspiration</a></li>
+                    <li><a href="#testimonials">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="social-icons">
+                        <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">
+                            <!-- Instagram SVG icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">
+                            <!-- Facebook SVG icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+                <div class="mobile-menu-image">
+                    <img src="./Images/PXL_20240925_061734060.jpg" alt="Menu image" />
+                </div>
+            </div>
     </div>
 
-    <!-- Hero Section with Centered Logo -->
+
+    <!-- FIXED LOGO: This sits outside the flow but visually inside Hero initially -->
+    <div id="dynamic-hero-logo">
+        <img src="./Images/Logo/Cloudberry Escapes Orange.png" alt="Cloudberry Escapes">
+    </div>
+
+    <!-- Hero Section -->
     <div class="hero">
         <div class="hero-bg"></div>
-        <div class="hero-logo-large"><img src="./Images/Logo/Cloudberry Escapes Orange.png" alt=""></div>
+        <!-- Placeholder to maintain layout spacing where logo used to be -->
+        <div class="hero-logo-placeholder"></div>
+        
         <div class="hero-tagline">the arctic redefined</div>
-        <!-- NEW BUTTON ADDED HERE -->
         <a href="#gallery-showcase" id="heroInspireBtn" class="hero-cta-secondary">Get Inspired</a>
-        <!-- <button class="hero-cta show">Get Inspired</button> -->
     </div>
+
     <!-- Our Story Section -->
     <section class="our-story-section">
         <div class="story-content">
             <h2>This Is Our Story</h2>
             <p>Cloudberry Escapes emerged from our deep connection to Northern Norway. Here, time slows down, the sea kisses rugged cliffs, and winter nights dazzle with vibrant colors. We wanted to share this enchantment in a personal and unforgettable way.</p>
             <p>Our trips go beyond ticking off sights; they touch the heart. We blend luxury with nature's raw beauty, making every moment memorable. Our mission? To reveal Northern Norway's wonder, peace, and discovery.</p>
-            <p>Every trip we design reflects our passion for unique experiences. Sailing under the midnight sun, immersing in local culture—it's the unexpected moments that truly captivate.</p>
-            <p>This is our story. We can't wait to help you write yours.&nbsp;</p>
             <button class="btn-primary">Read More</button>
         </div>
     </section>
@@ -1417,9 +1166,7 @@
         <div class="parallax-bg" id="parallaxBg"></div>
         <div class="parallax-content">
             <h2>Where Nature Meets Luxury</h2>
-            <!-- NEW BUTTON ADDED HERE -->
             <a href="#" class="parallax-cta">Our services</a>
-            <!-- <p>Every journey begins with a vision. Let us transform yours into an unforgettable Arctic adventure.</p> -->
         </div>
     </section>
 
@@ -1435,60 +1182,57 @@
             <div class="value-card">
                 <div class="value-number">02</div>
                 <h3>Handpicked Adventures</h3>
-                <p>Every experience we offer is carefully curated. From husky sledding under the aurora to kayaking through secluded fjords, we choose adventures that blend excitement with authenticity. Nothing is off the shelf – every journey is unique, crafted to match your sense of wonder.</p>
+                <p>Every experience we offer is carefully curated. From husky sledding under the aurora to kayaking through secluded fjords, we choose adventures that blend excitement with authenticity.</p>
             </div>
             <div class="value-card">
                 <div class="value-number">03</div>
                 <h3>Hidden Gem Destinations</h3>
-                <p>We take you beyond the postcards and into the heart of Northern Norway. Discover coastal villages tucked away from crowds, stay in charming boutique lodges, and experience the region as the locals do – with warmth, intimacy, and a touch of the unexpected.</p>
+                <p>We take you beyond the postcards and into the heart of Northern Norway. Discover coastal villages tucked away from crowds and experience the region as the locals do.</p>
             </div>
         </div>
     </section>
 
-    <!-- Gallery Showcase - ID ADDED HERE -->
+    <!-- Gallery Showcase -->
     <section class="gallery-showcase" id="gallery-showcase">
         <h2>Inspiration</h2>
         <p>Immerse yourself in the raw beauty of Northern Norway with carefully curated adventures designed for discerning travelers.</p>
         
-        <!-- Gallery Carousel Container -->
          <div class="gallery-carousel" id="galleryCarousel">
             <div class="gallery-item">
                 <div class="gallery-info">
                     <div class="gallery-label">Lodgings</div>
-                    <div class="gallery-description">Cloudberry Escapes offers exclusive lodgings that blend luxury with authentic Arctic experiences. From glass igloos under the Northern Lights to private fjord lodges, each stay is tailored for discerning travelers seeking comfort and uniqueness.</div>
+                    <div class="gallery-description">Cloudberry Escapes offers exclusive lodgings that blend luxury with authentic Arctic experiences.</div>
                     <a href="#" class="gallery-read-more">Read more</a>
                 </div>
             </div>
             <div class="gallery-item">
                 <div class="gallery-info">
                     <div class="gallery-label">Experiences</div>
-                    <div class="gallery-description">Glide through snowy landscapes on private dog sledding tours, cruise fjords on exclusive boat trips, or witness the Northern Lights from a secluded lodge. Experience Sami culture firsthand, embark on guided wildlife safaris, or savor gourmet meals in remote Arctic settings.</div>
+                    <div class="gallery-description">Glide through snowy landscapes on private dog sledding tours, cruise fjords on exclusive boat trips, or witness the Northern Lights from a secluded lodge.</div>
                     <a href="#" class="gallery-read-more">Read more</a>
                 </div>
             </div>
             <div class="gallery-item">
                 <div class="gallery-info">
                     <div class="gallery-label">Itineraries</div>
-                    <div class="gallery-description">Each journey is carefully curated, combining seamless logistics with exclusive activities like private fjord cruises, dog sledding, and Northern Lights viewing. Designed for discerning travelers, our itineraries ensure a unique and unforgettable exploration of Northern Norway.</div>
+                    <div class="gallery-description">Each journey is carefully curated, combining seamless logistics with exclusive activities like private fjord cruises, dog sledding, and Northern Lights viewing.</div>
                     <a href="#" class="gallery-read-more">Read more</a>
                 </div>
             </div>          
         </div>
         
-           <!-- Text Buttons below carousel -->
         <div class="carousel-controls">
             <button class="carousel-button" onclick="scrollCarousel(-1)">Previous</button>
             <button class="carousel-button" onclick="scrollCarousel(1)">Next</button>
         </div>
-        
     </section>
+
     <!-- Interactive Map Section -->
     <section class="map-section" id="destinations-map">
         <div class="map-container-wrapper">
             <iframe src="index_map_norway.html" class="map-iframe" title="Norway Destinations Interactive Map"></iframe>
         </div>
     </section>
-
 
     <!-- Testimonials -->
     <section class="testimonials-section">
@@ -1518,13 +1262,13 @@
         </div>
     </section>
 
-    <!-- Newsletter Subscription Section -->
+    <!-- Newsletter -->
     <section class="newsletter-section">
         <div class="newsletter-content">
             <h2>Subscribe to Our Newsletter</h2>
-            <p>Discover exclusive Arctic destinations, receive travel insights, and get inspired with curated itineraries from Cloudberry Escapes, delivered straight to your inbox.</p>
+            <p>Discover exclusive Arctic destinations, receive travel insights, and get inspired with curated itineraries from Cloudberry Escapes.</p>
             <form class="newsletter-form" onsubmit="event.preventDefault(); handleSubscription();">
-                <input type="email" id="emailInput" placeholder="Enter your email address" required aria-label="Email address for newsletter subscription">
+                <input type="email" id="emailInput" placeholder="Enter your email address" required>
                 <button type="submit">Subscribe</button>
             </form>
             <div id="subscriptionMessage" style="margin-top: 20px; color: #F66E56; font-weight: 600; min-height: 20px;"></div>
@@ -1548,336 +1292,291 @@
             <div>
                 <h4>Explore</h4>
                 <p><a href="#">Experiences</a></p>
+                <p><a href="#">Destinations</a></p>
+                <p><a href="#">Services</a></p>
+                <p><a href="#">Lodgings</a></p>
                 <p><a href="#">About Us</a></p>
-                <p><a href="#">Gallery</a></p>
-                <p><a href="#">Travel Guide</a></p>
             </div>
             <div>
                 <h4>Connect</h4>
                 <p>hello@cloudberryescapes.com</p>
                 <p>+47 XXX XX XXX</p>
                 
-                <!-- NEW SOCIAL ICONS -->
                 <div class="footer-social-icons">
-                    <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37.2-2.1-147.9-2.1-185.1 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37.2-2.1 147.9 0 185.1 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.4 93.9 36.2 37.2 2.1 147.9 2.1 185.1 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37.2 2.1-147.8 0-185.1zM416 397.2c-1.7 29.4-9.7 50.7-32.2 73.2s-43.8 30.5-73.2 32.2c-29.7 1.7-118.2 1.7-147.9 0-29.4-1.7-50.7-9.7-73.2-32.2s-30.5-43.8-32.2-73.2c-1.7-29.7-1.7-118.2 0-147.9 1.7-29.4 9.7-50.7 32.2-73.2s43.8-30.5 73.2-32.2c29.7-1.7 118.2-1.7 147.9 0 29.4 1.7 50.7 9.7 73.2 32.2s30.5 43.8 32.2 73.2c1.7 29.7 1.7 118.2 0 147.9z"/></svg>
+                    <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+                        </svg>
                     </a>
-                    <a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5L194.2 318.1H133.4L133.4 256H194.2L194.2 205.6C194.2 146.6 230.1 113.2 284.5 113.2C310.5 113.2 332.4 115.1 336.7 115.8L336.7 171.1L303.8 171.1C274.9 171.1 268.8 189.9 268.8 210.1L268.8 256H333.6L322.6 318.1H268.8L268.8 504.5C429.3 476.8 512 376 512 256z"/></svg>
+                    <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">                            
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
+                        </svg>
                     </a>
                 </div>
-
                 <p style="margin-top: 16px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
             </div>
         </div>
     </footer>
 
-    <!-- FLOATING MENU COMPONENT -->
-    <!-- This entire block will be hidden initially and appear after scrolling -->
+    <!-- FLOATING MENU COMPONENT
     <div class="floating-social-menu" id="floatingSocialMenu">
         <div class="floating-icons-group">
-            <!-- Social Media Icons (Moved to top) -->
             <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37.2-2.1-147.9-2.1-185.1 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37.2-2.1 147.9 0 185.1 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.4 93.9 36.2 37.2 2.1 147.9 2.1 185.1 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37.2 2.1-147.8 0-185.1zM416 397.2c-1.7 29.4-9.7 50.7-32.2 73.2s-43.8 30.5-73.2 32.2c-29.7 1.7-118.2 1.7-147.9 0-29.4-1.7-50.7-9.7-73.2-32.2s-30.5-43.8-32.2-73.2c-1.7-29.7-1.7-118.2 0-147.9 1.7-29.4 9.7-50.7 32.2-73.2s43.8-30.5 73.2-32.2c29.7-1.7 118.2-1.7 147.9 0 29.4 1.7 50.7 9.7 73.2 32.2s30.5 43.8 32.2 73.2c1.7 29.7 1.7 118.2 0 147.9z"/></svg>
             </a>
             <a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5L194.2 318.1H133.4L133.4 256H194.2L194.2 205.6C194.2 146.6 230.1 113.2 284.5 113.2C310.5 113.2 332.4 115.1 336.7 115.8L336.7 171.1L303.8 171.1C274.9 171.1 268.8 189.9 268.8 210.1L268.8 256H333.6L322.6 318.1H268.8L268.8 504.5C429.3 476.8 512 376 512 256z"/></svg>
             </a>
-
-            <!-- Divider Removed -->
-
-            <!-- Arrow Up Effect Button (Moved to bottom, Icon changed to Chevron) -->
             <button class="scroll-top-btn" id="scrollToTopBtn" aria-label="Scroll to top">
                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.372 24.568-9.372 33.941-.001z"/></svg>
             </button>
         </div>
-    </div>
-    <!-- END FLOATING MENU -->
+    </div> -->
 
     <script>
-        // --- SCROLL LOGIC FOR NAV, HERO FADE, AND PARALLAX ---
-        window.addEventListener('scroll', function() {
-            // Get elements needed for scroll effects
+        // --- LOGO ANIMATION & NAV LOGIC ---
+        const animateLogo = () => {
+            const logo = document.getElementById('dynamic-hero-logo');
             const nav = document.getElementById('mainNav');
-            const heroLogo = document.querySelector('.hero-logo-large');
             const heroTagline = document.querySelector('.hero-tagline');
-            const heroInspireBtn = document.getElementById('heroInspireBtn'); // Get new button
-            const parallaxBg = document.getElementById('parallaxBg');
-            const parallaxSection = document.getElementById('parallaxSection');
+            const heroInspireBtn = document.getElementById('heroInspireBtn');
             
-            // NEW: Get floating menu
-            const floatingMenu = document.getElementById('floatingSocialMenu');
+            if (!logo || !nav) return;
+
+            const scrollY = window.scrollY;
             
-            const scrollPosition = window.scrollY;
-            
-            // Start fading out hero logo and tagline at 200px
-            if (heroLogo && heroTagline && heroInspireBtn) { // Check for new button
-                if (scrollPosition > 0) {
-                    heroLogo.classList.add('fade-out');
+            // 1. Fade out text elements (Tagline/Button) as we scroll
+            if (heroTagline && heroInspireBtn) {
+                if (scrollY > 50) {
                     heroTagline.classList.add('fade-out');
-                    heroInspireBtn.classList.add('fade-out'); // Fade out new button
+                    heroInspireBtn.classList.add('fade-out');
                 } else {
-                    heroLogo.classList.remove('fade-out');
                     heroTagline.classList.remove('fade-out');
-                    heroInspireBtn.classList.remove('fade-out'); // Fade in new button
+                    heroInspireBtn.classList.remove('fade-out');
                 }
             }
             
-            // Show nav logo after hero logo fades (at 200px)
-            if (nav) {
-                if (scrollPosition > 0) {
-                    nav.classList.add('scrolled');
-                } else {
-                    nav.classList.remove('scrolled');
-                }
+            // 2. Nav Background Logic
+            if (scrollY > 200) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
             }
 
-            // NEW: Floating Menu visibility logic
-            // Show only after scrolling past the hero section (approx 500px)
-            if (floatingMenu) {
-                if (scrollPosition > 500) { 
-                    floatingMenu.classList.add('visible');
-                } else {
-                    floatingMenu.classList.remove('visible');
-                }
-            }
+            // 3. Logo Size/Position Logic
+            
+            // Configuration
+            const maxScroll = 400; // Increased from 300 to slow down the effect
+            
+            // Calculate progress (0 to 1)
+            let progress = Math.min(scrollY / maxScroll, 1);
+            
+            // Determine screen size context for responsiveness
+            const isMobile = window.innerWidth <= 768;
+            
+            // Dimensions (Width)
+            // UPDATED: Increased start width for bigger initial impact
+            const startWidth = isMobile ? 260 : 450; // Pixels (was 200/350)
+            const endWidth = isMobile ? 110 : 150;   // Pixels
+            
+            // Positions (Top Center)
+            // UPDATED: Start Higher up (40vh instead of 50vh)
+            const startY = window.innerHeight * 0.45; 
+            const endY = 45; // Approximate vertical center of nav
+            
+            // Interpolate
+            const currentWidth = startWidth - (progress * (startWidth - endWidth));
+            const currentY = startY - (progress * (startY - endY));
+            
+            // Apply Styles
+            logo.style.width = `${currentWidth}px`;
+            logo.style.top = `${currentY}px`;
+        };
 
-            // Parallax effect
-            if (parallaxSection && parallaxBg) {
-                const parallaxOffset = parallaxSection.offsetTop;
-                const parallaxHeight = parallaxSection.offsetHeight;
-                
-                // Only apply parallax when section is in view
-                if (scrollPosition + window.innerHeight > parallaxOffset && 
-                    scrollPosition < parallaxOffset + parallaxHeight) {
-                    const offset = (scrollPosition - parallaxOffset) * 0.5;
-                    parallaxBg.style.transform = `translateY(${offset}px)`;
-                }
-            }
-        }); // --- END OF SCROLL LOGIC ---
+        window.addEventListener('scroll', animateLogo);
+        window.addEventListener('resize', animateLogo);
+        
+        // Initial call to set position
+        animateLogo();
 
-         // --- GALLERY CAROUSEL CONTROL LOGIC ---
-
-        // Function to update the disabled state of the carousel buttons
+        // --- OTHER EXISTING SCRIPTS ---
+        
+        // Carousel Logic
         const updateCarouselButtons = () => {
             const carousel = document.getElementById('galleryCarousel');
             const buttons = document.querySelectorAll('.carousel-button');
+            if (!carousel || buttons.length < 2) return;
+            
             const prevBtn = buttons[0];
             const nextBtn = buttons[1];
-
-            if (!carousel || !prevBtn || !nextBtn) return;
-
-            // Use a small tolerance (5px) for boundary checks due to floating point math
+            
             const isAtStart = carousel.scrollLeft <= 2; 
             const isAtEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 2;
 
-            // Disable/Enable the buttons and update the visual class
             prevBtn.disabled = isAtStart;
             nextBtn.disabled = isAtEnd;
 
-            if (isAtStart) {
-                prevBtn.classList.add('disabled');
-            } else {
-                prevBtn.classList.remove('disabled');
-            }
-
-            if (isAtEnd) {
-                nextBtn.classList.add('disabled');
-            } else {
-                nextBtn.classList.remove('disabled');
-            }
+            isAtStart ? prevBtn.classList.add('disabled') : prevBtn.classList.remove('disabled');
+            isAtEnd ? nextBtn.classList.add('disabled') : nextBtn.classList.remove('disabled');
         };
-
 
         const scrollCarousel = (direction) => {
             const carousel = document.getElementById('galleryCarousel');
-            // Check if the button is disabled before scrolling
             const isNext = direction === 1;
             const targetButton = document.querySelectorAll('.carousel-button')[isNext ? 1 : 0];
-            if (targetButton.disabled) return;
-
+            if (targetButton && targetButton.disabled) return;
 
             if (carousel) {
-                // Determine the distance to scroll based on the width of one item + gap (450px + 20px)
                 const scrollDistance = 470;
-                
-                // Use scrollBy for relative scrolling and 'smooth' for the transition
-                carousel.scrollBy({
-                    left: direction * scrollDistance,
-                    behavior: 'smooth'
-                });
-                // Wait for the smooth scroll to finish before updating state (approx 350ms)
+                carousel.scrollBy({ left: direction * scrollDistance, behavior: 'smooth' });
                 setTimeout(updateCarouselButtons, 350);
             }
         };
 
-        // --- HERO BACKGROUND SLIDER LOGIC ---
-        // This runs once after the page structure is loaded
+        // Hero Background Slider
         window.addEventListener('DOMContentLoaded', () => {
             const heroBgContainer = document.querySelector('.hero');
-            let heroBg = document.querySelector('.hero-bg'); // Use 'let' as this element gets replaced
+            let heroBg = document.querySelector('.hero-bg');
+            
+            if (heroBgContainer && heroBg) {
+                const images = [
+                    './Images/7U1A4441.steinar.jpg',
+                    './Images/IMG_5142.jpg',
+                    './Images/PXL_20240125_110049315.jpg',
+                    './Images/IMG_20191019_085619.jpg'
+                ];
 
-            // Ensure elements exist before running
-            if (!heroBgContainer || !heroBg) {
-                console.error("Hero background slider elements not found.");
-                return;
-            }
+                let currentIndex = 0;
+                heroBg.style.backgroundImage = `url(${images[0]})`;
 
-            const images = [
-                './Images/7U1A4441.steinar.jpg',
-                './Images/IMG_5142.jpg',
-                './Images/PXL_20240125_110049315.jpg',
-                './Images/IMG_20191019_085619.jpg'
-            ];
+                function changeBackground() {
+                    currentIndex = (currentIndex + 1) % images.length;
+                    const newBg = document.createElement('div');
+                    newBg.className = 'hero-bg fade-in';
+                    newBg.style.backgroundImage = `url(${images[currentIndex]})`;
+                    heroBgContainer.appendChild(newBg);
 
-            let currentIndex = 0;
-
-            // 1. Set the first image on load (matches the new CSS default)
-            heroBg.style.backgroundImage = `url(${images[0]})`;
-
-            // 2. Define the function to change the background
-            function changeBackground() {
-                currentIndex = (currentIndex + 1) % images.length;
-
-                const newBg = document.createElement('div');
-                newBg.className = 'hero-bg fade-in'; // Starts at opacity 0, fades in
-                newBg.style.backgroundImage = `url(${images[currentIndex]})`;
-
-                heroBgContainer.appendChild(newBg);
-
-                // Short delay to ensure newBg is in the DOM
-                setTimeout(() => {
-                    heroBg.classList.add('fade-out'); // Fades out the *old* heroBg (takes 1s)
-                    
-                    // After fade-out is complete (1s), remove old element
                     setTimeout(() => {
-                        if (heroBg.parentElement) {
-                            heroBg.remove();
-                        }
-                        heroBg = newBg; // The new bg is now the main one
-                        heroBg.classList.remove('fade-in'); // Clean up class
-                    }, 1000); // This MUST match the CSS transition/animation time
-                }, 50); // Small delay
+                        heroBg.classList.add('fade-out');
+                        setTimeout(() => {
+                            if (heroBg.parentElement) heroBg.remove();
+                            heroBg = newBg;
+                            heroBg.classList.remove('fade-in');
+                        }, 1000);
+                    }, 50);
+                }
+                setInterval(changeBackground, 10000);
             }
 
-            // 3. Start the interval timer (10 seconds)
-            setInterval(changeBackground, 10000);
-
-            // --- MOBILE MENU TOGGLE LOGIC ---
+            // Mobile Menu
             const hamburgerBtn = document.getElementById('hamburgerMenu');
             const mobileMenu = document.getElementById('mobileMenu');
             const closeBtn = document.getElementById('mobileMenuClose');
             const mobileLinks = document.querySelectorAll('.mobile-nav-menu a');
 
-            if (hamburgerBtn && mobileMenu && closeBtn) {
-                // Open menu
+            if (hamburgerBtn && mobileMenu) {
                 hamburgerBtn.addEventListener('click', () => {
                     mobileMenu.classList.add('open');
                     document.body.classList.add('mobile-menu-open');
                 });
-
-                // Close menu with 'X' button
                 closeBtn.addEventListener('click', () => {
                     mobileMenu.classList.remove('open');
                     document.body.classList.remove('mobile-menu-open');
                 });
-
-                // Close menu when a link is clicked
+                
+                // FIX: Check if the link is a dropdown toggle before closing the menu
                 mobileLinks.forEach(link => {
                     link.addEventListener('click', () => {
+                        // If it's the dropdown toggle, do nothing (return) so the menu stays open
+                        if (link.classList.contains('dropdown-toggle')) {
+                            return; 
+                        }
+                        
                         mobileMenu.classList.remove('open');
                         document.body.classList.remove('mobile-menu-open');
                     });
                 });
-            } // --- END OF MOBILE MENU LOGIC ---
+            }
+            
+            // Floating Menu Scroll Logic
+            const floatingMenu = document.getElementById('floatingSocialMenu');
+            const parallaxSection = document.getElementById('parallaxSection');
+            const parallaxBg = document.getElementById('parallaxBg');
+            
+            window.addEventListener('scroll', function() {
+                const scrollP = window.scrollY;
+                
+                if (floatingMenu) {
+                    if (scrollP > 500) floatingMenu.classList.add('visible');
+                    else floatingMenu.classList.remove('visible');
+                }
 
-            // --- NEW: SMOOTH SCROLL FOR 'GET INSPIRED' BUTTON ---
+                if (parallaxSection && parallaxBg) {
+                    const pOffset = parallaxSection.offsetTop;
+                    const pHeight = parallaxSection.offsetHeight;
+                    if (scrollP + window.innerHeight > pOffset && scrollP < pOffset + pHeight) {
+                        const offset = (scrollP - pOffset) * 0.5;
+                        parallaxBg.style.transform = `translateY(${offset}px)`;
+                    }
+                }
+            });
+
+            // Smooth Scroll Helpers
             const inspireBtn = document.getElementById('heroInspireBtn');
             if (inspireBtn) {
-                inspireBtn.addEventListener('click', function(e) {
-                    e.preventDefault(); // Prevent default anchor jump
-                    const targetSection = document.getElementById('gallery-showcase');
-                    if (targetSection) {
-                        // Use smooth scroll into view
-                        targetSection.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
+                inspireBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.getElementById('gallery-showcase')?.scrollIntoView({ behavior: 'smooth' });
                 });
             }
             
-            // --- NEW: SMOOTH SCROLL FOR 'ARROW UP' BUTTON ---
             const scrollTopBtn = document.getElementById('scrollToTopBtn');
             if (scrollTopBtn) {
-                scrollTopBtn.addEventListener('click', function() {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
+                scrollTopBtn.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             }
-            // --- END NEW SCROLL LOGIC ---
 
+            // Gallery Toggle
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('gallery-read-more')) return;
+                    e.preventDefault();
+                    const wasActive = this.classList.contains('is-active');
+                    document.querySelectorAll('.gallery-item').forEach(i => i.classList.remove('is-active'));
+                    if (!wasActive) this.classList.add('is-active');
+                });
+            });
+        });
+       
+            document.addEventListener('DOMContentLoaded', () => {
+            const dropdownToggle = document.querySelector('.mobile-nav-menu .dropdown-toggle');
+            const dropdown = dropdownToggle.closest('.dropdown');
 
-            // --- NEW: GALLERY ITEM CLICK/TAP TOGGLE ---
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            if (galleryItems.length > 0) {
-                galleryItems.forEach(item => {
-                    item.addEventListener('click', function(e) {
-                        // If the click is on the 'read more' link, let it proceed
-                        if (e.target.classList.contains('gallery-read-more')) {
-                            return;
-                        }
-                        
-                        // Otherwise, we're toggling the card visibility
-                        e.preventDefault(); 
-                        
-                        const wasActive = this.classList.contains('is-active');
-                        
-                        // Remove active from all items
-                        galleryItems.forEach(i => i.classList.remove('is-active'));
-                        
-                        // If it wasn't active, make it active
-                        if (!wasActive) {
-                            this.classList.add('is-active');
-                        }
-                        // If it *was* active, the click just closes it (which we already did)
-                    });
+            if (dropdownToggle && dropdown) {
+                dropdownToggle.addEventListener('click', (e) => {
+                    e.preventDefault();   // Prevent following the "#" link
+                    e.stopPropagation();  // Prevent closing menu by parent handlers
+                    dropdown.classList.toggle('open');
                 });
             }
-            // --- END OF NEW SCRIPT ---
+        });
 
-        }); // --- END OF DOMContentLoaded ---
 
-         // --- NEWSLETTER SUBSCRIPTION HANDLER ---
+        // Newsletter
         function handleSubscription() {
             const email = document.getElementById('emailInput').value;
             const messageElement = document.getElementById('subscriptionMessage');
-            
-            // Simple email validation
             if (!email || !email.includes('@') || !email.includes('.')) {
                 messageElement.textContent = "Please enter a valid email address.";
                 messageElement.style.color = 'var(--color-accent)';
                 return;
             }
-
-            // Simulate API call success/failure
-            const success = Math.random() > 0.1; // 90% success rate for demo
-
-            if (success) {
-                messageElement.textContent = `Thank you for subscribing, ${email}! Welcome to the Cloudberry community.`;
-                messageElement.style.color = 'var(--color-dark-secondary)'; // Success color
-                document.getElementById('emailInput').value = ''; // Clear input
-            } else {
-                messageElement.textContent = "Oops! We hit a snag. Please try subscribing again later.";
-                messageElement.style.color = 'var(--color-accent)'; // Error color
-            }
-
-            // Clear the message after a few seconds
-            setTimeout(() => {
-                messageElement.textContent = '';
-            }, 5000);
+            messageElement.textContent = `Thank you for subscribing, ${email}!`;
+            messageElement.style.color = 'var(--color-dark-secondary)';
+            document.getElementById('emailInput').value = '';
+            setTimeout(() => { messageElement.textContent = ''; }, 5000);
         }
     </script>
 </body>
