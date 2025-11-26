@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloudberry Escapes - Design Prototype</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -38,7 +38,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(21, 20, 25, 0); /* from --color-dark-primary */
+            background: var(--color-dark-primary);
             backdrop-filter: blur(0px);
             padding: 2px 70px;
             display: flex;
@@ -47,6 +47,7 @@
             z-index: 100;
             transition: all 0.4s ease;
             height: 90px; /* Define explicit height for calculations */
+            border-bottom: 2px solid var(--color-light-bg);
         }
 
         nav.scrolled {
@@ -54,12 +55,9 @@
             backdrop-filter: blur(10px);            
             box-shadow: 0 2px 20px rgba(0,0,0,0.1);
         }
-
-        /* Hide the original nav logo as we use the hero logo */
-        .logo {
-            opacity: 0; 
-            visibility: hidden;
-            width: 200px; /* Keep width to maintain spacing layout */
+        
+        .logo img {          
+            width: 150px;
         }
 
         .nav-menu {
@@ -271,14 +269,18 @@
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            height: 40vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             position: relative;
-            overflow: hidden;            
+            overflow: hidden;
+            background: url('./Images/Bilde\ 19.02.2021\,\ 21\ 22\ 04\ \(1\).jpg');  
+            background-size:cover;
+            background-position: center;
+            background-repeat: no-repeat;           
         }
 
        .hero-bg {
@@ -311,36 +313,7 @@
         @keyframes slowZoom {
             from { transform: scale(1); }
             to { transform: scale(1.05); }
-        }
-
-        /* --- NEW LOGO ANIMATION STYLES --- */
-        
-        /* Placeholder to keep spacing in Hero */
-        .hero-logo-placeholder {
-            width: 100%;
-            height: 150px; /* Increased slightly to account for bigger logo visual space */
-            margin-bottom: 30px;
-        }
-
-        /* The Floating/Fixed Logo */
-        #dynamic-hero-logo {
-            position: fixed;
-            top: 40%; /* UPDATED: Starts higher (was 50%) */
-            left: 50%; /* Starts at horizontal center */
-            transform: translate(-50%, -50%);
-            z-index: 900; /* Above Nav */
-            width: 450px; /* UPDATED: Bigger initial Width (was 300px in CSS, 350 in JS) */
-            transform-origin: center center;
-            pointer-events: none; /* Allow clicking through to hero elements initially if needed, or auto */
-        }
-
-        #dynamic-hero-logo img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        /* -------------------------------- */
+        }    
 
         .hero-tagline {
             position: relative;
@@ -402,461 +375,7 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }      
-
-        /* Our Story Section */
-        .our-story-section {
-            padding: 100px 60px;
-            background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .story-content {
-            max-width: 800px; 
-        }
-
-        .story-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--color-light-bg);
-            margin-bottom: 40px;
-            letter-spacing: -0.01em;
-        }
-
-        .story-content p {
-            font-size: 18px;
-            color: var(--color-light-bg);
-            line-height: 1.8;
-            margin-bottom: 24px; 
-        }
-
-        .story-content p:last-of-type {
-            margin-bottom: 40px; 
-        }
-
-        /* Gallery Showcase */
-        .gallery-showcase {
-            padding: 100px 60px;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .gallery-showcase h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--color-light-bg);
-            margin-bottom: 10px;
-            letter-spacing: -0.01em;
-        }
-
-        .gallery-showcase > p {
-            font-size: 18px;
-            color: var(--color-light-bg);
-            margin-bottom: 60px;
-            max-width: 600px;
-        }
-        
-       /* Carousel Controls */
-        .carousel-controls {
-            display: flex;
-            justify-content: center; 
-            gap: 40px; 
-            margin-top: 40px; 
-        }
-
-        .carousel-button {
-            background: transparent;
-            border: none;
-            color: var(--color-light-bg); 
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            cursor: pointer;
-            padding: 10px 0;
-            transition: color 0.3s ease, transform 0.3s ease;
-            position: relative;
-            outline: none;
-            user-select: none; 
-        }
-
-        .carousel-button:hover:not(:disabled) {
-            color: var(--color-accent); 
-            transform: translateY(-2px);
-        }
-
-        .carousel-button::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 1px;
-            background-color: var(--color-accent);
-            transition: width 0.3s ease;
-        }
-
-        .carousel-button:hover:not(:disabled)::after {
-            width: 100%;
-        }
-        
-        .carousel-button:disabled, .carousel-button.disabled {
-            color: var(--color-grey-medium); 
-            cursor: default;
-            transform: none;
-        }
-
-        /* Parallax Section */
-        .parallax-section {
-            height: 60vh;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .parallax-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 120%;
-            background: url(./Images/DJI_0966-Edit___media_library_original_5272_2962.jpeg);
-            background-size: cover;
-            background-position: center;
-            transform: translateY(0);
-            will-change: transform;
-        }
-
-        .parallax-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: var(--color-light-bg);
-            max-width: 800px;
-            padding: 0 40px;
-        }
-
-        .parallax-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 52px;
-            font-weight: 700;
-            color: var(--color-light-bg);
-            margin-bottom: 20px;
-            letter-spacing: -0.01em;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
-        }
-        
-        .parallax-cta {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 35px;
-            border: 1px solid var(--color-light-bg);
-            border-radius: 2px;
-            color: var(--color-light-bg);
-            font-family: 'Playfair Display', serif; 
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            text-decoration: none;
-            background: transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .parallax-cta:hover {
-            background: rgba(255, 234, 219, 0.1); 
-            border-color: var(--color-accent);
-            color: var(--color-accent);
-            transform: translateY(-2px);
-        }
-
-        /* Gallery Carousel */
-        .gallery-carousel {
-            display: flex;
-            overflow-x: auto; 
-            gap: 20px;
-            scroll-snap-type: x mandatory; 
-            -webkit-overflow-scrolling: touch; 
-            padding-bottom: 20px; 
-            scrollbar-width: none; 
-        }
-        .gallery-carousel::-webkit-scrollbar {
-            display: none; 
-        }
-
-        .gallery-item {            
-            flex: 0 0 85%;
-            max-width: 900px; 
-            aspect-ratio: 4 / 3; 
-            scroll-snap-align: start; 
-            background-size: cover;
-            background-position: center; 
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
-            overflow: hidden; 
-            cursor: pointer;
-        }          
-      
-        .gallery-item:nth-child(1) { background-image: url('./Images/Bjørnfjell - Fotograf Mads Suhr Pettersen - 9G9A0598 - 171102.jpg'); }
-        .gallery-item:nth-child(2) { background-image: url('./Images/SD_20150410_2180288.jpg'); }
-        .gallery-item:nth-child(3) { background-image: url('./Images/Bilde 19.02.2021, 21 22 04 (1).jpg'); }   
-
-        .gallery-info {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.4); 
-            transition: background 0.4s ease;
-            padding: 30px;
-        }
-
-        .gallery-item:hover .gallery-info { background: rgba(0, 0, 0, 0.7); }
-
-       .gallery-label {
-            font-size: 16px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: var(--color-light-bg); 
-            padding-bottom: 10px;
-            position: relative;
-            opacity: 1; 
-            transition: all 0.4s ease;
-        }
-
-        .gallery-item:hover .gallery-label {
-            color: var(--color-accent); 
-            transform: translateY(-5px); 
-        }
-        
-        .gallery-description {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px; 
-            color: var(--color-light-bg); 
-            line-height: 1.5;
-            max-width: 80%; 
-            opacity: 0; 
-            transform: translateY(10px); 
-            overflow: hidden;
-            transition: all 0.4s ease-out;
-        }
-
-        .gallery-item:hover .gallery-description {            
-            opacity: 1;
-            transform: translateY(0); 
-        }
-
-        .gallery-read-more {
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            color: var(--color-light-bg);
-            text-decoration: underline;
-            text-underline-offset: 4px; 
-            text-transform: uppercase;
-            position: relative; 
-            margin-top: 15px; 
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.4s ease-out 0.1s; 
-        }
-
-        .gallery-read-more:hover { color: var(--color-accent); }
-        .gallery-item:hover .gallery-read-more { opacity: 1; transform: translateY(0); }
-
-        .gallery-item.is-active .gallery-info { background: rgba(0, 0, 0, 0.7); }
-        .gallery-item.is-active .gallery-label { color: var(--color-accent); transform: translateY(-5px); }
-        .gallery-item.is-active .gallery-description { opacity: 1; transform: translateY(0); }
-        .gallery-item.is-active .gallery-read-more { opacity: 1; transform: translateY(0); }
-
-
-        /* Value Props */
-        .value-props {
-            padding: 100px 60px;
-            background: var(--color-light-bg);
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .value-props h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--color-dark-secondary);
-            margin-bottom: 60px;
-            letter-spacing: -0.01em;
-        }
-
-        .value-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 50px;
-        }
-
-        .value-card { text-align: left; }
-        .value-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 56px;
-            font-weight: 700;
-            color: var(--color-accent);
-            margin-bottom: 12px;
-        }
-        .value-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--color-dark-secondary);
-            margin-bottom: 16px;
-        }
-        .value-card p {
-            font-size: 16px;
-            color: var(--color-dark-secondary);
-            line-height: 1.8;
-        }
-
-        /* Testimonials */
-        .testimonials-section {
-            padding: 100px 60px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .testimonials-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--color-light-bg);
-            margin-bottom: 60px;
-            letter-spacing: -0.01em;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .testimonial-card {
-            background: var(--color-grey-medium);
-            padding: 40px;
-            border-radius: 2px;
-            border-left: 4px solid var(--color-accent);
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(21, 20, 25, 0.2);
-        }
-
-        .testimonial-card:hover {
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-            transform: translateY(-4px);
-        }
-
-        .testimonial-quote {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
-            font-style: italic;
-            margin-bottom: 24px;
-            color: var(--color-dark-secondary);
-            line-height: 1.6;
-        }
-
-        .testimonial-author h4 {
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--color-dark-secondary);
-            margin-bottom: 4px;
-        }
-
-        .testimonial-author p {
-            font-size: 12px;
-            color: var(--color-dark-secondary);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-         /* Newsletter */
-        .newsletter-section {
-            padding: 100px 60px;
-            background: var(--color-light-bg);
-            text-align: center;
-            max-width: 100%; 
-        }
-
-        .newsletter-content { max-width: 600px; margin: 0 auto; }
-        .newsletter-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 40px;
-            font-weight: 700;
-            color: var(--color-dark-secondary);
-            margin-bottom: 15px;
-            letter-spacing: -0.01em;
-        }
-        .newsletter-content p {
-            font-size: 16px;
-            color: var(--color-dark-secondary);
-            margin-bottom: 30px;
-            line-height: 1.8;
-        }
-
-        .newsletter-form {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .newsletter-form input[type="email"] {
-            flex-grow: 1;
-            padding: 14px 20px;
-            border: 1px solid #c9c9c9;
-            border-radius: 2px;
-            font-size: 16px;
-            color: var(--color-dark-secondary);
-            background: var(--color-white);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .newsletter-form input[type="email"]:focus {
-            outline: none;
-            border-color: var(--color-accent);
-            box-shadow: 0 0 0 2px rgba(245, 110, 15, 0.3); 
-        }
-
-        .newsletter-form button {
-            background: var(--color-accent);
-            color: var(--color-dark-primary);
-            padding: 14px 25px;
-            border-radius: 2px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            text-transform: uppercase;
-        }
-        
-        .newsletter-form button:hover {
-            background: var(--color-dark-primary);
-            color: var(--color-light-bg);
-            box-shadow: 0 5px 15px rgba(21, 20, 25, 0.2); 
-        }
+        }        
 
         /* CTA Section */
         .cta-section {
@@ -1095,9 +614,11 @@
         }
 
     </style>
+
 </head>
+
 <body>
-    <!-- Navigation -->
+     <!-- Navigation -->
     <nav id="mainNav">
         <!-- We keep the logic div for spacing if needed, but visual logo is handled by fixed element -->
         <div class="logo"><img src="./Images/Logo/CE_logo_beige.png" alt=""></div>
@@ -1115,7 +636,7 @@
         </button>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
+      <!-- Mobile Menu Overlay -->
    <div class="mobile-menu-overlay" id="mobileMenu">
         <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
             <div class="mobile-menu-content">
@@ -1126,15 +647,14 @@
                             <span class="arrow-icon">&#x25BC;</span> <!-- down arrow -->
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="./services.html">Local Expertise</a></li>
-                            <li><a href="./services.html">Off The Beaten Track</a></li>
-                            <li><a href="./services.html">Unforgettable Experiences</a></li>
-                            <li><a href="./services.html">Travel Concierge</a></li>
-                            <li><a href="./services.html">Private Transport</a></li>
+                            <li><a href="#experiences1">Local Expertise</a></li>
+                            <li><a href="#experiences2">Off The Beaten Track</a></li>
+                            <li><a href="#experiences2">Unforgettable Experiences</a></li>
+                            <li><a href="#experiences3">Travel Concierge</a></li>
+                            <li><a href="#experiences3">Private Transport</a></li>
                         </ul>
                     </li>
-                    <li><a href="./index.html/#gallery-showcase">Inspiration</a></li>
-                    <li><a href="./index.html">Destinations</a></li>
+                    <li><a href="#gallery-showcase">Inspiration</a></li>
                     <li><a href="#testimonials">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li class="social-icons">
@@ -1143,8 +663,7 @@
                                 <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
                             </svg>
                         </a>
-                        <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">
-                            <!-- Facebook SVG icon -->
+                        <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">                            
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
                             </svg>
@@ -1157,145 +676,10 @@
             </div>
     </div>
 
-
-    <!-- FIXED LOGO: This sits outside the flow but visually inside Hero initially -->
-    <div id="dynamic-hero-logo">
-        <img src="./Images/Logo/Cloudberry Escapes Orange.png" alt="Cloudberry Escapes">
+     <!-- Hero Section -->
+    <div class="hero">          
+        <div class="hero-tagline">Our Services</div>        
     </div>
-
-    <!-- Hero Section -->
-    <div class="hero">
-        <div class="hero-bg"></div>
-        <!-- Placeholder to maintain layout spacing where logo used to be -->
-        <div class="hero-logo-placeholder"></div>
-        
-        <div class="hero-tagline">the arctic redefined</div>
-        <a href="#gallery-showcase" id="heroInspireBtn" class="hero-cta-secondary">Get Inspired</a>
-    </div>
-
-    <!-- Our Story Section -->
-    <section class="our-story-section">
-        <div class="story-content">
-            <h2>This Is Our Story</h2>
-            <p>Cloudberry Escapes emerged from our deep connection to Northern Norway. Here, time slows down, the sea kisses rugged cliffs, and winter nights dazzle with vibrant colors. We wanted to share this enchantment in a personal and unforgettable way.</p>
-            <p>Our trips go beyond ticking off sights; they touch the heart. We blend luxury with nature's raw beauty, making every moment memorable. Our mission? To reveal Northern Norway's wonder, peace, and discovery.</p>
-            <button class="btn-primary">Read More</button>
-        </div>
-    </section>
-
-     <!-- Parallax Section -->
-    <section class="parallax-section" id="parallaxSection">
-        <div class="parallax-bg" id="parallaxBg"></div>
-        <div class="parallax-content">
-            <h2>Where Nature Meets Luxury</h2>
-            <a href="./services.html" class="parallax-cta">Our services</a>
-        </div>
-    </section>
-
-     <!-- Why Choose Us -->
-    <section class="value-props">
-        <h2>Why Cloudberry Escapes</h2>
-        <div class="value-grid">
-            <div class="value-card">
-                <div class="value-number">01</div>
-                <h3>Local Expert Guides</h3>
-                <p>Our guides aren’t just knowledgeable – they’re part of the fabric of Northern Norway. Born storytellers and passionate adventurers, they bring the land to life with personal insights and deep connections to the places you’ll visit.</p>
-            </div>
-            <div class="value-card">
-                <div class="value-number">02</div>
-                <h3>Handpicked Adventures</h3>
-                <p>Every experience we offer is carefully curated. From husky sledding under the aurora to kayaking through secluded fjords, we choose adventures that blend excitement with authenticity.</p>
-            </div>
-            <div class="value-card">
-                <div class="value-number">03</div>
-                <h3>Hidden Gem Destinations</h3>
-                <p>We take you beyond the postcards and into the heart of Northern Norway. Discover coastal villages tucked away from crowds and experience the region as the locals do.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Showcase -->
-    <section class="gallery-showcase" id="gallery-showcase">
-        <h2>Inspiration</h2>
-        <p>Immerse yourself in the raw beauty of Northern Norway with carefully curated adventures designed for discerning travelers.</p>
-        
-         <div class="gallery-carousel" id="galleryCarousel">
-            <div class="gallery-item">
-                <div class="gallery-info">
-                    <div class="gallery-label">Lodgings</div>
-                    <div class="gallery-description">Cloudberry Escapes offers exclusive lodgings that blend luxury with authentic Arctic experiences.</div>
-                    <a href="#" class="gallery-read-more">Read more</a>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-info">
-                    <div class="gallery-label">Experiences</div>
-                    <div class="gallery-description">Glide through snowy landscapes on private dog sledding tours, cruise fjords on exclusive boat trips, or witness the Northern Lights from a secluded lodge.</div>
-                    <a href="#" class="gallery-read-more">Read more</a>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-info">
-                    <div class="gallery-label">Itineraries</div>
-                    <div class="gallery-description">Each journey is carefully curated, combining seamless logistics with exclusive activities like private fjord cruises, dog sledding, and Northern Lights viewing.</div>
-                    <a href="#" class="gallery-read-more">Read more</a>
-                </div>
-            </div>          
-        </div>
-        
-        <div class="carousel-controls">
-            <button class="carousel-button" onclick="scrollCarousel(-1)">Previous</button>
-            <button class="carousel-button" onclick="scrollCarousel(1)">Next</button>
-        </div>
-    </section>
-
-    <!-- Interactive Map Section -->
-    <section class="map-section" id="destinations-map">
-        <div class="map-container-wrapper">
-            <iframe src="index_map_norway.html" class="map-iframe" title="Norway Destinations Interactive Map"></iframe>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials-section">
-        <h2>What Clients Say</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <p class="testimonial-quote">"An experience that surpassed every expectation. The attention to detail was extraordinary."</p>
-                <div class="testimonial-author">
-                    <h4>Sarah & James</h4>
-                    <p>March 2024</p>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-quote">"Luxury travel completely redefined. Personal, authentic, and truly transformative."</p>
-                <div class="testimonial-author">
-                    <h4>Michael</h4>
-                    <p>February 2024</p>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-quote">"They made planning effortless while ensuring every moment felt magical and perfectly curated."</p>
-                <div class="testimonial-author">
-                    <h4>Emma & David</h4>
-                    <p>January 2024</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="newsletter-section">
-        <div class="newsletter-content">
-            <h2>Subscribe to Our Newsletter</h2>
-            <p>Discover exclusive Arctic destinations, receive travel insights, and get inspired with curated itineraries from Cloudberry Escapes.</p>
-            <form class="newsletter-form" onsubmit="event.preventDefault(); handleSubscription();">
-                <input type="email" id="emailInput" placeholder="Enter your email address" required>
-                <button type="submit">Subscribe</button>
-            </form>
-            <div id="subscriptionMessage" style="margin-top: 20px; color: #F66E56; font-weight: 600; min-height: 20px;"></div>
-        </div>
-    </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
@@ -1341,22 +725,7 @@
         </div>
     </footer>
 
-    <!-- FLOATING MENU COMPONENT
-    <div class="floating-social-menu" id="floatingSocialMenu">
-        <div class="floating-icons-group">
-            <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37.2-2.1-147.9-2.1-185.1 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37.2-2.1 147.9 0 185.1 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.4 93.9 36.2 37.2 2.1 147.9 2.1 185.1 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37.2 2.1-147.8 0-185.1zM416 397.2c-1.7 29.4-9.7 50.7-32.2 73.2s-43.8 30.5-73.2 32.2c-29.7 1.7-118.2 1.7-147.9 0-29.4-1.7-50.7-9.7-73.2-32.2s-30.5-43.8-32.2-73.2c-1.7-29.7-1.7-118.2 0-147.9 1.7-29.4 9.7-50.7 32.2-73.2s43.8-30.5 73.2-32.2c29.7-1.7 118.2-1.7 147.9 0 29.4 1.7 50.7 9.7 73.2 32.2s30.5 43.8 32.2 73.2c1.7 29.7 1.7 118.2 0 147.9z"/></svg>
-            </a>
-            <a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5L194.2 318.1H133.4L133.4 256H194.2L194.2 205.6C194.2 146.6 230.1 113.2 284.5 113.2C310.5 113.2 332.4 115.1 336.7 115.8L336.7 171.1L303.8 171.1C274.9 171.1 268.8 189.9 268.8 210.1L268.8 256H333.6L322.6 318.1H268.8L268.8 504.5C429.3 476.8 512 376 512 256z"/></svg>
-            </a>
-            <button class="scroll-top-btn" id="scrollToTopBtn" aria-label="Scroll to top">
-               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.372 24.568-9.372 33.941-.001z"/></svg>
-            </button>
-        </div>
-    </div> -->
-
-    <script>
+   <script>
         // --- LOGO ANIMATION & NAV LOGIC ---
         const animateLogo = () => {
             const logo = document.getElementById('dynamic-hero-logo');
@@ -1601,10 +970,6 @@
             setTimeout(() => { messageElement.textContent = ''; }, 5000);
         }
     </script>
+
 </body>
 </html>
-
-
-
-
-
