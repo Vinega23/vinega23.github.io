@@ -11,8 +11,10 @@
             --color-dark-secondary: #25414E;
             --color-grey-medium: #f8f8f8;
             --color-light-bg: #FFEADB;
-            --color-accent: #EA5D24;;
+            --color-accent: #ec6d3a;
             --color-white: #FFFFFF;
+            --color-black-transparent: rgba(21, 20, 25, 0.95);
+            --color-black-scrolled: rgba(21, 20, 25, 1);
         }
 
         * {
@@ -22,9 +24,9 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', sans-serif;            
             color: var(--color-dark-secondary);
-            line-height: 1.7;
+            line-height: 1.7;           
             background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
         }
 
@@ -37,20 +39,21 @@
         nav {
             position: fixed;
             top: 0;
-            width: 100%;
-            background: rgba(21, 20, 25, 0); /* from --color-dark-primary */
+            width: 100%;            
+            background: none;
             backdrop-filter: blur(0px);
             padding: 2px 70px;
             display: flex;
-            justify-content: space-between; /* Keeping this, but we will ignore the logo slot */
+            justify-content: space-between; 
             align-items: center;
             z-index: 100;
             transition: all 0.4s ease;
-            height: 90px; /* Define explicit height for calculations */
+            height: 90px; 
         }
 
         nav.scrolled {
-            background: rgba(21, 20, 25, 0.95); /* from --color-dark-primary */
+            /* Uses darkest color: #0D1D1C (dark-primary) for the scrolled state */
+            background: var(--color-black-transparent); 
             backdrop-filter: blur(10px);            
             box-shadow: 0 2px 20px rgba(0,0,0,0.1);
         }
@@ -72,6 +75,7 @@
 
         .nav-menu a {
             text-decoration: none;
+            /* Nav text needs to contrast with hero (set to white/light accent, depends on logo/image) */
             color: var(--color-light-bg);
             font-size: 13px;
             font-weight: 500;
@@ -86,12 +90,10 @@
 
         /* Hamburger Menu Button */
         .hamburger-menu {
-            /* display: none; Hidden by default */
             background: transparent;
             border: none;
             cursor: pointer;
-            /* padding: 10px; */
-            z-index: 101; /* Above nav logo, but below overlay */
+            z-index: 101; 
             position: relative;
             left: 30px;
         }
@@ -100,7 +102,8 @@
             display: block;
             width: 24px;
             height: 2px;
-            background-color: var(--color-light-bg); /* Light color */
+            /* Hamburger lines are white/light on hero background */
+            background-color: var(--color-light-bg); 
             margin: 5px 0;
             transition: all 0.3s ease;
         }
@@ -109,7 +112,7 @@
 
         .mobile-menu-content {
             display: flex;
-            flex-direction: row; /* horizontal split: left menu, right image */
+            flex-direction: row; 
             width: 100%;
             height: 100%;
         }
@@ -120,9 +123,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--color-dark-primary);
+            /* Uses darkest color: #0D1D1C (dark-primary) as requested */
+            background: var(--color-black-scrolled);
             backdrop-filter: blur(15px);
-            z-index: 1000; /* Highest z-index */
+            z-index: 1000; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -132,7 +136,7 @@
             transform: translateX(-100%);
             transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: flex;
-            justify-content: center; /* center the .mobile-menu-content */
+            justify-content: center; 
         }
 
         .mobile-menu-overlay.open {
@@ -147,7 +151,8 @@
             right: 25px;
             background: transparent;
             border: none;
-            /* color: var(--color-accent); */
+            /* Light color on dark overlay */
+            color: var(--color-accent); 
             font-size: 40px;
             font-weight: 300;
             cursor: pointer;
@@ -158,14 +163,14 @@
         .mobile-nav-menu {
             flex: 1;
             margin-top: 80px;
-            padding: 0 0 60px 200px; /* Added bottom padding for spacing */
+            padding: 0 0 60px 200px; 
             text-align: left;
             display: flex;
             flex-direction: column;           
             text-decoration: none;
             list-style: none;
-            overflow-y: auto; /* Allow scrolling if content is too tall */
-            height: 100%; /* Ensure it fills height */
+            overflow-y: auto; 
+            height: 100%; 
         }
 
         .mobile-nav-menu li {
@@ -174,7 +179,7 @@
 
         .mobile-nav-menu a {
             text-decoration: none;
-            color: var(--color-light-bg);
+            color: var(--color-light-bg); /* Use light body BG color for contrast on dark overlay */
             font-family: 'Playfair Display', serif;
             font-size: 28px;
             font-weight: 600;
@@ -191,8 +196,8 @@
             display: flex;
             justify-content: flex-start;
             gap: 24px;            
-            margin-top: auto; /* CRITICAL: Pushes this element to the bottom of the flex container */
-            padding-top: 20px; /* Extra breathing room from the last link */
+            margin-top: auto; 
+            padding-top: 20px; 
             margin-bottom: 50px;
         }
 
@@ -212,8 +217,8 @@
         }
 
         .mobile-menu-image {
-            flex: 1; /* occupy right half */
-            background: #222; /* fallback color */
+            flex: 1; 
+            background: #222; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -223,7 +228,7 @@
         .mobile-menu-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* image covers container */
+            object-fit: cover; 
         }
 
         .mobile-nav-menu .dropdown {
@@ -246,7 +251,7 @@
         .mobile-nav-menu .dropdown-menu {
             list-style: none;
             padding-left: 20px;
-            margin-top: 10px; /* Tightened up slightly */
+            margin-top: 10px; 
             display: none;
         }
 
@@ -256,7 +261,7 @@
         }
         
         .mobile-nav-menu .dropdown-menu li {
-            margin: 10px 0; /* Tighter spacing for submenu items */
+            margin: 10px 0; 
         }
 
         /* Dropdown open state */
@@ -318,20 +323,20 @@
         /* Placeholder to keep spacing in Hero */
         .hero-logo-placeholder {
             width: 100%;
-            height: 150px; /* Increased slightly to account for bigger logo visual space */
+            height: 150px; 
             margin-bottom: 30px;
         }
 
         /* The Floating/Fixed Logo */
         #dynamic-hero-logo {
             position: fixed;
-            top: 40%; /* UPDATED: Starts higher (was 50%) */
-            left: 50%; /* Starts at horizontal center */
+            top: 40%; 
+            left: 50%; 
             transform: translate(-50%, -50%);
-            z-index: 900; /* Above Nav */
-            width: 450px; /* UPDATED: Bigger initial Width (was 300px in CSS, 350 in JS) */
+            z-index: 900; 
+            width: 450px; 
             transform-origin: center center;
-            pointer-events: none; /* Allow clicking through to hero elements initially if needed, or auto */
+            pointer-events: none; 
         }
 
         #dynamic-hero-logo img {
@@ -346,12 +351,13 @@
             position: relative;
             z-index: 2;
             font-size: 20px;
-            color: var(--color-light-bg);
+            /* Use secondary light color on dark image for contrast */
+            color: var(--color-light-bg); 
             letter-spacing: 0.1em;
             text-transform: uppercase;
             font-weight: 300;
             animation: fadeInUp 1.5s ease-out 0.3s both;
-            transition: opacity 0.8s ease, transform 0.8s ease; /* Slowed down from 0.3s */
+            transition: opacity 0.8s ease, transform 0.8s ease; 
             margin-bottom: 40px;
         }
 
@@ -366,7 +372,8 @@
             z-index: 2;
             display: inline-block;
             padding: 12px 30px;
-            border: 1px solid var(--color-light-bg);
+            /* Border is secondary light color for hero contrast */
+            border: 1px solid var(--color-light-bg); 
             border-radius: 2px;
             color: var(--color-light-bg);
             font-size: 14px;
@@ -375,14 +382,15 @@
             text-transform: uppercase;
             text-decoration: none;
             background: transparent;
-            transition: all 0.8s ease; /* Slowed down from 0.3s */
+            transition: all 0.8s ease; 
             cursor: pointer;
             animation: fadeInUp 1.5s ease-out 0.9s both;
             opacity: 0; 
         }
 
         .hero-cta-secondary:hover {
-            background: rgba(255, 234, 219, 0.1); 
+            /* Now uses dark background, accent text/border */
+            background: rgba(219, 115, 59, 0.2); 
             border-color: var(--color-accent);
             color: var(--color-accent);
             transform: translateY(-2px);
@@ -407,50 +415,72 @@
         /* Our Story Section */
         .our-story-section {
             padding: 100px 60px;
+            /* Using dark colors for visual break against the new light body BG */
             background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
             display: flex;
             justify-content: center;
-            align-items: center;
-            text-align: center;
+            align-items: center;            
         }
 
         .story-content {
-            max-width: 800px; 
+            max-width: 700px; 
         }
 
         .story-content h2 {
             font-family: 'Playfair Display', serif;
             font-size: 48px;
             font-weight: 700;
-            color: var(--color-light-bg);
+            color: var(--color-light-bg); /* Light BG on dark background */
             margin-bottom: 40px;
             letter-spacing: -0.01em;
         }
 
         .story-content p {
             font-size: 18px;
-            color: var(--color-light-bg);
+            color: gray;
             line-height: 1.8;
             margin-bottom: 24px; 
+            font-weight: 700;
+            text-size-adjust: 22px;
         }
 
         .story-content p:last-of-type {
             margin-bottom: 40px; 
         }
 
+        .highlight {           
+            color: var(--color-light-bg); 
+            font-weight: 700;             
+        }
+
+        .separator-line {
+            width: 4px; /* Boldness of the line */
+            background-color: var(--color-light-bg); /* Color of the line */
+            margin: 0 2rem; /* Space on both sides of the line */
+            align-self: stretch; /* Make it stretch vertically */
+        }
+
+        .logo-container {
+            flex-shrink: 0; /* Prevent logo from shrinking */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align logo to the top when side-by-side */
+            padding-bottom: 2rem; /* Space below logo on smaller screens */
+        }        
+
         /* Gallery Showcase */
         .gallery-showcase {
             padding: 100px 60px;
             max-width: 1400px;
             margin: 0 auto;
-            position: relative;
+            position: relative;            
         }
 
         .gallery-showcase h2 {
             font-family: 'Playfair Display', serif;
             font-size: 48px;
             font-weight: 700;
-            color: var(--color-light-bg);
+            color: var(--color-light-bg); /* Dark text on light BG */
             margin-bottom: 10px;
             letter-spacing: -0.01em;
         }
@@ -473,7 +503,7 @@
         .carousel-button {
             background: transparent;
             border: none;
-            color: var(--color-light-bg); 
+            color: var(--color-light-bg); /* Dark text on light BG */
             font-size: 14px;
             font-weight: 600;
             letter-spacing: 0.1em;
@@ -508,7 +538,7 @@
         }
         
         .carousel-button:disabled, .carousel-button.disabled {
-            color: var(--color-grey-medium); 
+            color: var(--color-dark-secondary); /* Muted dark color when disabled */
             cursor: default;
             transform: none;
         }
@@ -540,6 +570,7 @@
             position: relative;
             z-index: 2;
             text-align: center;
+            /* Use primary light color for contrast on dark image */
             color: var(--color-light-bg);
             max-width: 800px;
             padding: 0 40px;
@@ -573,7 +604,8 @@
         }
 
         .parallax-cta:hover {
-            background: rgba(255, 234, 219, 0.1); 
+            /* Uses accent color for contrast on dark image */
+            background: rgba(219, 115, 59, 0.2); 
             border-color: var(--color-accent);
             color: var(--color-accent);
             transform: translateY(-2px);
@@ -676,18 +708,14 @@
         }
 
         .gallery-read-more:hover { color: var(--color-accent); }
-        .gallery-item:hover .gallery-read-more { opacity: 1; transform: translateY(0); }
-
-        .gallery-item.is-active .gallery-info { background: rgba(0, 0, 0, 0.7); }
-        .gallery-item.is-active .gallery-label { color: var(--color-accent); transform: translateY(-5px); }
-        .gallery-item.is-active .gallery-description { opacity: 1; transform: translateY(0); }
         .gallery-item.is-active .gallery-read-more { opacity: 1; transform: translateY(0); }
 
 
         /* Value Props */
         .value-props {
+            /* Should use main background color */
+            background: var(--color-light-bg); 
             padding: 100px 60px;
-            background: var(--color-light-bg);
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -696,7 +724,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 48px;
             font-weight: 700;
-            color: var(--color-dark-secondary);
+            color: var(--color-dark-primary); /* Dark text on light BG */
             margin-bottom: 60px;
             letter-spacing: -0.01em;
         }
@@ -719,7 +747,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 22px;
             font-weight: 700;
-            color: var(--color-dark-secondary);
+            color: var(--color-dark-primary);
             margin-bottom: 16px;
         }
         .value-card p {
@@ -733,13 +761,15 @@
             padding: 100px 60px;
             max-width: 1200px;
             margin: 0 auto;
+            /* Using secondary light color for a subtle break */
+            background: none;
         }
 
         .testimonials-section h2 {
             font-family: 'Playfair Display', serif;
             font-size: 48px;
             font-weight: 700;
-            color: var(--color-light-bg);
+            color: var(--color-light-bg); /* Dark text on light BG */
             margin-bottom: 60px;
             letter-spacing: -0.01em;
         }
@@ -751,16 +781,16 @@
         }
 
         .testimonial-card {
-            background: var(--color-grey-medium);
+            background: var(--color-white);
             padding: 40px;
             border-radius: 2px;
             border-left: 4px solid var(--color-accent);
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(21, 20, 25, 0.2);
+            box-shadow: 0 5px 15px rgba(13, 29, 28, 0.1);
         }
 
         .testimonial-card:hover {
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
             transform: translateY(-4px);
         }
 
@@ -777,7 +807,7 @@
             font-family: 'Inter', sans-serif;
             font-size: 14px;
             font-weight: 600;
-            color: var(--color-dark-secondary);
+            color: var(--color-dark-primary);
             margin-bottom: 4px;
         }
 
@@ -791,7 +821,8 @@
          /* Newsletter */
         .newsletter-section {
             padding: 100px 60px;
-            background: var(--color-light-bg);
+            /* Using main body background color */
+            background: var(--color-light-bg); 
             text-align: center;
             max-width: 100%; 
         }
@@ -801,7 +832,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 40px;
             font-weight: 700;
-            color: var(--color-dark-secondary);
+            color: var(--color-dark-primary);
             margin-bottom: 15px;
             letter-spacing: -0.01em;
         }
@@ -826,7 +857,7 @@
             border: 1px solid #c9c9c9;
             border-radius: 2px;
             font-size: 16px;
-            color: var(--color-dark-secondary);
+            color: var(--color-dark-primary);
             background: var(--color-white);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
@@ -834,7 +865,7 @@
         .newsletter-form input[type="email"]:focus {
             outline: none;
             border-color: var(--color-accent);
-            box-shadow: 0 0 0 2px rgba(245, 110, 15, 0.3); 
+            box-shadow: 0 0 0 2px rgba(219, 115, 59, 0.3); 
         }
 
         .newsletter-form button {
@@ -855,12 +886,13 @@
         .newsletter-form button:hover {
             background: var(--color-dark-primary);
             color: var(--color-light-bg);
-            box-shadow: 0 5px 15px rgba(21, 20, 25, 0.2); 
+            box-shadow: 0 5px 15px rgba(13, 29, 28, 0.2); 
         }
 
         /* CTA Section */
         .cta-section {
             padding: 100px 60px;
+            /* Using dark colors for visual break against the new light body BG */
             background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
             text-align: center;
             color: var(--color-light-bg);
@@ -903,11 +935,12 @@
         .btn-primary:hover {
             background: var(--color-light-bg);
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(245, 110, 15, 0.4); 
+            box-shadow: 0 12px 30px rgba(219, 115, 59, 0.4); 
         }
 
         /* Footer */
         footer {
+            /* Uses darkest color: #0D1D1C (dark-primary) */
             background: var(--color-dark-primary);
             color: var(--color-light-bg);
             padding: 60px;
@@ -1004,14 +1037,14 @@
         }
 
         .scroll-top-btn:hover { transform: scale(1.1); }
-        .scroll-top-btn svg { width: 100%; height: 100%; fill: var(--color-light-bg); transition: fill 0.3s ease; }
+        .scroll-top-btn svg { width: 100%; height: 100%; fill: var(--color-dark-primary); transition: fill 0.3s ease; }
         .scroll-top-btn:hover svg { fill: var(--color-accent); }
 
         .floating-icons-group {
+            background: rgba(13, 29, 28, 0.1); /* Subtle dark background on light body */
             display: flex;
             flex-direction: column;
             gap: 14px; 
-            background: rgba(16, 38, 50, 0.8); 
             padding: 15px 8px; 
             border-radius: 30px;
             backdrop-filter: blur(5px);
@@ -1025,7 +1058,7 @@
         }
 
         .floating-icons-group a:hover { transform: scale(1.1); }
-        .floating-icons-group svg { width: 100%; height: 100%; fill: var(--color-light-bg); }
+        .floating-icons-group svg { width: 100%; height: 100%; fill: var(--color-dark-primary); }
         .floating-icons-group a:hover svg { fill: var(--color-accent); }
         
         /* Map Section */
@@ -1076,18 +1109,16 @@
             .newsletter-content h2 { font-size: 30px; }
             .newsletter-form input[type="email"], .newsletter-form button { font-size: 14px; }
             footer { padding: 60px 30px; }
-            .map-container-wrapper { height: 900px; }
             
             .mobile-menu-content {
-                flex-direction: column; /* stack vertically */
+                flex-direction: column; 
             }
             .mobile-menu-image {
-                display: none; /* hide image area */
+                display: none; 
             }
             .mobile-nav-menu {
                 margin-top: 40px;
                 padding: 0 50px;
-                /* make menu full width when image hidden */
                 flex: unset;
                 width: 100%;
                 justify-content: flex-start;
@@ -1175,10 +1206,36 @@
 
     <!-- Our Story Section -->
     <section class="our-story-section">
+        <div class="logo-container">
+            <img src="./Images/Logo/Cloudberry Orange.png" alt="">
+        </div>
+
+        <div class="separator-line"></div>
+
         <div class="story-content">
             <h2>This Is Our Story</h2>
-            <p>Cloudberry Escapes emerged from our deep connection to Northern Norway. Here, time slows down, the sea kisses rugged cliffs, and winter nights dazzle with vibrant colors. We wanted to share this enchantment in a personal and unforgettable way.</p>
-            <p>Our trips go beyond ticking off sights; they touch the heart. We blend luxury with nature's raw beauty, making every moment memorable. Our mission? To reveal Northern Norway's wonder, peace, and discovery.</p>
+            <p>
+                <span class="highlight">Cloudberry Escapes</span> emerged from our deep connection to 
+                <span class="highlight">Northern Norway</span>. Here, 
+                <span class="highlight">time slows down</span>, the sea kisses 
+                <span class="highlight">rugged cliffs</span>, and 
+                <span class="highlight">winter nights</span> dazzle with 
+                <span class="highlight">vibrant colors</span>. We wanted to share this enchantment 
+                in a <span class="highlight">personal and unforgettable</span> way.
+            </p>
+
+            <p>
+                Our trips go beyond ticking off sights; they <span class="highlight">touch the heart</span>. 
+                We blend <span class="highlight">luxury</span> with 
+                <span class="highlight">nature's raw beauty</span>, making every moment 
+                memorable. Our mission? To reveal Northern Norway's 
+                <span class="highlight">wonder, peace, and discovery</span>.
+            </p>
+
+            <p>
+                Every trip we design reflects <span class="highlight">our passion for unique experiences.</span> Sailing under the midnight sun, immersing in local culture—it's <span class="highlight">the unexpected moments that truly captivate.</span>
+                <span class="highlight">This is our story.</span> We can't wait to help you write yours.
+            </p>           
             <button class="btn-primary">Read More</button>
         </div>
     </section>
@@ -1293,7 +1350,7 @@
                 <input type="email" id="emailInput" placeholder="Enter your email address" required>
                 <button type="submit">Subscribe</button>
             </form>
-            <div id="subscriptionMessage" style="margin-top: 20px; color: #F66E56; font-weight: 600; min-height: 20px;"></div>
+            <div id="subscriptionMessage" style="margin-top: 20px; color: var(--color-accent); font-weight: 600; min-height: 20px;"></div>
         </div>
     </section>
 
@@ -1328,18 +1385,18 @@
                     <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
-                        </svg>
-                    </a>
-                    <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">                            
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
-                        </svg>
-                    </a>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">                            
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <p style="margin-top: 16px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
                 </div>
-                <p style="margin-top: 16px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
             </div>
-        </div>
-    </footer>
+        </footer>
 
     <!-- FLOATING MENU COMPONENT
     <div class="floating-social-menu" id="floatingSocialMenu">

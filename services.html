@@ -3,7 +3,7 @@
 <head>
      <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloudberry Escapes - Design Prototype</title>
+    <title>Cloudberry Escapes - Services</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,8 +11,10 @@
             --color-dark-secondary: #25414E;
             --color-grey-medium: #f8f8f8;
             --color-light-bg: #FFEADB;
-            --color-accent: #EA5D24;;
+            --color-accent: #ec6d3a;
             --color-white: #FFFFFF;
+            --color-black-transparent: rgba(21, 20, 25, 0.95);
+            --color-black-scrolled: rgba(21, 20, 25, 1);
         }
 
         * {
@@ -26,111 +28,77 @@
             color: var(--color-dark-secondary);
             line-height: 1.7;
             background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
+            overflow-x: hidden;
         }
 
         /* Style for body when menu is open */
         body.mobile-menu-open {
-            overflow: hidden; /* Prevent background scroll */
+            overflow: hidden; 
         }
 
-        /* Navigation */
+        /* --- NAVIGATION --- */
         nav {
             position: fixed;
             top: 0;
-            width: 100%;
-            background: var(--color-dark-primary);
+            width: 100%;           
+            background: var(--color-black-transparent); 
             backdrop-filter: blur(0px);
             padding: 2px 70px;
             display: flex;
-            justify-content: space-between; /* Keeping this, but we will ignore the logo slot */
+            justify-content: space-between; 
             align-items: center;
             z-index: 100;
             transition: all 0.4s ease;
-            height: 90px; /* Define explicit height for calculations */
-            border-bottom: 2px solid var(--color-light-bg);
-        }
-
-        nav.scrolled {
-            background: rgba(21, 20, 25, 0.95); /* from --color-dark-primary */
-            backdrop-filter: blur(10px);            
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        }
+            height: 90px; 
+            border-bottom: 1px solid transparent;
+        }      
         
         .logo img {          
             width: 150px;
+            margin-top: 8px;
         }
 
+        /* Hide standard links on all screens, forcing Hamburger use */
         .nav-menu {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-            margin-left: auto;
             display: none;
-        }
-
-        .nav-menu a {
-            text-decoration: none;
-            color: var(--color-light-bg);
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.05em;
-            transition: color 0.3s ease;
-            text-transform: uppercase;
-        }
-
-        .nav-menu a:hover {
-            color: var(--color-accent);
         }
 
         /* Hamburger Menu Button */
         .hamburger-menu {
-            /* display: none; Hidden by default */
+            display: block; 
             background: transparent;
             border: none;
             cursor: pointer;
-            /* padding: 10px; */
-            z-index: 101; /* Above nav logo, but below overlay */
+            z-index: 101; 
             position: relative;
-            left: 30px;
+            left: 30px; 
         }
 
         .hamburger-line {
             display: block;
             width: 24px;
             height: 2px;
-            background-color: var(--color-light-bg); /* Light color */
+            background-color: var(--color-light-bg);
             margin: 5px 0;
             transition: all 0.3s ease;
         }
         
-        /* Mobile Menu Overlay */
-
-        .mobile-menu-content {
-            display: flex;
-            flex-direction: row; /* horizontal split: left menu, right image */
-            width: 100%;
-            height: 100%;
-        }
-
+        /* Mobile Menu Overlay - Slightly transparent dark background */
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--color-dark-primary);
+            background: var(--color-black-scrolled); /* Matches the scrolled nav color */
             backdrop-filter: blur(15px);
-            z-index: 1000; /* Highest z-index */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            z-index: 1000;
             opacity: 0;
             pointer-events: none;
             transform: translateX(-100%);
             transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: flex;
-            justify-content: center; /* center the .mobile-menu-content */
+            justify-content: center;
         }
 
         .mobile-menu-overlay.open {
@@ -139,31 +107,37 @@
             transform: translateX(0);
         }
 
+        .mobile-menu-content {
+            display: flex;
+            flex-direction: row; 
+            width: 100%;
+            height: 100%;
+        }
+
         .mobile-menu-close {
             position: absolute;
             top: 20px;
             right: 25px;
             background: transparent;
             border: none;
-            /* color: var(--color-accent); */
             font-size: 40px;
             font-weight: 300;
             cursor: pointer;
             line-height: 1;
             z-index: 1002;
+            color: var(--color-light-bg);
         }
 
         .mobile-nav-menu {
             flex: 1;
             margin-top: 80px;
-            padding: 0 0 60px 200px; /* Added bottom padding for spacing */
+            padding: 0 0 60px 200px; 
             text-align: left;
             display: flex;
             flex-direction: column;           
-            text-decoration: none;
             list-style: none;
-            overflow-y: auto; /* Allow scrolling if content is too tall */
-            height: 100%; /* Ensure it fills height */
+            overflow-y: auto; 
+            height: 100%; 
         }
 
         .mobile-nav-menu li {
@@ -184,13 +158,12 @@
             color: var(--color-accent);
         }
 
-        /* UPDATED: Push Social Icons to Bottom Left */
         .mobile-nav-menu .social-icons {
             display: flex;
             justify-content: flex-start;
             gap: 24px;            
-            margin-top: auto; /* CRITICAL: Pushes this element to the bottom of the flex container */
-            padding-top: 20px; /* Extra breathing room from the last link */
+            margin-top: auto; 
+            padding-top: 20px; 
             margin-bottom: 50px;
         }
 
@@ -210,8 +183,8 @@
         }
 
         .mobile-menu-image {
-            flex: 1; /* occupy right half */
-            background: #222; /* fallback color */
+            flex: 1; 
+            background: #222; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -221,55 +194,22 @@
         .mobile-menu-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* image covers container */
+            object-fit: cover;
         }
 
-        .mobile-nav-menu .dropdown {
-            position: relative;
-        }
+        /* Mobile Dropdown Logic */
+        .mobile-nav-menu .dropdown { position: relative; }
+        .mobile-nav-menu .dropdown-toggle { cursor: pointer; display: flex; align-items: center; }
+        .mobile-nav-menu .arrow-icon { margin-left: 8px; font-size: 14px; transition: transform 0.3s ease; }
+        .mobile-nav-menu .dropdown-menu { list-style: none; padding-left: 20px; margin-top: 10px; display: none; }
+        .mobile-nav-menu .dropdown-menu a { font-size: 20px; opacity: 0.8; }
+        .mobile-nav-menu .dropdown-menu li { margin: 10px 0; }
+        .mobile-nav-menu .dropdown.open > .dropdown-toggle .arrow-icon { transform: rotate(180deg); }
+        .mobile-nav-menu .dropdown.open > .dropdown-menu { display: block; animation: fadeIn 0.3s ease; }
 
-        .mobile-nav-menu .dropdown-toggle {
-            cursor: pointer;
-            display: flex;
-            align-items: center;            
-        }
-
-        .mobile-nav-menu .arrow-icon {
-            margin-left: 8px;
-            font-size: 14px;
-            transition: transform 0.3s ease;
-        }
-
-        /* Initially hide submenu */
-        .mobile-nav-menu .dropdown-menu {
-            list-style: none;
-            padding-left: 20px;
-            margin-top: 10px; /* Tightened up slightly */
-            display: none;
-        }
-
-        .mobile-nav-menu .dropdown-menu a {
-            font-size: 20px;
-            opacity: 0.8;
-        }
-        
-        .mobile-nav-menu .dropdown-menu li {
-            margin: 10px 0; /* Tighter spacing for submenu items */
-        }
-
-        /* Dropdown open state */
-        .mobile-nav-menu .dropdown.open > .dropdown-toggle .arrow-icon {
-            transform: rotate(180deg);
-        }
-
-        .mobile-nav-menu .dropdown.open > .dropdown-menu {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        /* Hero Section */
+        /* --- HERO SECTION --- */
         .hero {
-            height: 40vh;
+            height: 60vh; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -277,112 +217,161 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            background: url('./Images/Bilde\ 19.02.2021\,\ 21\ 22\ 04\ \(1\).jpg');  
-            background-size:cover;
-            background-position: center;
-            background-repeat: no-repeat;           
-        }
-
-       .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('./Images/7U1A4441.steinar.jpg'); 
-            background-size:cover;
+            background: url('https://images.unsplash.com/photo-1531366936337-7c912a4589a7?q=80&w=2070&auto=format&fit=crop'); 
+            background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            transition: opacity 10s ease-in-out;
-            opacity: 1;
-            z-index: -1;
-            animation: slowZoom 15s ease-out forwards;
-        }
-
-        .hero-bg.fade-out { opacity: 0; }
-        .hero-bg.fade-in {
-            opacity: 0;
-            animation: fadeIn 1s ease-in-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
         
-        @keyframes slowZoom {
-            from { transform: scale(1); }
-            to { transform: scale(1.05); }
-        }    
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(16, 38, 50, 0.4);
+            z-index: 1;
+        }
 
         .hero-tagline {
             position: relative;
             z-index: 2;
-            font-size: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 48px; 
             color: var(--color-light-bg);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            font-weight: 300;
-            animation: fadeInUp 1.5s ease-out 0.3s both;
-            transition: opacity 0.8s ease, transform 0.8s ease; /* Slowed down from 0.3s */
-            margin-bottom: 40px;
-        }
-
-        .hero-tagline.fade-out {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-
-        /* --- BUTTON STYLES --- */
-        .hero-cta-secondary {
-            position: relative;
-            z-index: 2;
-            display: inline-block;
-            padding: 12px 30px;
-            border: 1px solid var(--color-light-bg);
-            border-radius: 2px;
-            color: var(--color-light-bg);
-            font-size: 14px;
-            font-weight: 400;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            text-decoration: none;
-            background: transparent;
-            transition: all 0.8s ease; /* Slowed down from 0.3s */
-            cursor: pointer;
-            animation: fadeInUp 1.5s ease-out 0.9s both;
-            opacity: 0; 
-        }
-
-        .hero-cta-secondary:hover {
-            background: rgba(255, 234, 219, 0.1); 
-            border-color: var(--color-accent);
-            color: var(--color-accent);
-            transform: translateY(-2px);
+            letter-spacing: 0.05em;
+            margin-bottom: 20px;
+            animation: fadeInUp 1.2s ease-out;
         }
         
-        .hero-cta-secondary.fade-out {
-             opacity: 0;
-             transform: translateY(-10px);
-        }
+        /* .hero-subtitle {
+            position: relative;
+            z-index: 2;
+            font-size: 18px;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            animation: fadeInUp 1.2s ease-out 0.3s both;
+            margin-bottom: 80px;
+        }         */
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }        
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        /* CTA Section */
+        /* --- SERVICES FLOW LAYOUT --- */
+         .services-section {
+            padding: 0; /* Remove vertical padding for cleaner flow */
+            max-width: 100%; /* Break the 1200px limit */
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+       .service-row {
+            display: flex;
+            align-items: center; 
+            width: 100%;
+            margin-bottom: 0; /* Flush layout, or add margin if you want gaps */
+            padding: 0;
+            opacity: 0; 
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+            min-height: 750px; /* Force rows to be tall for big pictures */
+        }
+        
+        .service-row.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Alternating Order - using nth-of-type to ignore the intro section */
+        div.service-row:nth-of-type(even) {
+            flex-direction: row-reverse;
+        }
+
+        /* Intro Text Styles - Updated per request */
+       .services-intro {
+            max-width: 800px;
+            margin: 100px auto; /* Add vertical spacing back here */
+            text-align: center;
+            padding: 0 20px;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease-out 0.5s both; 
+        }
+
+        .services-intro p {
+            font-size: 18px;
+            color: var(--color-light-bg);
+            line-height: 1.8;
+            margin-bottom: 24px; 
+        }    
+
+        .service-image-container {
+            flex: 0 0 55%; /* Image takes 55% of the screen */
+            width: 55%;
+            height: 750px; /* Fixed tall height */
+            position: relative;
+        }
+
+        .service-image {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .service-image-container:hover .service-image img {
+            transform: scale(1.05);
+        }
+
+        .service-text {
+            flex: 0 0 45%; /* Text takes remaining 45% */
+            width: 45%;
+            padding: 60px 80px; /* Ample padding for readability */
+            color: var(--color-light-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .service-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px; /* Slightly larger heading for balance */
+            margin-bottom: 24px;
+            color: var(--color-light-bg);
+        }
+
+        /* .service-text h2 span {
+            color: var(--color-accent);
+        } */
+
+        .service-text p {
+            font-size: 16px;
+            color: var(--color-light-bg); 
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* Divider */
+         .service-divider {
+            display: none; 
+        }
+        
+        /* --- CTA SECTION --- */
         .cta-section {
             padding: 100px 60px;
-            background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
+            background: rgba(16, 38, 50, 0.5); 
             text-align: center;
             color: var(--color-light-bg);
+            border-top: 1px solid rgba(255, 234, 219, 0.1);
         }
 
         .cta-section h2 {
@@ -425,11 +414,12 @@
             box-shadow: 0 12px 30px rgba(245, 110, 15, 0.4); 
         }
 
-        /* Footer */
+        /* --- FOOTER --- */
         footer {
             background: var(--color-dark-primary);
             color: var(--color-light-bg);
             padding: 60px;
+            border-top: 1px solid rgba(255, 234, 219, 0.1);
         }
 
         .footer-content {
@@ -487,147 +477,56 @@
 
         .footer-social-icons a:hover svg { fill: var(--color-accent); }
 
-        /* Floating Menu */
-        .floating-social-menu {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            z-index: 1000;
-            opacity: 0;
-            transform: translateY(20px);
-            pointer-events: none; 
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .hero-tagline { font-size: 36px; }
+            .services-section { padding: 60px 20px; }
+            .service-row { gap: 40px; }
         }
 
-        .floating-social-menu.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        .scroll-top-btn {
-            width: 30px; 
-            height: 30px; 
-            background: transparent; 
-            border: none;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .scroll-top-btn:hover { transform: scale(1.1); }
-        .scroll-top-btn svg { width: 100%; height: 100%; fill: var(--color-light-bg); transition: fill 0.3s ease; }
-        .scroll-top-btn:hover svg { fill: var(--color-accent); }
-
-        .floating-icons-group {
-            display: flex;
-            flex-direction: column;
-            gap: 14px; 
-            background: rgba(16, 38, 50, 0.8); 
-            padding: 15px 8px; 
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-
-        .floating-icons-group a {
-            display: block;
-            width: 30px;
-            height: 30px;
-            transition: transform 0.3s ease;
-        }
-
-        .floating-icons-group a:hover { transform: scale(1.1); }
-        .floating-icons-group svg { width: 100%; height: 100%; fill: var(--color-light-bg); }
-        .floating-icons-group a:hover svg { fill: var(--color-accent); }
-        
-        /* Map Section */
-        .map-section { width: 100%; padding: 0; background: transparent; }
-        .map-container-wrapper { width: 100%; height: 1000px; border: none; }
-        .map-iframe { width: 100%; height: 100%; border: none; display: block; }
-
-        /* Responsive */
         @media (max-width: 768px) {
             nav { padding: 10px 20px; }
-            nav.scrolled { padding: 12px 20px; }
-            .nav-menu { display: none; }
-            .hamburger-menu { display: block; left: 0px; }
-            
-            /* ADDED: Fix for tablet menu padding */
-            .mobile-nav-menu {
-                padding-left: 40px; 
+            .service-row, div.service-row:nth-of-type(even) {
+                flex-direction: column;
+                gap: 40px;
+                margin-bottom: 80px;
+                padding: 0;
             }
             
-            .hero-tagline { font-size: 14px; }
-            section, .gallery-showcase, .value-props, .testimonials-section { padding: 60px 30px; }
-            .newsletter-form { flex-direction: column; gap: 15px; }
-            .floating-social-menu { bottom: 20px; right: 4px; }
-
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-            .parallax-section { height: 50vh; }
-            .parallax-content h2 { font-size: 36px; }
-            .parallax-content p { font-size: 16px; }
-            .value-grid, .testimonials-grid { grid-template-columns: 1fr; }
-            .footer-content { grid-template-columns: 1fr; gap: 30px; }
-            
-            .map-container-wrapper { height: 400px; }
-        }
-        
-        @media (max-width: 480px) {
-            section, .gallery-showcase, .value-props, .testimonials-section { padding: 60px 20px; }
-            .gallery-item { aspect-ratio: 6 / 8; }  
-            .gallery-description{ font-size: 12px; }
-            .gallery-showcase h2, .gallery-showcase > p { padding-left: 20px; padding-right: 20px; }
-            .carousel-controls{ margin-top: 0px; }
-            .hero-tagline { font-size: 12px; margin-bottom: 30px; }
-            .hero-cta-secondary { padding: 10px 24px; font-size: 13px; }
-            .story-content h2, .gallery-showcase h2, .value-props h2, .testimonials-section h2, .cta-section h2 { font-size: 34px; }
-            .parallax-content h2 { font-size: 30px; }
-            .parallax-cta { padding: 10px 28px; font-size: 15px; }
-            .story-content p { font-size: 16px; }
-            .value-number { font-size: 48px; }
-            .newsletter-content h2 { font-size: 30px; }
-            .newsletter-form input[type="email"], .newsletter-form button { font-size: 14px; }
-            footer { padding: 60px 30px; }
-            .map-container-wrapper { height: 900px; }
-            
-            .mobile-menu-content {
-                flex-direction: column; /* stack vertically */
-            }
-            .mobile-menu-image {
-                display: none; /* hide image area */
-            }
-            .mobile-nav-menu {
-                margin-top: 40px;
-                padding: 0 50px;
-                /* make menu full width when image hidden */
-                flex: unset;
+            .service-image-container {
                 width: 100%;
-                justify-content: flex-start;
+                height: 300px;
             }
+            
+            .service-text { text-align: left; }
+            .footer-content { grid-template-columns: 1fr; gap: 40px; }
+            
+            .mobile-menu-content { flex-direction: column; }
+            .mobile-menu-image { display: none; }
+            .mobile-nav-menu { padding: 0 40px; margin-top: 40px; width: 100%; }
         }
 
     </style>
-
 </head>
-
 <body>
-     <!-- Navigation -->
+
+    <!-- Navigation -->
     <nav id="mainNav">
-        <!-- We keep the logic div for spacing if needed, but visual logo is handled by fixed element -->
-        <div class="logo"><img src="./Images/Logo/CE_logo_beige.png" alt=""></div>
+        <div class="logo">
+            <!-- Ensure this path is correct relative to your new file location -->
+            <img src="./Images/Logo/CE_logo_beige.png" alt="Cloudberry Escapes" onerror="this.style.display='none'; document.querySelector('.logo-text').style.display='block'">
+            <span class="logo-text" style="display:none; color:white; font-family:'Playfair Display'; font-weight:bold; font-size:20px;">CLOUDBERRY</span>
+        </div>
+        
+        <!-- Standard Links Hidden (Hamburger only) -->
         <ul class="nav-menu">
-            <li><a href="#experiences">Services</a></li>
-            <li><a href="#gallery-showcase">Inspiration</a></li>
-            <li><a href="#testimonials">About</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="#">Inspiration</a></li>
+            <li><a href="#">About</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
+
         <!-- Hamburger Menu Button -->
         <button class="hamburger-menu" id="hamburgerMenu" aria-label="Open menu">
             <span class="hamburger-line"></span>
@@ -636,53 +535,161 @@
         </button>
     </nav>
 
-      <!-- Mobile Menu Overlay -->
-   <div class="mobile-menu-overlay" id="mobileMenu">
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
         <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
-            <div class="mobile-menu-content">
-                <ul class="mobile-nav-menu">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
-                            Services
-                            <span class="arrow-icon">&#x25BC;</span> <!-- down arrow -->
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#experiences1">Local Expertise</a></li>
-                            <li><a href="#experiences2">Off The Beaten Track</a></li>
-                            <li><a href="#experiences2">Unforgettable Experiences</a></li>
-                            <li><a href="#experiences3">Travel Concierge</a></li>
-                            <li><a href="#experiences3">Private Transport</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#gallery-showcase">Inspiration</a></li>
-                    <li><a href="#testimonials">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li class="social-icons">
-                         <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">                            
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-                <div class="mobile-menu-image">
-                    <img src="./Images/PXL_20240925_061734060.jpg" alt="Menu image" />
-                </div>
+        <div class="mobile-menu-content">
+            <ul class="mobile-nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                        Services
+                        <span class="arrow-icon">&#x25BC;</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#local-expertise">Local Expertise</a></li>
+                        <li><a href="#off-beaten">Off The Beaten Track</a></li>
+                        <li><a href="#experiences">Unforgettable Experiences</a></li>
+                        <li><a href="#concierge">Travel Concierge</a></li>
+                        <li><a href="#transport">Private Transport</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Inspiration</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                
+                <li class="social-icons">
+                     <a href="#" target="_blank"><svg viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5z"/></svg></a>
+                     <a href="#" target="_blank"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/></svg></a>
+                </li>
+            </ul>
+            <div class="mobile-menu-image">
+                <img src="https://images.unsplash.com/photo-1518182170546-0766aa6f1a56?q=80&w=1978&auto=format&fit=crop" alt="Menu image" />
             </div>
+        </div>
     </div>
 
-     <!-- Hero Section -->
+    <!-- Hero Section -->
     <div class="hero">          
         <div class="hero-tagline">Our Services</div>        
     </div>
 
+    <!-- Main Services Content -->
+    <div class="services-section">
+
+        <!-- Intro Text Block -->
+        <section class="services-intro">
+            <!-- <div class="hero-subtitle">Bespoke Arctic Journeys</div> -->
+            <p>At Cloudberry Escapes, we craft seamless journeys that capture the essence of Northern Norway’s beauty and culture. Our suite of services ensures every aspect of your trip is thoughtfully designed and effortlessly executed.</p>
+        </section>
+
+        <!-- Service 1 -->
+        <div class="service-row" id="local-expertise">
+            <div class="service-image-container">
+                <div class="service-image">
+                    <!-- Placeholder: Local guide/map -->
+                    <img src="https://images.unsplash.com/photo-1520699049698-acd2fcc51056?q=80&w=2070&auto=format&fit=crop" alt="Local Expertise">
+                </div>
+            </div>
+            <div class="service-text">
+                <h2>Local <span>Expertise</span></h2>
+                <p>
+                    Rooted in the heart of the Arctic, our team possesses an intimate knowledge of Northern Norway's hidden gems. We move beyond the guidebooks, offering you access to secluded fjords, private dining experiences in Sami lavvus, and the best vantage points for the Northern Lights.
+                </p>
+                <p>
+                    Our network of local partners ensures that every interaction is authentic, supporting the community while providing you with an unparalleled depth of cultural immersion.
+                </p>
+            </div>
+        </div>
+
+        <div class="service-divider"></div>
+
+        <!-- Service 2 -->
+        <div class="service-row" id="off-beaten">
+            <div class="service-image-container">
+                <div class="service-image">
+                    <!-- Placeholder: Snowy landscape/hike -->
+                    <img src="https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef?q=80&w=2070&auto=format&fit=crop" alt="Off The Beaten Track">
+                </div>
+            </div>
+            <div class="service-text">
+                <h2>Off The Beaten <span>Track</span></h2>
+                <p>
+                    Escape the crowds and discover the silence of the true North. We specialize in curating itineraries that take you into the wild, untouched landscapes where nature reigns supreme. Whether it’s a snowshoe trek through silent pine forests or a private boat charter to uninhabited islands, we ensure privacy and exclusivity.
+                </p>
+                <p>
+                    Adventure lies where the road ends. Let us guide you to the places that remain pristine and majestic, far removed from standard tourist trails.
+                </p>
+            </div>
+        </div>
+
+        <div class="service-divider"></div>
+
+        <!-- Service 3 -->
+        <div class="service-row" id="experiences">
+            <div class="service-image-container">
+                <div class="service-image">
+                    <!-- Placeholder: Dog sledding or northern lights -->
+                    <img src="https://images.unsplash.com/photo-1543161026-6218d96008e7?q=80&w=2070&auto=format&fit=crop" alt="Unforgettable Experiences">
+                </div>
+            </div>
+            <div class="service-text">
+                <h2>Unforgettable <span>Experiences</span></h2>
+                <p>
+                    From the adrenaline rush of dog sledding across frozen lakes to the serene majesty of whale watching under the midnight sun, we craft moments that linger in memory forever. Our experiences are tailored to your pace and preferences, ensuring a perfect balance of thrill and relaxation.
+                </p>
+                <p>
+                    We curate every detail, from thermal suits to gourmet wilderness lunches, so you can focus entirely on the magic of the moment.
+                </p>
+            </div>
+        </div>
+
+        <div class="service-divider"></div>
+
+        <!-- Service 4 -->
+        <div class="service-row" id="concierge">
+            <div class="service-image-container">
+                <div class="service-image">
+                    <!-- Placeholder: Luxury interior/hotel -->
+                    <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=1974&auto=format&fit=crop" alt="Travel Concierge">
+                </div>
+            </div>
+            <div class="service-text">
+                <h2>Travel <span>Concierge</span></h2>
+                <p>
+                    Your comfort is our priority. Our full-service travel concierge handles every logistical detail of your journey. From the moment you land until your departure, we provide 24/7 support, restaurant reservations, activity bookings, and special requests.
+                </p>
+                <p>
+                    Enjoy the luxury of time. We manage the schedule, adapt to weather changes seamlessly, and ensure that your Arctic escape is effortless and stress-free.
+                </p>
+            </div>
+        </div>
+
+        <div class="service-divider"></div>
+
+        <!-- Service 5 -->
+        <div class="service-row" id="transport">
+            <div class="service-image-container">
+                <div class="service-image">
+                    <!-- Placeholder: Luxury car in snow -->
+                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop" alt="Private Transport">
+                </div>
+            </div>
+            <div class="service-text">
+                <h2>Private <span>Transport</span></h2>
+                <p>
+                    Navigate the Arctic in safety and style. We provide high-end private transportation with experienced drivers who are experts in winter driving conditions. Whether you require a luxury SUV for a couple or a spacious van for a group, our fleet is equipped for comfort and reliability.
+                </p>
+                <p>
+                    Door-to-door service means you never have to worry about maps or icy roads. Sit back, relax, and enjoy the stunning scenery rolling past your window.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
     <!-- CTA Section -->
-    <section class="cta-section">
+    <section class="cta-section" id="contact">
         <h2>Ready to Discover Your Arctic Adventure?</h2>
         <p>Let us craft your perfect Northern Norway escape. Reach out to our team to begin the conversation.</p>
         <button class="btn-primary">Get in Touch</button>
@@ -709,267 +716,74 @@
                 <p>+47 XXX XX XXX</p>
                 
                 <div class="footer-social-icons">
-                    <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
-                        </svg>
-                    </a>
-                    <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">                            
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
-                        </svg>
-                    </a>
+                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5z"/></svg></a>
+                    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/></svg></a>
                 </div>
                 <p style="margin-top: 16px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
             </div>
         </div>
     </footer>
 
-   <script>
-        // --- LOGO ANIMATION & NAV LOGIC ---
-        const animateLogo = () => {
-            const logo = document.getElementById('dynamic-hero-logo');
-            const nav = document.getElementById('mainNav');
-            const heroTagline = document.querySelector('.hero-tagline');
-            const heroInspireBtn = document.getElementById('heroInspireBtn');
+    <script>
+        // --- Navigation Logic ---
+        const nav = document.getElementById('mainNav');
+        const hamburgerBtn = document.getElementById('hamburgerMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeBtn = document.getElementById('mobileMenuClose');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-menu a');      
+
+        // Mobile Menu Toggles
+        if (hamburgerBtn && mobileMenu) {
+            hamburgerBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('open');
+                document.body.classList.add('mobile-menu-open');
+            });
+            closeBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                document.body.classList.remove('mobile-menu-open');
+            });
             
-            if (!logo || !nav) return;
-
-            const scrollY = window.scrollY;
-            
-            // 1. Fade out text elements (Tagline/Button) as we scroll
-            if (heroTagline && heroInspireBtn) {
-                if (scrollY > 50) {
-                    heroTagline.classList.add('fade-out');
-                    heroInspireBtn.classList.add('fade-out');
-                } else {
-                    heroTagline.classList.remove('fade-out');
-                    heroInspireBtn.classList.remove('fade-out');
-                }
-            }
-            
-            // 2. Nav Background Logic
-            if (scrollY > 200) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-
-            // 3. Logo Size/Position Logic
-            
-            // Configuration
-            const maxScroll = 400; // Increased from 300 to slow down the effect
-            
-            // Calculate progress (0 to 1)
-            let progress = Math.min(scrollY / maxScroll, 1);
-            
-            // Determine screen size context for responsiveness
-            const isMobile = window.innerWidth <= 768;
-            
-            // Dimensions (Width)
-            // UPDATED: Increased start width for bigger initial impact
-            const startWidth = isMobile ? 260 : 450; // Pixels (was 200/350)
-            const endWidth = isMobile ? 110 : 150;   // Pixels
-            
-            // Positions (Top Center)
-            // UPDATED: Start Higher up (40vh instead of 50vh)
-            const startY = window.innerHeight * 0.45; 
-            const endY = 45; // Approximate vertical center of nav
-            
-            // Interpolate
-            const currentWidth = startWidth - (progress * (startWidth - endWidth));
-            const currentY = startY - (progress * (startY - endY));
-            
-            // Apply Styles
-            logo.style.width = `${currentWidth}px`;
-            logo.style.top = `${currentY}px`;
-        };
-
-        window.addEventListener('scroll', animateLogo);
-        window.addEventListener('resize', animateLogo);
-        
-        // Initial call to set position
-        animateLogo();
-
-        // --- OTHER EXISTING SCRIPTS ---
-        
-        // Carousel Logic
-        const updateCarouselButtons = () => {
-            const carousel = document.getElementById('galleryCarousel');
-            const buttons = document.querySelectorAll('.carousel-button');
-            if (!carousel || buttons.length < 2) return;
-            
-            const prevBtn = buttons[0];
-            const nextBtn = buttons[1];
-            
-            const isAtStart = carousel.scrollLeft <= 2; 
-            const isAtEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 2;
-
-            prevBtn.disabled = isAtStart;
-            nextBtn.disabled = isAtEnd;
-
-            isAtStart ? prevBtn.classList.add('disabled') : prevBtn.classList.remove('disabled');
-            isAtEnd ? nextBtn.classList.add('disabled') : nextBtn.classList.remove('disabled');
-        };
-
-        const scrollCarousel = (direction) => {
-            const carousel = document.getElementById('galleryCarousel');
-            const isNext = direction === 1;
-            const targetButton = document.querySelectorAll('.carousel-button')[isNext ? 1 : 0];
-            if (targetButton && targetButton.disabled) return;
-
-            if (carousel) {
-                const scrollDistance = 470;
-                carousel.scrollBy({ left: direction * scrollDistance, behavior: 'smooth' });
-                setTimeout(updateCarouselButtons, 350);
-            }
-        };
-
-        // Hero Background Slider
-        window.addEventListener('DOMContentLoaded', () => {
-            const heroBgContainer = document.querySelector('.hero');
-            let heroBg = document.querySelector('.hero-bg');
-            
-            if (heroBgContainer && heroBg) {
-                const images = [
-                    './Images/7U1A4441.steinar.jpg',
-                    './Images/IMG_5142.jpg',
-                    './Images/PXL_20240125_110049315.jpg',
-                    './Images/IMG_20191019_085619.jpg'
-                ];
-
-                let currentIndex = 0;
-                heroBg.style.backgroundImage = `url(${images[0]})`;
-
-                function changeBackground() {
-                    currentIndex = (currentIndex + 1) % images.length;
-                    const newBg = document.createElement('div');
-                    newBg.className = 'hero-bg fade-in';
-                    newBg.style.backgroundImage = `url(${images[currentIndex]})`;
-                    heroBgContainer.appendChild(newBg);
-
-                    setTimeout(() => {
-                        heroBg.classList.add('fade-out');
-                        setTimeout(() => {
-                            if (heroBg.parentElement) heroBg.remove();
-                            heroBg = newBg;
-                            heroBg.classList.remove('fade-in');
-                        }, 1000);
-                    }, 50);
-                }
-                setInterval(changeBackground, 10000);
-            }
-
-            // Mobile Menu
-            const hamburgerBtn = document.getElementById('hamburgerMenu');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const closeBtn = document.getElementById('mobileMenuClose');
-            const mobileLinks = document.querySelectorAll('.mobile-nav-menu a');
-
-            if (hamburgerBtn && mobileMenu) {
-                hamburgerBtn.addEventListener('click', () => {
-                    mobileMenu.classList.add('open');
-                    document.body.classList.add('mobile-menu-open');
-                });
-                closeBtn.addEventListener('click', () => {
+            // Close menu when a link is clicked (unless it's a dropdown toggle)
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (link.classList.contains('dropdown-toggle')) return;
                     mobileMenu.classList.remove('open');
                     document.body.classList.remove('mobile-menu-open');
                 });
-                
-                // FIX: Check if the link is a dropdown toggle before closing the menu
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        // If it's the dropdown toggle, do nothing (return) so the menu stays open
-                        if (link.classList.contains('dropdown-toggle')) {
-                            return; 
-                        }
-                        
-                        mobileMenu.classList.remove('open');
-                        document.body.classList.remove('mobile-menu-open');
-                    });
-                });
-            }
-            
-            // Floating Menu Scroll Logic
-            const floatingMenu = document.getElementById('floatingSocialMenu');
-            const parallaxSection = document.getElementById('parallaxSection');
-            const parallaxBg = document.getElementById('parallaxBg');
-            
-            window.addEventListener('scroll', function() {
-                const scrollP = window.scrollY;
-                
-                if (floatingMenu) {
-                    if (scrollP > 500) floatingMenu.classList.add('visible');
-                    else floatingMenu.classList.remove('visible');
-                }
-
-                if (parallaxSection && parallaxBg) {
-                    const pOffset = parallaxSection.offsetTop;
-                    const pHeight = parallaxSection.offsetHeight;
-                    if (scrollP + window.innerHeight > pOffset && scrollP < pOffset + pHeight) {
-                        const offset = (scrollP - pOffset) * 0.5;
-                        parallaxBg.style.transform = `translateY(${offset}px)`;
-                    }
-                }
             });
-
-            // Smooth Scroll Helpers
-            const inspireBtn = document.getElementById('heroInspireBtn');
-            if (inspireBtn) {
-                inspireBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    document.getElementById('gallery-showcase')?.scrollIntoView({ behavior: 'smooth' });
-                });
-            }
-            
-            const scrollTopBtn = document.getElementById('scrollToTopBtn');
-            if (scrollTopBtn) {
-                scrollTopBtn.addEventListener('click', () => {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
-
-            // Gallery Toggle
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                item.addEventListener('click', function(e) {
-                    if (e.target.classList.contains('gallery-read-more')) return;
-                    e.preventDefault();
-                    const wasActive = this.classList.contains('is-active');
-                    document.querySelectorAll('.gallery-item').forEach(i => i.classList.remove('is-active'));
-                    if (!wasActive) this.classList.add('is-active');
-                });
-            });
-        });
-       
-            document.addEventListener('DOMContentLoaded', () => {
-            const dropdownToggle = document.querySelector('.mobile-nav-menu .dropdown-toggle');
-            const dropdown = dropdownToggle.closest('.dropdown');
-
-            if (dropdownToggle && dropdown) {
-                dropdownToggle.addEventListener('click', (e) => {
-                    e.preventDefault();   // Prevent following the "#" link
-                    e.stopPropagation();  // Prevent closing menu by parent handlers
-                    dropdown.classList.toggle('open');
-                });
-            }
-        });
-
-
-        // Newsletter
-        function handleSubscription() {
-            const email = document.getElementById('emailInput').value;
-            const messageElement = document.getElementById('subscriptionMessage');
-            if (!email || !email.includes('@') || !email.includes('.')) {
-                messageElement.textContent = "Please enter a valid email address.";
-                messageElement.style.color = 'var(--color-accent)';
-                return;
-            }
-            messageElement.textContent = `Thank you for subscribing, ${email}!`;
-            messageElement.style.color = 'var(--color-dark-secondary)';
-            document.getElementById('emailInput').value = '';
-            setTimeout(() => { messageElement.textContent = ''; }, 5000);
         }
-    </script>
 
+        // Mobile Dropdown Logic
+        const dropdownToggle = document.querySelector('.mobile-nav-menu .dropdown-toggle');
+        const dropdown = dropdownToggle ? dropdownToggle.closest('.dropdown') : null;
+
+        if (dropdownToggle && dropdown) {
+            dropdownToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropdown.classList.toggle('open');
+            });
+        }
+
+        // --- Intersection Observer for Scroll Animations ---
+        const observerOptions = {
+            threshold: 0.2, // Trigger when 20% of the element is visible
+            rootMargin: "0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-row').forEach(row => {
+            observer.observe(row);
+        });
+
+    </script>
 </body>
 </html>
