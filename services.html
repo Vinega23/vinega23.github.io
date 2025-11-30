@@ -14,6 +14,7 @@
             --color-accent: #ec6d3a;
             --color-white: #FFFFFF;
             --color-black-transparent: rgba(21, 20, 25, 0.95);
+            --color-black-cut: rgba(21, 20, 25, 0.8);
             --color-black-scrolled: rgba(21, 20, 25, 1);
         }
 
@@ -83,14 +84,14 @@
             transition: all 0.3s ease;
         }
         
-        /* Mobile Menu Overlay - Slightly transparent dark background */
+        /* Mobile Menu Overlay */
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--color-black-scrolled); /* Matches the scrolled nav color */
+            background: var(--color-black-scrolled);
             backdrop-filter: blur(15px);
             z-index: 1000;
             opacity: 0;
@@ -242,56 +243,21 @@
             animation: fadeInUp 1.2s ease-out;
         }
         
-        /* .hero-subtitle {
-            position: relative;
-            z-index: 2;
-            font-size: 18px;
-            color: var(--color-accent);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            animation: fadeInUp 1.2s ease-out 0.3s both;
-            margin-bottom: 80px;
-        }         */
-
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- SERVICES FLOW LAYOUT --- */
-         .services-section {
-            padding: 0; /* Remove vertical padding for cleaner flow */
-            max-width: 100%; /* Break the 1200px limit */
-            width: 100%;
-            overflow-x: hidden;
+        /* --- NEW GRID LAYOUT CSS --- */
+        .services-section {
+            padding: 80px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-       .service-row {
-            display: flex;
-            align-items: center; 
-            width: 100%;
-            margin-bottom: 0; /* Flush layout, or add margin if you want gaps */
-            padding: 0;
-            opacity: 0; 
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-            min-height: 750px; /* Force rows to be tall for big pictures */
-        }
-        
-        .service-row.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Alternating Order - using nth-of-type to ignore the intro section */
-        div.service-row:nth-of-type(even) {
-            flex-direction: row-reverse;
-        }
-
-        /* Intro Text Styles - Updated per request */
-       .services-intro {
+        .services-intro {
             max-width: 800px;
-            margin: 100px auto; /* Add vertical spacing back here */
+            margin: 0 auto 60px auto;
             text-align: center;
             padding: 0 20px;
             opacity: 0;
@@ -303,68 +269,205 @@
             color: var(--color-light-bg);
             line-height: 1.8;
             margin-bottom: 24px; 
-        }    
-
-        .service-image-container {
-            flex: 0 0 55%; /* Image takes 55% of the screen */
-            width: 55%;
-            height: 750px; /* Fixed tall height */
-            position: relative;
         }
 
-        .service-image {
+        /* The Grid Container */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns */
+            gap: 40px; /* Space between cards */
+            width: 100%;
+        }
+
+        /* --- FLIP CARD STYLES START --- */
+        
+        /* The container for the flip effect */
+        .service-card {
+            background-color: transparent;
+            height: 700px; /* Fixed height is important for flip */
+            width: 100%;
+            perspective: 1000px; /* Gives the 3D effect */
+            opacity: 0; /* For the fade-in animation on scroll */
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            border-radius: 2px;
+        }
+
+        .service-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* This container is needed to position the front and back side */
+        .flip-inner {
             position: relative;
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            z-index: 1;
+            text-align: left;
+            transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); /* Smooth flip */
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         }
 
-        .service-image img {
+        /* Class to apply the rotation (added via JS) */
+        .service-card.flipped .flip-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* Position the front and back side */
+        .flip-front, .flip-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 2px;
+            overflow: hidden; /* Ensures images/bg don't bleed out */
+        }
+
+        /* Style the front side */
+        .flip-front {
+            background-color: var(--color-dark-primary);
+            color: black;
+        }
+
+        .flip-front img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .service-image-container:hover .service-image img {
+        .service-card:hover .flip-front img {
             transform: scale(1.05);
         }
 
-        .service-text {
-            flex: 0 0 45%; /* Text takes remaining 45% */
-            width: 45%;
-            padding: 60px 80px; /* Ample padding for readability */
+        /* The "Cut" Text Container (Front) */
+        .service-text-cut {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--color-black-cut);    
+            /* clip-path: polygon(0 0, 85% 0, 100% 100%, 0% 100%); */
+            padding: 40px 60px 40px 40px;
             color: var(--color-light-bg);
+            transition: background 0.3s ease;
+        }
+        
+        .service-text-cut h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin-bottom: 12px;
+            color: var(--color-light-bg);
+        }
+
+        .service-text-cut h2 span {
+            color: var(--color-light-bg);
+        }
+
+        .service-text-cut p {
+            font-size: 15px;
+            line-height: 1.6;
+            font-weight: 300;
+            color: rgba(255, 234, 219, 0.9);
+            margin-bottom: 15px; 
+        }
+
+        /* Style the back side */
+        .flip-back {
+            background: var(--color-black-scrolled);
+            color: var(--color-light-bg);
+            transform: rotateY(180deg);
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            padding: 60px;
+            text-align: center;
+            border: 1px solid rgba(255, 234, 219, 0.1);
         }
 
-        .service-text h2 {
+        .flip-back h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 42px; /* Slightly larger heading for balance */
+            font-size: 28px;
             margin-bottom: 24px;
+            color: var(--color-accent);
+        }
+
+        .flip-back p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: rgba(255, 234, 219, 0.9);
+            max-width: 90%;
+            /* Optional: make text scrollable if too long */
+            max-height: 70%;
+            overflow-y: auto;
+        }
+        
+        /* Custom Scrollbar for back content */
+        .flip-back p::-webkit-scrollbar {
+            width: 6px;
+        }
+        .flip-back p::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05); 
+        }
+        .flip-back p::-webkit-scrollbar-thumb {
+            background: var(--color-accent); 
+            border-radius: 3px;
+        }
+
+        /* Buttons for Read More / Read Less */
+        .btn-card {
+            background: transparent;
+            border: 1px solid var(--color-light-bg);
+            color: var(--color-light-bg);
+            padding: 10px 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .btn-card:hover {
+            background: var(--color-dark-primary);
             color: var(--color-light-bg);
         }
 
-        /* .service-text h2 span {
-            color: var(--color-accent);
-        } */
-
-        .service-text p {
-            font-size: 16px;
-            color: var(--color-light-bg); 
-            margin-bottom: 20px;
-            line-height: 1.8;
-            font-weight: 300;
-        }
-
-        /* Divider */
-         .service-divider {
-            display: none; 
+        .btn-card-back {
+            background: var(--color-light-bg);
+            color: var(--color-dark-primary);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
         }
         
+        .btn-card-back:hover {
+            background: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        /* --- FLIP CARD STYLES END --- */
+
+
+        /* The 5th item (Single one under) */
+        .service-card.full-width {
+            grid-column: 1 / -1; /* Spans all columns */
+            margin-top: 0;
+            height: 600px; 
+        }
+        
+        .service-card.full-width .service-text-cut {
+            width: 50%;
+            /* clip-path: polygon(0 0, 90% 0, 100% 100%, 0% 100%); */
+            left: 22rem;
+        }
+
         /* --- CTA SECTION --- */
         .cta-section {
             padding: 100px 60px;
@@ -481,24 +584,38 @@
         @media (max-width: 1024px) {
             .hero-tagline { font-size: 36px; }
             .services-section { padding: 60px 20px; }
-            .service-row { gap: 40px; }
+            .service-card, .service-card.full-width { height: 600px; }
+            .service-text-cut h2 { font-size: 28px; }
         }
 
         @media (max-width: 768px) {
             nav { padding: 10px 20px; }
-            .service-row, div.service-row:nth-of-type(even) {
-                flex-direction: column;
-                gap: 40px;
-                margin-bottom: 80px;
-                padding: 0;
+            
+            /* Stack everything on mobile */
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
             }
             
-            .service-image-container {
-                width: 100%;
-                height: 300px;
+            .service-card.full-width {
+                grid-column: span 1; /* Reset to single column */
+            }
+
+            .service-card, .service-card.full-width {
+                height: 500px; /* Shorter on mobile */
+            }
+
+            .service-text-cut, .service-card.full-width .service-text-cut {
+                width: 95%; 
+                clip-path: none; 
+                border-top-right-radius: 20px; 
+                padding: 25px;
             }
             
-            .service-text { text-align: left; }
+            .service-text-cut {
+                 padding: 25px;
+            }
+
             .footer-content { grid-template-columns: 1fr; gap: 40px; }
             
             .mobile-menu-content { flex-direction: column; }
@@ -513,12 +630,10 @@
     <!-- Navigation -->
     <nav id="mainNav">
         <div class="logo">
-            <!-- Ensure this path is correct relative to your new file location -->
             <img src="./Images/Logo/CE_logo_beige.png" alt="Cloudberry Escapes" onerror="this.style.display='none'; document.querySelector('.logo-text').style.display='block'">
             <span class="logo-text" style="display:none; color:white; font-family:'Playfair Display'; font-weight:bold; font-size:20px;">CLOUDBERRY</span>
         </div>
         
-        <!-- Standard Links Hidden (Hamburger only) -->
         <ul class="nav-menu">
             <li><a href="index.html">Home</a></li>
             <li><a href="services.html">Services</a></li>
@@ -527,7 +642,6 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
 
-        <!-- Hamburger Menu Button -->
         <button class="hamburger-menu" id="hamburgerMenu" aria-label="Open menu">
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
@@ -578,114 +692,110 @@
     <div class="services-section">
 
         <!-- Intro Text Block -->
-        <section class="services-intro">
-            <!-- <div class="hero-subtitle">Bespoke Arctic Journeys</div> -->
+        <!-- <section class="services-intro">
             <p>At Cloudberry Escapes, we craft seamless journeys that capture the essence of Northern Norway’s beauty and culture. Our suite of services ensures every aspect of your trip is thoughtfully designed and effortlessly executed.</p>
-        </section>
+        </section> -->
 
-        <!-- Service 1 -->
-        <div class="service-row" id="local-expertise">
-            <div class="service-image-container">
-                <div class="service-image">
-                    <!-- Placeholder: Local guide/map -->
-                    <img src="https://images.unsplash.com/photo-1520699049698-acd2fcc51056?q=80&w=2070&auto=format&fit=crop" alt="Local Expertise">
+        <div class="services-grid">
+            
+            <!-- Service 1: Local Expertise -->
+            <div class="service-card" id="local-expertise">
+                <div class="flip-inner">
+                    <!-- Front Side -->
+                    <div class="flip-front">
+                        <img src="./Images/_DSC0235 elg i ringstad.jpg" alt="Local Expertise" onerror="this.src='https://images.unsplash.com/photo-1520638023360-6def43369781?q=80&w=2070&auto=format&fit=crop'">
+                        <div class="service-text-cut">
+                            <h2>Local <span>Expertise</span></h2>
+                            <p>With deep knowledge and local connections, we offer authentic experiences that only insiders can provide.</p>
+                            <button class="btn-card read-more-btn">Read More</button>
+                        </div>
+                    </div>
+                    <!-- Back Side -->
+                    <div class="flip-back">
+                        <h3>Local Expertise</h3>
+                        <p>With co-founder Yves Jacobs’ background in Arctic tourism operations and destination management, every journey is designed with seamless execution in mind. Meanwhile, Bram Bril’s deep experience in luxury travel sales ensures that each itinerary is crafted to meet the refined expectations of our discerning clientele. Together, they bring a level of precision, authenticity, and exclusivity that simply can’t be found elsewhere.</p>
+                        <button class="btn-card btn-card-back read-less-btn">Read Less</button>
+                    </div>
                 </div>
             </div>
-            <div class="service-text">
-                <h2>Local <span>Expertise</span></h2>
-                <p>
-                    Rooted in the heart of the Arctic, our team possesses an intimate knowledge of Northern Norway's hidden gems. We move beyond the guidebooks, offering you access to secluded fjords, private dining experiences in Sami lavvus, and the best vantage points for the Northern Lights.
-                </p>
-                <p>
-                    Our network of local partners ensures that every interaction is authentic, supporting the community while providing you with an unparalleled depth of cultural immersion.
-                </p>
-            </div>
-        </div>
 
-        <div class="service-divider"></div>
-
-        <!-- Service 2 -->
-        <div class="service-row" id="off-beaten">
-            <div class="service-image-container">
-                <div class="service-image">
-                    <!-- Placeholder: Snowy landscape/hike -->
-                    <img src="https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef?q=80&w=2070&auto=format&fit=crop" alt="Off The Beaten Track">
+            <!-- Service 2: Off The Beaten Track -->
+            <div class="service-card" id="off-beaten">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <img src="https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef?q=80&w=2070&auto=format&fit=crop" alt="Off The Beaten Track">
+                        <div class="service-text-cut">
+                            <h2>Off The Beaten <span>Track</span></h2>
+                            <p>Escape the crowds. We specialize in curating itineraries into wild, untouched landscapes where nature reigns supreme and privacy is guaranteed.</p>
+                            <button class="btn-card read-more-btn">Read More</button>
+                        </div>
+                    </div>
+                    <div class="flip-back">
+                        <h3>Hidden Gems</h3>
+                        <p>Our scouts are constantly exploring Northern Norway to find locations that haven't made it to the guidebooks yet. We take you to secluded fjords, private islands, and mountain cabins accessible only by helicopter or private boat. Experience the silence of the Arctic in locations where you are the only guests for miles.</p>
+                        <button class="btn-card btn-card-back read-less-btn">Read Less</button>
+                    </div>
                 </div>
             </div>
-            <div class="service-text">
-                <h2>Off The Beaten <span>Track</span></h2>
-                <p>
-                    Escape the crowds and discover the silence of the true North. We specialize in curating itineraries that take you into the wild, untouched landscapes where nature reigns supreme. Whether it’s a snowshoe trek through silent pine forests or a private boat charter to uninhabited islands, we ensure privacy and exclusivity.
-                </p>
-                <p>
-                    Adventure lies where the road ends. Let us guide you to the places that remain pristine and majestic, far removed from standard tourist trails.
-                </p>
-            </div>
-        </div>
 
-        <div class="service-divider"></div>
-
-        <!-- Service 3 -->
-        <div class="service-row" id="experiences">
-            <div class="service-image-container">
-                <div class="service-image">
-                    <!-- Placeholder: Dog sledding or northern lights -->
-                    <img src="https://images.unsplash.com/photo-1543161026-6218d96008e7?q=80&w=2070&auto=format&fit=crop" alt="Unforgettable Experiences">
+            <!-- Service 3: Unforgettable Experiences -->
+            <div class="service-card" id="experiences">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <img src="./Images/Bilde 19.02.2021, 21 22 04 (1).jpg" alt="Unforgettable Experiences" onerror="this.src='https://images.unsplash.com/photo-1531366936337-7c912a4589a7?q=80&w=2070&auto=format&fit=crop'">
+                        <div class="service-text-cut">
+                            <h2>Unforgettable <span>Experiences</span></h2>
+                            <p>From dog sledding across frozen lakes to whale watching under the midnight sun, we craft moments that linger in memory forever.</p>
+                            <button class="btn-card read-more-btn">Read More</button>
+                        </div>
+                    </div>
+                    <div class="flip-back">
+                        <h3>Immersive Activities</h3>
+                        <p>Whether it's a private Sami cultural encounter, a King Crab safari, or hunting for the Northern Lights with a professional photographer, we curate activities that resonate with your interests. We work exclusively with top-tier local providers to ensure safety, comfort, and a truly magical experience.</p>
+                        <button class="btn-card btn-card-back read-less-btn">Read Less</button>
+                    </div>
                 </div>
             </div>
-            <div class="service-text">
-                <h2>Unforgettable <span>Experiences</span></h2>
-                <p>
-                    From the adrenaline rush of dog sledding across frozen lakes to the serene majesty of whale watching under the midnight sun, we craft moments that linger in memory forever. Our experiences are tailored to your pace and preferences, ensuring a perfect balance of thrill and relaxation.
-                </p>
-                <p>
-                    We curate every detail, from thermal suits to gourmet wilderness lunches, so you can focus entirely on the magic of the moment.
-                </p>
-            </div>
-        </div>
 
-        <div class="service-divider"></div>
-
-        <!-- Service 4 -->
-        <div class="service-row" id="concierge">
-            <div class="service-image-container">
-                <div class="service-image">
-                    <!-- Placeholder: Luxury interior/hotel -->
-                    <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=1974&auto=format&fit=crop" alt="Travel Concierge">
+            <!-- Service 4: Travel Concierge -->
+            <div class="service-card" id="concierge">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=1974&auto=format&fit=crop" alt="Travel Concierge">
+                        <div class="service-text-cut">
+                            <h2>Travel <span>Concierge</span></h2>
+                            <p>Our full-service concierge handles every detail, from restaurant reservations to activity bookings, ensuring your Arctic escape is effortless.</p>
+                            <button class="btn-card read-more-btn">Read More</button>
+                        </div>
+                    </div>
+                    <div class="flip-back">
+                        <h3>24/7 Support</h3>
+                        <p>Relax knowing that we are always just a phone call away. Need to change a dinner reservation? Want to add a last-minute spa treatment? Our concierge team is dedicated to fulfilling your requests swiftly and discreetly, allowing you to focus entirely on enjoying your journey.</p>
+                        <button class="btn-card btn-card-back read-less-btn">Read Less</button>
+                    </div>
                 </div>
             </div>
-            <div class="service-text">
-                <h2>Travel <span>Concierge</span></h2>
-                <p>
-                    Your comfort is our priority. Our full-service travel concierge handles every logistical detail of your journey. From the moment you land until your departure, we provide 24/7 support, restaurant reservations, activity bookings, and special requests.
-                </p>
-                <p>
-                    Enjoy the luxury of time. We manage the schedule, adapt to weather changes seamlessly, and ensure that your Arctic escape is effortless and stress-free.
-                </p>
-            </div>
-        </div>
 
-        <div class="service-divider"></div>
-
-        <!-- Service 5 -->
-        <div class="service-row" id="transport">
-            <div class="service-image-container">
-                <div class="service-image">
-                    <!-- Placeholder: Luxury car in snow -->
-                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop" alt="Private Transport">
+            <!-- Service 5: Private Transport (Full Width) -->
+            <div class="service-card full-width" id="transport">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop" alt="Private Transport">
+                        <div class="service-text-cut">
+                            <h2>Private <span>Transport</span></h2>
+                            <p>Navigate the Arctic in safety and style. We provide high-end private transportation with experienced drivers, so you can relax and enjoy the scenery.</p>
+                            <button class="btn-card read-more-btn">Read More</button>
+                        </div>
+                    </div>
+                    <div class="flip-back">
+                        <h3>Journey in Comfort</h3>
+                        <p>Our fleet consists of premium 4x4 vehicles equipped to handle Arctic winter conditions with ease. Our drivers are local experts who know the roads intimately. For longer distances or a truly spectacular arrival, we can also arrange private helicopter transfers or chartered yachts.</p>
+                        <button class="btn-card btn-card-back read-less-btn">Read Less</button>
+                    </div>
                 </div>
             </div>
-            <div class="service-text">
-                <h2>Private <span>Transport</span></h2>
-                <p>
-                    Navigate the Arctic in safety and style. We provide high-end private transportation with experienced drivers who are experts in winter driving conditions. Whether you require a luxury SUV for a couple or a spacious van for a group, our fleet is equipped for comfort and reliability.
-                </p>
-                <p>
-                    Door-to-door service means you never have to worry about maps or icy roads. Sit back, relax, and enjoy the stunning scenery rolling past your window.
-                </p>
-            </div>
-        </div>
 
+        </div>
     </div>
 
     <!-- CTA Section -->
@@ -767,7 +877,7 @@
 
         // --- Intersection Observer for Scroll Animations ---
         const observerOptions = {
-            threshold: 0.2, // Trigger when 20% of the element is visible
+            threshold: 0.1, 
             rootMargin: "0px"
         };
 
@@ -775,13 +885,45 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Only animate once
+                    observer.unobserve(entry.target); 
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.service-row').forEach(row => {
+        document.querySelectorAll('.service-card').forEach(row => {
             observer.observe(row);
+        });
+
+        // --- FLIP CARD LOGIC ---
+        // Handles the click on Read More / Read Less buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Add click listeners to all Read More buttons
+            const readMoreBtns = document.querySelectorAll('.read-more-btn');
+            readMoreBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    // Stop bubbling so we don't trigger other clicks if any
+                    e.stopPropagation(); 
+                    // Find the parent service-card
+                    const card = this.closest('.service-card');
+                    if(card) {
+                        card.classList.add('flipped');
+                    }
+                });
+            });
+
+            // Add click listeners to all Read Less buttons
+            const readLessBtns = document.querySelectorAll('.read-less-btn');
+            readLessBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const card = this.closest('.service-card');
+                    if(card) {
+                        card.classList.remove('flipped');
+                    }
+                });
+            });
+
         });
 
     </script>
