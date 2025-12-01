@@ -165,7 +165,7 @@
             gap: 24px;            
             margin-top: auto; 
             padding-top: 20px; 
-            margin-bottom: 50px;
+            margin-bottom: 100px;
         }
 
         .mobile-nav-menu .social-icons a {
@@ -210,7 +210,7 @@
 
         /* --- HERO SECTION --- */
         .hero {
-            height: 60vh; 
+            height: 50vh; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -238,9 +238,10 @@
             font-family: 'Playfair Display', serif;
             font-size: 48px; 
             color: var(--color-light-bg);
-            letter-spacing: 0.05em;
-            margin-bottom: 20px;
+            letter-spacing: 0.05em;            
             animation: fadeInUp 1.2s ease-out;
+            left: 0%;
+            top: 0%;
         }
         
         @keyframes fadeInUp {
@@ -257,7 +258,7 @@
 
         .services-intro {
             max-width: 800px;
-            margin: 0 auto 60px auto;
+            margin: 0 auto 80px auto;
             text-align: center;
             padding: 0 20px;
             opacity: 0;
@@ -269,7 +270,7 @@
             color: var(--color-light-bg);
             line-height: 1.8;
             margin-bottom: 24px; 
-        }
+        }        
 
         /* The Grid Container */
         .services-grid {
@@ -435,8 +436,9 @@
         }
 
         .btn-card:hover {
-            background: var(--color-dark-primary);
-            color: var(--color-light-bg);
+            background: var(--color-dark-secondary);
+            color: var(--color-dark-primary);
+            border: 1px solid var(--color-dark-primary);
         }
 
         .btn-card-back {
@@ -463,9 +465,11 @@
         }
         
         .service-card.full-width .service-text-cut {
-            width: 50%;
-            /* clip-path: polygon(0 0, 90% 0, 100% 100%, 0% 100%); */
-            left: 22rem;
+            width: 50%;         
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            text-align: center;
         }
 
         /* --- CTA SECTION --- */
@@ -673,12 +677,16 @@
                 <li><a href="#contact">Contact</a></li>
                 
                 <li class="social-icons">
-                     <a href="#" target="_blank"><svg viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5z"/></svg></a>
-                     <a href="#" target="_blank"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/></svg></a>
+                        <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+                            </svg>
+                        </a>                     
+                        <a href="#" target="_blank"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/></svg></a>
                 </li>
             </ul>
             <div class="mobile-menu-image">
-                <img src="https://images.unsplash.com/photo-1518182170546-0766aa6f1a56?q=80&w=1978&auto=format&fit=crop" alt="Menu image" />
+                <img src="./Images/PXL_20240925_061734060.jpg" alt="Menu image" />
             </div>
         </div>
     </div>
@@ -691,10 +699,10 @@
     <!-- Main Services Content -->
     <div class="services-section">
 
-        <!-- Intro Text Block -->
-        <!-- <section class="services-intro">
-            <p>At Cloudberry Escapes, we craft seamless journeys that capture the essence of Northern Norway’s beauty and culture. Our suite of services ensures every aspect of your trip is thoughtfully designed and effortlessly executed.</p>
-        </section> -->
+        <!--Intro Text Block-->
+        <section class="services-intro">
+            <p>At Cloudberry Escapes, we craft seamless journeys that capture the essence of Northern Norway’s beauty and culture. Our suite of services ensures every aspect of your trip is thoughtfully designed and effortlessly executed.</p>           
+        </section>        
 
         <div class="services-grid">
             
@@ -723,7 +731,7 @@
             <div class="service-card" id="off-beaten">
                 <div class="flip-inner">
                     <div class="flip-front">
-                        <img src="https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef?q=80&w=2070&auto=format&fit=crop" alt="Off The Beaten Track">
+                        <img src="./Images/PXL_20240121_113505042.jpg" alt="Off The Beaten Track">
                         <div class="service-text-cut">
                             <h2>Off The Beaten <span>Track</span></h2>
                             <p>Escape the crowds. We specialize in curating itineraries into wild, untouched landscapes where nature reigns supreme and privacy is guaranteed.</p>
@@ -761,7 +769,7 @@
             <div class="service-card" id="concierge">
                 <div class="flip-inner">
                     <div class="flip-front">
-                        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=1974&auto=format&fit=crop" alt="Travel Concierge">
+                        <img src="./Images/_MAB0920lunde med fisk.jpg" alt="Travel Concierge">
                         <div class="service-text-cut">
                             <h2>Travel <span>Concierge</span></h2>
                             <p>Our full-service concierge handles every detail, from restaurant reservations to activity bookings, ensuring your Arctic escape is effortless.</p>
@@ -780,7 +788,7 @@
             <div class="service-card full-width" id="transport">
                 <div class="flip-inner">
                     <div class="flip-front">
-                        <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop" alt="Private Transport">
+                        <img src="./Images/11062b_07b13061ba204761aab6f1951c7d2c6c~mv2.avif" alt="Private Transport">
                         <div class="service-text-cut">
                             <h2>Private <span>Transport</span></h2>
                             <p>Navigate the Arctic in safety and style. We provide high-end private transportation with experienced drivers, so you can relax and enjoy the scenery.</p>
@@ -826,8 +834,12 @@
                 <p>+47 XXX XX XXX</p>
                 
                 <div class="footer-social-icons">
-                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5z"/></svg></a>
-                    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/></svg></a>
+                        <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+                            </svg>
+                        </a>                    
+                        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/></svg></a>
                 </div>
                 <p style="margin-top: 16px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
             </div>
