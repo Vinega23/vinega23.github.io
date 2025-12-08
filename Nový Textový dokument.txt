@@ -1,0 +1,26 @@
+<div class="story-content">
+            <h2>This Is Our Story</h2>
+            <p>
+                <span class="highlight">Cloudberry Escapes</span> emerged from our deep connection to 
+                <span class="highlight">Northern Norway</span>. Here, 
+                <span class="highlight">time slows down</span>, the sea kisses 
+                <span class="highlight">rugged cliffs</span>, and 
+                <span class="highlight">winter nights</span> dazzle with 
+                <span class="highlight">vibrant colors</span>. We wanted to share this enchantment 
+                in a <span class="highlight">personal and unforgettable</span> way.
+            </p>
+
+            <p>
+                Our trips go beyond ticking off sights; they <span class="highlight">touch the heart</span>. 
+                We blend <span class="highlight">luxury</span> with 
+                <span class="highlight">nature's raw beauty</span>, making every moment 
+                memorable. Our mission? To reveal Northern Norway's 
+                <span class="highlight">wonder, peace, and discovery</span>.
+            </p>
+
+            <p>
+                Every trip we design reflects <span class="highlight">our passion for unique experiences.</span> Sailing under the midnight sun, immersing in local culture—it's <span class="highlight">the unexpected moments that truly captivate.</span>
+                <span class="highlight">This is our story.</span> We can't wait to help you write yours.
+            </p>           
+            <button class="btn-primary">Read More</button>
+        </div>

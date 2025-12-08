@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiences - Cloudberry Escapes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- CORE VARIABLES & RESET --- */
+        :root {
+            --color-dark-primary: #102632;
+            --color-dark-secondary: #25414E;
+            --color-grey-medium: #f8f8f8;
+            --color-light-bg: #FFEADB;
+            --color-accent: #ec6d3a;
+            --color-white: #FFFFFF;
+            --color-black-transparent: rgba(21, 20, 25, 0.95);
+            --color-black-scrolled: rgba(21, 20, 25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;            
+            color: var(--color-dark-secondary);
+            line-height: 1.7;           
+            background: var(--color-light-bg); 
+            overflow-x: hidden;
+        }
+
+        body.mobile-menu-open {
+            overflow: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;           
+            background: var(--color-black-transparent); 
+            backdrop-filter: blur(0px);
+            padding: 2px 70px;
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            z-index: 100;
+            transition: all 0.4s ease;
+            height: 90px; 
+            border-bottom: 1px solid transparent;
+        }
+        
+        .logo img {          
+            width: 150px;
+            margin-top: 8px;
+        }
+        
+        .nav-menu {
+            display: none;          
+        }       
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--color-light-bg);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .nav-menu a:hover {
+            color: var(--color-accent);
+        }
+
+        .hamburger-menu {
+            display: block; 
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 101; 
+            position: relative;
+            left: 30px; 
+        }
+
+        .hamburger-line {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--color-light-bg); 
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* --- MOBILE MENU OVERLAY --- */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-black-scrolled);
+            backdrop-filter: blur(15px);
+            z-index: 1000; 
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-100%);
+            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            justify-content: center; 
+        }
+
+        .mobile-menu-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0);
+        }
+
+        .mobile-menu-content {
+            display: flex;
+            flex-direction: row; 
+            width: 100%;
+            height: 100%;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: transparent;
+            border: none;
+            color: var(--color-accent); 
+            font-size: 40px;
+            font-weight: 300;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 1002;
+        }
+
+        .mobile-nav-menu {
+            flex: 1;
+            margin-top: 80px;
+            padding: 0 0 60px 200px; 
+            text-align: left;
+            display: flex;
+            flex-direction: column;           
+            list-style: none;
+            overflow-y: auto; 
+            height: 100%; 
+        }
+
+        .mobile-nav-menu li { margin: 20px 0; }
+
+        .mobile-nav-menu a {
+            text-decoration: none;
+            color: var(--color-light-bg); 
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+        .mobile-nav-menu a:hover { color: var(--color-accent); }
+
+        .mobile-nav-menu .social-icons {
+            display: flex;
+            justify-content: flex-start;
+            gap: 24px;            
+            margin-top: auto; 
+            padding-top: 20px; 
+            margin-bottom: 100px;
+        }
+        .mobile-nav-menu .social-icons a { color: var(--color-light-bg); }
+        .mobile-nav-menu .social-icons a:hover { color: var(--color-accent); }
+        .mobile-nav-menu .social-icons svg { width: 28px; height: 28px; fill: currentColor; }
+
+        .mobile-menu-image {
+            flex: 1; 
+            background: #222; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .mobile-menu-image img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Dropdown Logic */
+        .mobile-nav-menu .dropdown { position: relative; }
+        .mobile-nav-menu .dropdown-toggle { cursor: pointer; display: flex; align-items: center; }
+        .mobile-nav-menu .arrow-icon { margin-left: 8px; font-size: 14px; transition: transform 0.3s ease; }
+        .mobile-nav-menu .dropdown-menu { list-style: none; padding-left: 20px; margin-top: 10px; display: none; }
+        .mobile-nav-menu .dropdown-menu a { font-size: 20px; opacity: 0.8; }
+        .mobile-nav-menu .dropdown-menu li { margin: 10px 0; }
+        .mobile-nav-menu .dropdown.open > .dropdown-toggle .arrow-icon { transform: rotate(180deg); }
+        .mobile-nav-menu .dropdown.open > .dropdown-menu { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- PAGE HEADER --- */
+        .page-header {
+            padding: 180px 60px 80px;
+            background: var(--color-dark-primary);
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            color: var(--color-light-bg);
+            margin-bottom: 20px;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: var(--color-light-bg);
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* --- EXPERIENCES REDESIGN --- */
+        .experiences-container {
+            width: 100%;
+            /* Removed max-width and side padding to allow full width */
+            margin: 0;
+            padding: 60px 0 120px 0;
+        }
+
+        /* Tabs Navigation */
+        .experience-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 80px;
+            flex-wrap: wrap;
+            padding: 0 20px; /* Padding for mobile safety */
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid var(--color-dark-secondary);
+            color: var(--color-dark-secondary);
+            padding: 12px 30px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        .tab-btn.active {
+            background: var(--color-dark-primary);
+            border-color: var(--color-dark-primary);
+            color: var(--color-light-bg);
+        }
+
+        /* Section Container */
+        .experience-section {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            animation: fadeInSection 0.6s ease-out forwards;
+        }
+        
+        .experience-section.active {
+            display: flex;
+        }
+
+        @keyframes fadeInSection {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Text Layout (Above Images) */
+        .experience-text-wrapper {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px; /* Padding for mobile safety */
+        }
+
+        .experience-text-wrapper h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: var(--color-dark-primary);
+            margin-bottom: 25px;
+            line-height: 1.1;
+        }
+
+        .experience-text-wrapper p {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: var(--color-dark-secondary);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        /* Images Grid Container - Full Width Row */
+        .images-stage {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 images side-by-side */
+            gap: 4px; /* Minimal gap for panoramic feel */
+            width: 100%;
+            margin: 0;
+        }
+
+        /* Base Image Style */
+        .exp-img {
+            width: 100%;
+            height: 600px; /* Increased height for impact */
+            object-fit: cover;
+            border-radius: 0; /* Removing radius for cleaner edge-to-edge look */
+            transition: transform 0.3s ease, filter 0.3s ease;
+            filter: grayscale(20%);
+        }
+
+        .exp-img:hover {
+            filter: grayscale(0%);
+            /* transform: scale(1.02); Removed scaling to avoid breaking layout flow */
+            z-index: 2;
+        }
+
+        /* --- CTA SECTION --- */
+        .cta-section {
+            padding: 100px 60px;
+            background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
+            text-align: center;
+            color: var(--color-light-bg);
+        }
+
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--color-light-bg);
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--color-accent);
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: var(--color-dark-primary);
+            padding: 14px 38px;
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-transform: uppercase;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-light-bg);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(219, 115, 59, 0.4); 
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--color-dark-primary);
+            color: var(--color-light-bg);
+            padding: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+        }
+
+        footer h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: var(--color-accent);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        footer p, footer a {
+            font-size: 14px;
+            color: var(--color-light-bg);
+            line-height: 2;
+            text-decoration: none;
+        }
+
+        footer a:hover { color: var(--color-accent); }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: var(--color-accent);
+            margin-bottom: 16px;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-social-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 14px; 
+        }
+
+        .footer-social-icons a {
+            display: block;
+            width: 30px;
+            height: 30px;
+        }
+
+        .footer-social-icons svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--color-light-bg); 
+            transition: fill 0.3s ease;
+        }
+
+        .footer-social-icons a:hover svg { fill: var(--color-accent); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            /* Full width on tablet, keep 4 columns if possible or switch to 2x2 */
+            .experiences-container { padding: 60px 0; }
+            .images-stage { 
+                grid-template-columns: repeat(2, 1fr); /* 2x2 Grid on Tablet */
+                gap: 4px; 
+            }
+            .exp-img { height: 400px; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 10px 20px; }
+            .nav-menu { display: none; }
+            .hamburger-menu { display: block; left: 0px; }
+            .mobile-nav-menu { padding-left: 40px; }
+            
+            .page-header { padding-top: 140px; }
+            .page-header h1 { font-size: 42px; }
+            
+            .experiences-container { padding: 40px 0; }
+            
+            .images-stage {
+                grid-template-columns: 1fr; /* 1 Column on mobile */
+                gap: 4px;
+            }
+            
+            .exp-img {
+                height: 350px; /* Fixed height per image on mobile */
+            }
+
+            /* Scroll tabs on mobile */
+            .experience-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 10px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .tab-btn { white-space: nowrap; flex-shrink: 0; }
+
+            .footer-content { grid-template-columns: 1fr; gap: 30px; }
+            .mobile-menu-content { flex-direction: column; }
+            .mobile-menu-image { display: none; }
+            .mobile-nav-menu { margin-top: 40px; padding: 0 50px; flex: unset; width: 100%; justify-content: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="mainNav">
+          <div class="logo">
+            <img src="./Images/Logo/CE_logo_beige.png" alt="Cloudberry Escapes" onerror="this.style.display='none'; document.querySelector('.logo-text').style.display='block'">
+            <span class="logo-text" style="display:none; color:white; font-family:'Playfair Display'; font-weight:bold; font-size:20px;">CLOUDBERRY</span>
+        </div>
+
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="#">Inspiration</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <button class="hamburger-menu" id="hamburgerMenu" aria-label="Open menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+   <div class="mobile-menu-overlay" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
+            <div class="mobile-menu-content">
+                <ul class="mobile-nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                            Services
+                            <span class="arrow-icon">&#x25BC;</span>
+                        </a>
+                         <ul class="dropdown-menu">
+                            <li><a href="#local-expertise">Local Expertise</a></li>
+                            <li><a href="#off-beaten">Off The Beaten Track</a></li>
+                            <li><a href="#experiences">Unforgettable Experiences</a></li>
+                            <li><a href="#concierge">Travel Concierge</a></li>
+                            <li><a href="#transport">Private Transport</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="lodgings.html">Lodgings</a></li>
+                    <li><a href="index.html#testimonials">About</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+
+                    <li class="social-icons">
+                        <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+                            </svg>
+                        </a>                     
+                        <a href="#" target="_blank"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/></svg></a>
+                    </li>
+                </ul>
+                <div class="mobile-menu-image">
+                    <img src="https://images.unsplash.com/photo-1548178225-b873f5383f2d?q=80&w=1974&auto=format&fit=crop" alt="Menu image" />
+                </div>
+            </div>
+    </div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>Experiences</h1>
+    </header>
+   
+    <!-- Main Experiences Container -->
+    <div class="experiences-container">
+
+        <!-- Controls / Buttons -->
+        <div class="experience-tabs">
+            <button class="tab-btn active" data-target="wildlife">Arctic Wildlife</button>
+            <button class="tab-btn" data-target="cultural">Culture & Food</button>
+            <button class="tab-btn" data-target="lights">Northern Lights</button>
+            <button class="tab-btn" data-target="waterscapes">Waterscapes</button>
+        </div>
+
+        <!-- Section 1: Arctic Wildlife -->
+        <div class="experience-section active" id="wildlife">
+            <div class="experience-text-wrapper">
+                <h2>Arctic Wildlife</h2>
+                <p>Join guided safaris to spot reindeer, or embark on husky sledding tours through stunning Arctic landscapes, where you may also encounter sea eagles, moose, and other native species. Witnessing these majestic creatures in their natural habitat offers a profound understanding of the delicate balance of the Arctic ecosystem.</p>
+            </div>
+            <!-- Images Grid (4 images) -->
+            <div class="images-stage">
+                <img src="./Images/_DSC0235 elg i ringstad.jpg" alt="Reindeer" class="exp-img">
+                <img src="./Images/SD_20150410_2180288.jpg" alt="Huskies" class="exp-img">
+                <img src="./Images/09aa2a_4f493cce40ba497c802c14ca2f8674c6~mv2.avif" alt="Moose" class="exp-img">
+                <!-- Duplicate 4th image for grid layout -->
+                <img src="./Images/SD_20150410_2180288.jpg" alt="Arctic Wildlife" class="exp-img">
+            </div>
+        </div>
+
+        <!-- Section 2: Cultural & Culinary -->
+        <div class="experience-section" id="cultural">
+            <div class="experience-text-wrapper">
+                <h2>Cultural & Culinary</h2>
+                <p>Meet Sami herders and learn about their way of life, enjoy storytelling in a traditional lavvu, or experience a reindeer sled ride. Savor gourmet Arctic cuisine with locally sourced ingredients like king crab, reindeer, and cloudberries. This is a journey into the heart of Northern heritage.</p>
+            </div>
+            <!-- Images Grid (4 images) -->
+            <div class="images-stage">
+                <img src="./Images/nsplsh_175b6b1e35d749b8b227129685405418~mv2.avif" alt="Sami Culture" class="exp-img">
+                <img src="./Images/PXL_20240817_102049889.MP.jpg" alt="Arctic Food" class="exp-img">
+                <img src="./Images/IMG_5142.jpg" alt="Lavvu Tent" class="exp-img">
+                <!-- Duplicate 4th image for grid layout -->
+                <img src="./Images/nsplsh_175b6b1e35d749b8b227129685405418~mv2.avif" alt="Cultural Experience" class="exp-img">
+            </div>
+        </div>
+
+        <!-- Section 3: Northern Lights -->
+        <div class="experience-section" id="lights">
+            <div class="experience-text-wrapper">
+                <h2>Northern Lights & Stargazing</h2>
+                <p>Experience the breathtaking Northern Lights in their full glory, either from a cozy glass igloo or on a private guided hunt. Beneath the dancing green and violet skies, time seems to stand still, offering a moment of pure magic and tranquility.</p>
+            </div>
+            <!-- Images Grid (4 images) -->
+            <div class="images-stage">
+                <img src="./Images/7U1A4441.steinar.jpg" alt="Northern Lights" class="exp-img">
+                <img src="./Images/Bilde 19.02.2021, 21 22 04 (1).jpg" alt="Aurora Borealis" class="exp-img">
+                <img src="./Images/nsplsh_363256376e746c4b674c38~mv2_d_7360_4912_s_4_2.avif" alt="Starry Night" class="exp-img">
+                 <!-- Duplicate 4th image for grid layout -->
+                 <img src="./Images/Bilde 19.02.2021, 21 22 04 (1).jpg" alt="Night Sky" class="exp-img">
+            </div>
+        </div>
+
+        <!-- Section 4: Nordic Waterscapes -->
+        <div class="experience-section" id="waterscapes">
+            <div class="experience-text-wrapper">
+                <h2>Nordic Waterscapes</h2>
+                <p>Glide through pristine Arctic landscapes on a kayak or packraft, soaking in stunning views of snow-capped peaks. Unwind on a luxurious fjord cruise, spotting wildlife and savoring the Arctic's tranquility from the water's edge.</p>
+            </div>
+            <!-- Images Grid (4 images) -->
+            <div class="images-stage">
+                <img src="./Images/09aa2a_4196517c133845c59048fba5d867682d~mv2.avif" alt="Kayaking" class="exp-img">
+                <img src="./Images/BorealYachting_Wonder-01.jpg" alt="Fjord" class="exp-img">
+                <img src="./Images/_MAB3906 copy.jpg" alt="Arctic Waters" class="exp-img">
+                 <!-- Duplicate 4th image for grid layout -->
+                 <img src="./Images/BorealYachting_Wonder-01.jpg" alt="Nordic Waters" class="exp-img">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Discover Your Arctic Adventure?</h2>
+        <p>Let us craft your perfect Northern Norway escape. Reach out to our team to begin the conversation.</p>
+        <button class="btn-primary">Get in Touch</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">CLOUDBERRY ESCAPES</div>
+                <p>Designing bespoke Arctic itineraries in Northern Norway for discerning travelers seeking authentic luxury.</p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+               <p><a href="./experiences.html">Experiences</a></p>
+                <p><a href="./index.html">Destinations</a></p>
+                <p><a href="./services.html">Services</a></p>
+                <p><a href="./lodgings.html">Lodgings</a></p>
+                <p><a href="#">About Us</a></p>
+                <p><a href="#">Terms & Conditions</a></p>
+            </div>
+            <div>
+                <h4>Connect</h4>
+                <p>hello@cloudberryescapes.com</p>
+                <p>+47 XXX XX XXX</p>
+                
+                <div class="footer-social-icons">
+                    <a href="#" aria-label="Instagram">                            
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Facebook">                            
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/></svg>
+                    </a>
+                </div>
+                <p style="margin-top: 16px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // --- MOBILE MENU LOGIC ---
+            const hamburgerBtn = document.getElementById('hamburgerMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const closeBtn = document.getElementById('mobileMenuClose');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-menu a');
+
+            if (hamburgerBtn && mobileMenu) {
+                hamburgerBtn.addEventListener('click', () => {
+                    mobileMenu.classList.add('open');
+                    document.body.classList.add('mobile-menu-open');
+                });
+                closeBtn.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    document.body.classList.remove('mobile-menu-open');
+                });
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (link.classList.contains('dropdown-toggle')) return; 
+                        mobileMenu.classList.remove('open');
+                        document.body.classList.remove('mobile-menu-open');
+                    });
+                });
+            }
+
+            const dropdownToggle = document.querySelector('.mobile-nav-menu .dropdown-toggle');
+            const dropdown = dropdownToggle?.closest('.dropdown');
+
+            if (dropdownToggle && dropdown) {
+                dropdownToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropdown.classList.toggle('open');
+                });
+            }
+
+            // --- EXPERIENCE TABS LOGIC ---
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const sections = document.querySelectorAll('.experience-section');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons and sections
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+
+                    // Show target section
+                    const targetId = btn.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

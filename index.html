@@ -437,10 +437,11 @@
 
         .story-content p {
             font-size: 18px;
-            color: gray;
+            /* color: gray; */
+            color: var(--color-light-bg);
             line-height: 1.8;
             margin-bottom: 24px; 
-            font-weight: 700;
+            /* font-weight: 700; */
             text-size-adjust: 22px;
         }
 
@@ -449,7 +450,7 @@
         }
 
         .highlight {           
-            color: var(--color-light-bg); 
+            color: var(--color-accent); 
             font-weight: 700;             
         }
 
@@ -691,6 +692,10 @@
             opacity: 1;
             transform: translateY(0); 
         }
+        .gallery-item:hover .gallery-read-more {            
+            opacity: 1;
+            transform: translateY(0); 
+        }
 
         .gallery-read-more {
             font-size: 14px;
@@ -707,9 +712,7 @@
             transition: all 0.4s ease-out 0.1s; 
         }
 
-        .gallery-read-more:hover { color: var(--color-accent); }
-        .gallery-item.is-active .gallery-read-more { opacity: 1; transform: translateY(0); }
-
+        .gallery-read-more:hover { color: var(--color-accent); }       
 
         /* Value Props */
         .value-props {
@@ -1216,25 +1219,25 @@
             <h2>This Is Our Story</h2>
             <p>
                 <span class="highlight">Cloudberry Escapes</span> emerged from our deep connection to 
-                <span class="highlight">Northern Norway</span>. Here, 
-                <span class="highlight">time slows down</span>, the sea kisses 
-                <span class="highlight">rugged cliffs</span>, and 
-                <span class="highlight">winter nights</span> dazzle with 
-                <span class="highlight">vibrant colors</span>. We wanted to share this enchantment 
-                in a <span class="highlight">personal and unforgettable</span> way.
+                Northern Norway. Here, 
+                time slows down, the sea kisses 
+                rugged cliffs, and 
+                winter nights dazzle with 
+                vibrant colors. We wanted to share this enchantment 
+                in a personal and unforgettable way.
             </p>
 
             <p>
-                Our trips go beyond ticking off sights; they <span class="highlight">touch the heart</span>. 
-                We blend <span class="highlight">luxury</span> with 
-                <span class="highlight">nature's raw beauty</span>, making every moment 
+                Our trips go beyond ticking off sights; they touch the heart. 
+                We blend luxury with 
+                nature's raw beauty, making every moment 
                 memorable. Our mission? To reveal Northern Norway's 
-                <span class="highlight">wonder, peace, and discovery</span>.
+                wonder, peace, and discovery.
             </p>
 
             <p>
-                Every trip we design reflects <span class="highlight">our passion for unique experiences.</span> Sailing under the midnight sun, immersing in local culture—it's <span class="highlight">the unexpected moments that truly captivate.</span>
-                <span class="highlight">This is our story.</span> We can't wait to help you write yours.
+                Every trip we design reflects our passion for unique experiences. Sailing under the midnight sun, immersing in local culture—it's the unexpected moments that truly captivate.
+                This is our story. We can't wait to help you write yours.
             </p>           
             <button class="btn-primary">Read More</button>
         </div>
@@ -1281,14 +1284,14 @@
                 <div class="gallery-info">
                     <div class="gallery-label">Lodgings</div>
                     <div class="gallery-description">Cloudberry Escapes offers exclusive lodgings that blend luxury with authentic Arctic experiences. From glass igloos under the Northern Lights to private fjord lodges, each stay is tailored for discerning travelers seeking comfort and uniqueness.</div>
-                    <a href="#" class="gallery-read-more">Read more</a>
+                    <a href="./lodgings.html" class="gallery-read-more">Read more</a>
                 </div>
             </div>
             <div class="gallery-item">
                 <div class="gallery-info">
                     <div class="gallery-label">Experiences</div>
                     <div class="gallery-description">Glide through snowy landscapes on private dog sledding tours, cruise fjords on exclusive boat trips, or witness the Northern Lights from a secluded lodge. Experience Sami culture firsthand, embark on guided wildlife safaris, or savor gourmet meals in remote Arctic settings.</div>
-                    <a href="#" class="gallery-read-more">Read more</a>
+                    <a href="./experiences.html" class="gallery-read-more">Read more</a>
                 </div>
             </div>
             <div class="gallery-item">
@@ -1370,10 +1373,10 @@
             </div>
             <div>
                 <h4>Explore</h4>
-                <p><a href="#">Experiences</a></p>
-                <p><a href="#">Destinations</a></p>
-                <p><a href="#">Services</a></p>
-                <p><a href="#">Lodgings</a></p>
+                <p><a href="./experiences.html">Experiences</a></p>
+                <p><a href="./index.html">Destinations</a></p>
+                <p><a href="./services.html">Services</a></p>
+                <p><a href="./lodgings.html">Lodgings</a></p>
                 <p><a href="#">About Us</a></p>
                 <p><a href="#">Terms & Conditions</a></p>
             </div>
