@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Updated Fonts: EB Garamond (Primary) and Lora (Secondary) -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
   /* Primitive Color Tokens */
@@ -83,8 +84,10 @@
   --website-white: #FFFFFF;
 
   /* Typography */
-  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
-    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-primary: "EB Garamond", "Garamond", "Georgia", serif;
+  --font-family-secondary: "Lora", "Times New Roman", serif;
+  
+  --font-family-base: var(--font-family-secondary);
   --font-size-base: 14px;
   --font-size-lg: 16px;
   --font-size-xl: 18px;
@@ -146,12 +149,6 @@
   }
 }
 
-@font-face {
-  font-family: 'FKGroteskNeue';
-  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2')
-    format('woff2');
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -159,7 +156,7 @@
 }
 
 body {
-    font-family: 'Inter', var(--font-family-base);
+    font-family: var(--font-family-secondary);
     background-color: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
     color: var(--website-navy);
     line-height: 1.6;
@@ -231,21 +228,22 @@ body {
 }
 
 .section-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 48px;
-    font-weight: 700;
+    font-family: var(--font-family-primary);
+    font-size: 56px; /* Increased slightly for Garamond */
+    font-weight: 600;
     color: #ec6d3a;
     margin-bottom: 16px;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
 }
 
 .section-header p {
-    font-family: 'Inter', sans-serif;
-    font-size: 18px;
+    font-family: var(--font-family-secondary);
+    font-size: 20px; /* Increased slightly for Lora readability */
     color: #FFEADB;
-    opacity: 0.7;
+    opacity: 0.8;
     max-width: 700px;
     margin: 0 auto;
+    font-weight: 400;
 }
 
 /* Two-column layout - floats on top of background */
@@ -323,20 +321,20 @@ body {
 }
 
 .destination-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    font-weight: 700;
+    font-family: var(--font-family-primary);
+    font-size: 42px; /* Increased for Garamond */
+    font-weight: 600;
     color: #ec6d3a;
     margin-bottom: 16px;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
 }
 
 .destination-description {
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    line-height: 1.7;
+    font-family: var(--font-family-secondary);
+    font-size: 17px;
+    line-height: 1.8;
     color: #FFEADB;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .default-content {
@@ -421,6 +419,21 @@ body {
     pointer-events: auto !important;
 }
 
+/* Arctic Circle Label Style */
+.arctic-circle-label {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: #ec6d3a;
+    font-family: var(--font-family-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 0px 0px 3px rgba(16, 38, 50, 0.5);
+    white-space: nowrap;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1200px) {
     .section-content-wrapper {
@@ -432,7 +445,7 @@ body {
     }
 
     .section-header h1 {
-        font-size: 40px;
+        font-size: 48px;
     }
 
     .map-container {
@@ -450,11 +463,11 @@ body {
     }
 
     .section-header h1 {
-        font-size: 36px;
+        font-size: 42px;
     }
 
     .section-header p {
-        font-size: 16px;
+        font-size: 18px;
     }
 
     .map-container {
@@ -482,7 +495,7 @@ body {
     }
 
     .destination-name {
-        font-size: 32px;
+        font-size: 36px;
     }
 }
 
@@ -500,11 +513,11 @@ body {
     }
 
     .section-header h1 {
-        font-size: 32px;
+        font-size: 36px;
     }
 
     .section-header p {
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .info-panel {
@@ -516,11 +529,11 @@ body {
     }
 
     .destination-name {
-        font-size: 28px;
+        font-size: 32px;
     }
 
     .destination-description {
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .map-panel {
@@ -603,7 +616,7 @@ body {
         <div class="section-content-wrapper">
             <div class="section-header">
                 <h1>Discover Our Destinations</h1>
-                <p>Explore the stunning landscapes and experiences across Northern Norway</p>
+                <p>Explore the stunning landscapes and experiences across the Nordics</p>
             </div>
 
             <div class="map-container">
@@ -614,8 +627,8 @@ body {
                     
                     <div class="info-content" id="info-content">
                         <div class="default-content">
-                            <h2 class="destination-name">Northern Norway</h2>
-                            <p class="destination-description">Explore five stunning destinations across Northern Norway. Hover over the markers on the map to discover each unique location.</p>
+                            <h2 class="destination-name">Nordic Adventures</h2>
+                            <p class="destination-description">Explore stunning destinations across Norway, Sweden, and Finland. Hover over the markers on the map to discover each unique location.</p>
                         </div>
                     </div>
                 </div>
@@ -630,7 +643,7 @@ body {
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
    <script>
-        // Destination data with images and descriptions - 10 total destinations
+        // Destination data with images and descriptions
         const destinations = [
             {
                 name: 'Tromsø',
@@ -683,37 +696,87 @@ body {
             },
             {
                 name: 'North Cape',
-                lat: 72.312,
-                lon: 25.545,
+                lat: 71.172, /* Adjusted closer to actual mainland access */
+                lon: 25.78,
                 image: 'https://pplx-res.cloudinary.com/image/upload/v1762704219/pplx_project_search_images/042531000635e943e48fb28ebff2fd7924160e69.png',
                 description: 'North Cape is the northernmost point of continental Europe, an iconic destination with panoramic Arctic views and the famous globe monument.'
             },
             {
                 name: 'Alta',
-                lat: 71.200,
+                lat: 69.968,
                 lon: 23.271,
-                // mobileLat: 73.000,
-                // mobileLon: 25.000,
                 image: 'https://pplx-res.cloudinary.com/image/upload/v1762704219/pplx_project_search_images/3f839fb08aea4ca565b80a83307a1fac64466570.png',
                 description: 'Alta is Norway\'s northern lights capital, offering spectacular aurora displays and serene Arctic landscape experiences.'
             },
             {
                 name: 'Lyngen',
-                lat: 71.34,
-                lon: 20.25,
+                lat: 69.57,
+                lon: 20.22,
                 image: 'https://pplx-res.cloudinary.com/image/upload/v1762704219/pplx_project_search_images/fb02a001c3d89ff1462caee6672fb0b4de87c0a1.png',
                 description: 'Lyngen Alps feature majestic snow-covered peaks, pristine fjords, and world-class hiking and skiing opportunities in the Arctic.'
+            },
+            /* NEW DESTINATIONS */
+            {
+                name: 'Oslo',
+                lat: 59.9139,
+                lon: 10.7522,
+                image: 'https://images.unsplash.com/photo-1513519107127-1bedb950a529?q=80&w=1920&auto=format&fit=crop',
+                description: 'Oslo, the capital of Norway, sits on the country’s southern coast at the head of the Oslofjord. It’s known for its green spaces and museums.'
+            },
+            {
+                name: 'Hardangerfjord',
+                lat: 60.33, 
+                lon: 6.26,
+                image: 'https://images.unsplash.com/photo-1506015391300-4802dc74de2e?q=80&w=1920&auto=format&fit=crop',
+                description: 'The Queen of the Fjords. Hardangerfjord is famous for its fruit orchards, the Trolltunga rock formation, and spectacular waterfalls.'
+            },
+            {
+                name: 'Trondheim',
+                lat: 63.4305,
+                lon: 10.3951,
+                image: 'https://images.unsplash.com/photo-1542668595-fa9394e5b686?q=80&w=1920&auto=format&fit=crop',
+                description: 'Norway’s historical capital, featuring the stunning Nidaros Cathedral, charming wooden wharves along the Nidelva river, and a lively student atmosphere.'
+            },
+             {
+                name: 'Mo i Rana',
+                lat: 66.3128,
+                lon: 14.1428,
+                image: 'https://images.unsplash.com/photo-1629837926188-466d63426214?q=80&w=1920&auto=format&fit=crop',
+                description: 'Located just south of the Arctic Circle, Mo i Rana is known as the "Arctic Circle City" and serves as a gateway to the Svartisen glacier and majestic caves.'
+            },
+            {
+                name: 'Kiruna',
+                lat: 67.8558,
+                lon: 20.2253,
+                image: 'https://images.unsplash.com/photo-1483015509214-77e8f0007886?q=80&w=1920&auto=format&fit=crop',
+                description: 'Sweden\'s northernmost city, famous for the Ice Hotel, the world\'s largest underground iron ore mine, and exceptional Northern Lights viewing.'
+            },
+            {
+                name: 'Rovaniemi',
+                lat: 66.5039,
+                lon: 25.7294,
+                image: 'https://images.unsplash.com/photo-1544468640-1090333d4211?q=80&w=1920&auto=format&fit=crop',
+                description: 'The Official Hometown of Santa Claus in Finland. Located right on the Arctic Circle, it offers magical Christmas vibes year-round and reindeer safaris.'
+            },
+            {
+                name: 'Lapland',
+                lat: 67.92,
+                lon: 24.8, /* Centered near Levi/Ylläs area */
+                image: 'https://images.unsplash.com/photo-1548267299-7928b9c8d626?q=80&w=1920&auto=format&fit=crop',
+                description: 'A vast region of magical wilderness stretching across northern Norway, Sweden, and Finland. Home to the Sami people, vast forests, and roaming reindeer herds.'
+            },
+            /* NEW: Svalbard */
+            {
+                name: 'Svalbard',
+                lat: 78.2232,
+                lon: 15.6267,
+                image: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?q=80&w=1920&auto=format&fit=crop',
+                description: 'A Norwegian archipelago in the Arctic Ocean, known for its rugged glaciers, frozen tundra, and polar bears. The northernmost settlement in the world.'
             }
         ];
 
-        // Get the default zoom level
-        const defaultZoom = 5;
-        const mobileZoom = 4;
-
-        // Initialize the BACKGROUND map - full width, with markers
+        // Initialize the BACKGROUND map - simplified init
         const backgroundMap = L.map('background-map', {
-            center: [65.0, 12.0],
-            zoom: defaultZoom, // Start with default zoom
             zoomControl: false,
             dragging: false,
             touchZoom: false,
@@ -721,99 +784,121 @@ body {
             doubleClickZoom: false,
             boxZoom: false,
             keyboard: false,
-            tap: true, // MODIFIED: Set to true to detect map clicks
+            tap: true,
             preferCanvas: true
         });   
 
-        // Load high-resolution Norway GeoJSON data from Natural Earth
-        // Using medium scale (1:10m) for detailed coastline with fjords
-   fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_countries.geojson')
-    .then(response => response.json())
-    .then(data => {
-        // Filter for Norway
-        const norwayFeature = data.features.find(feature => 
-            feature.properties.NAME === 'Norway' || 
-            feature.properties.ADMIN === 'Norway' ||
-            feature.properties.ISO_A3 === 'NOR'
-        );
+        // Add Arctic Circle Line
+        const arcticCircleLat = 66.5636;
+        const arcticCircleLine = L.polyline([
+            [arcticCircleLat, -10],
+            [arcticCircleLat, 45]
+        ], {
+            color: '#ec6d3a', // Brand orange
+            weight: 1.5,
+            dashArray: '8, 8', // Dashed line
+            opacity: 0.6,
+            interactive: false
+        }).addTo(backgroundMap);
 
-        if (norwayFeature) {
-            const geometry = norwayFeature.geometry;
-            
-            if (geometry.type === 'MultiPolygon') {
-                // Find the largest polygon (mainland)
-                let largestPolygon = null;
-                let maxArea = 0;
-                let mainlandBounds = null;
+        // Add Arctic Circle Label
+        const labelIcon = L.divIcon({
+            className: 'arctic-circle-label',
+            html: 'Arctic Circle',
+            iconSize: [100, 20],
+            iconAnchor: [50, -5] // Position above line
+        });
+        L.marker([arcticCircleLat, 24], { icon: labelIcon, interactive: false }).addTo(backgroundMap);
+
+
+        // Load high-resolution Country GeoJSON data from Natural Earth
+        fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_countries.geojson')
+            .then(response => response.json())
+            .then(data => {
                 
-                geometry.coordinates.forEach(polygon => {
-                    const area = polygon[0].length;
-                    if (area > maxArea) {
-                        maxArea = area;
-                        largestPolygon = polygon;
-                        // Calculate rough center/bounds of mainland
-                        const lats = polygon[0].map(coord => coord[1]);
-                        const lons = polygon[0].map(coord => coord[0]);
-                        mainlandBounds = {
-                            minLat: Math.min(...lats),
-                            maxLat: Math.max(...lats),
-                            minLon: Math.min(...lons),
-                            maxLon: Math.max(...lons),
-                            centerLat: (Math.min(...lats) + Math.max(...lats)) / 2,
-                            centerLon: (Math.min(...lons) + Math.max(...lons)) / 2
-                        };
+                // Function to process and add country polygons
+                function addCountryToMap(countryName, isMainCountry) {
+                    const countryFeature = data.features.find(feature => 
+                        feature.properties.NAME === countryName || 
+                        feature.properties.ADMIN === countryName
+                    );
+
+                    if (countryFeature) {
+                        const geometry = countryFeature.geometry;
+                        
+                        if (geometry.type === 'MultiPolygon') {
+                            // Find mainland center for filtering islands
+                            let largestPolygon = null;
+                            let maxArea = 0;
+                            let mainlandBounds = null;
+                            
+                            geometry.coordinates.forEach(polygon => {
+                                const area = polygon[0].length;
+                                if (area > maxArea) {
+                                    maxArea = area;
+                                    largestPolygon = polygon;
+                                    const lats = polygon[0].map(coord => coord[1]);
+                                    const lons = polygon[0].map(coord => coord[0]);
+                                    mainlandBounds = {
+                                        centerLat: (Math.min(...lats) + Math.max(...lats)) / 2,
+                                        centerLon: (Math.min(...lons) + Math.max(...lons)) / 2
+                                    };
+                                }
+                            });
+                            
+                            // Filter polygons
+                            const filteredPolygons = geometry.coordinates.filter(polygon => {
+                                // Always keep large chunks
+                                if (polygon[0].length > 50) return true;
+
+                                const lats = polygon[0].map(coord => coord[1]);
+                                const lons = polygon[0].map(coord => coord[0]);
+                                const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
+                                const centerLon = (Math.min(...lons) + Math.max(...lons)) / 2;
+                                
+                                // KEEP SVALBARD: Explicitly keep high latitude polygons (> 74N)
+                                if (centerLat > 74) return true;
+
+                                // Filter based on distance from mainland
+                                const latDiff = Math.abs(centerLat - mainlandBounds.centerLat);
+                                const lonDiff = Math.abs(centerLon - mainlandBounds.centerLon);
+                                
+                                return latDiff < 12 && lonDiff < 12; // Relaxed filter slightly
+                            });
+
+                            // --- NO CUTTING LOGIC: FULL COUNTRIES SHOWN ---
+                            
+                            const filteredFeature = {
+                                type: 'Feature',
+                                properties: countryFeature.properties,
+                                geometry: {
+                                    type: 'MultiPolygon',
+                                    coordinates: filteredPolygons
+                                }
+                            };
+                            
+                            L.geoJSON(filteredFeature, {
+                                style: {
+                                    color: '#ffffff',
+                                    weight: 1.5,
+                                    fillColor: 'rgba(255, 234, 219, 0.05)', 
+                                    fillOpacity: 1,
+                                    opacity: 0.8,
+                                    lineJoin: 'round',
+                                    lineCap: 'round'
+                                }
+                            }).addTo(backgroundMap);
+                        }
                     }
-                });
-                
-                // Filter polygons: keep mainland + nearby islands
-                const filteredPolygons = geometry.coordinates.filter(polygon => {
-                    // Get center of this polygon
-                    const lats = polygon[0].map(coord => coord[1]);
-                    const lons = polygon[0].map(coord => coord[0]);
-                    const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
-                    const centerLon = (Math.min(...lons) + Math.max(...lons)) / 2;
-                    
-                    // Calculate distance from mainland center
-                    const latDiff = Math.abs(centerLat - mainlandBounds.centerLat);
-                    const lonDiff = Math.abs(centerLon - mainlandBounds.centerLon);
-                    
-                    // Keep if within reasonable distance (adjust threshold as needed)
-                    // ~15 degrees covers coastal islands but excludes Svalbard (77°N) and Jan Mayen
-                    return latDiff < 9 && lonDiff < 9;
-                });
-                
-                // Create feature with mainland + nearby islands
-                const mainlandFeature = {
-                    type: 'Feature',
-                    properties: norwayFeature.properties,
-                    geometry: {
-                        type: 'MultiPolygon',
-                        coordinates: filteredPolygons
-                    }
-                };
-                
-                // Add mainland + coastal islands to BACKGROUND map
-                L.geoJSON(mainlandFeature, {
-                    style: {
-                        color: '#ffffff',
-                        weight: 1.5,
-                        fillColor: 'rgba(255, 234, 219, 0.05)', 
-                        fillOpacity: 1,
-                        opacity: 0.8,
-                        lineJoin: 'round',
-                        lineCap: 'round'
-                    }
-                }).addTo(backgroundMap);
-            }
-        }
-    })
-    .catch(error => console.error('Error loading Norway border:', error));
+                }
 
+                // Add Norway, Sweden, and Finland
+                addCountryToMap('Norway', true);
+                addCountryToMap('Sweden', false);
+                addCountryToMap('Finland', false);
+            })
+            .catch(error => console.error('Error loading borders:', error));
 
-
-        // Fallback function to load Norway data from alternative source
-        function loadFallbackNorwayData() {
-        }
 
         // Custom marker icon
         const customIcon = L.divIcon({
@@ -864,8 +949,8 @@ body {
                     // Reset to default
                     infoContent.innerHTML = `
                         <div class="default-content">
-                            <h2 class="destination-name">Northern Norway</h2>
-                            <p class="destination-description">Explore five stunning destinations across Northern Norway. Hover over the markers on the map to discover each unique location.</p>
+                            <h2 class="destination-name">Nordic Adventures</h2>
+                            <p class="destination-description">Explore stunning destinations across Norway, Sweden, and Finland. Hover over the markers on the map to discover each unique location.</p>
                         </div>
                     `;
                 }
@@ -958,23 +1043,51 @@ body {
         });
 
 
-        // ADDED: Function to adjust map zoom based on screen size
-        function adjustMapZoom() {
-            if (window.innerWidth <= 480) {
-                backgroundMap.setZoom(mobileZoom);
+        // ADDED: Smart "Fit Bounds" Function to replace fixed zooms
+        // This ensures Svalbard (Top) and Oslo (Bottom) are always visible
+        function fitMapToMarkers() {
+            if (!destinations || destinations.length === 0) return;
+
+            const mapContainer = document.getElementById('background-map');
+            // Safety check: if map has no dimensions, fitting bounds will fail with NaN
+            if (!mapContainer || mapContainer.clientWidth === 0 || mapContainer.clientHeight === 0) return;
+
+            // Invalidate size FIRST to ensure Leaflet reads correct dimensions
+            backgroundMap.invalidateSize();
+
+            // Create bounds from all destinations
+            const bounds = L.latLngBounds(destinations.map(d => [d.lat, d.lon]));
+
+            // On desktop, the info panel covers the left 40% of the screen.
+            // We need to 'pad' the map so it fits markers into the visible 60% on the right.
+            
+            if (window.innerWidth > 968) {
+                // Calculate pixel width of the left panel (40% of width)
+                // We add 50px extra padding so markers aren't right on the edge
+                const leftPadding = (window.innerWidth * 0.4) + 50;
+                
+                backgroundMap.fitBounds(bounds, {
+                    paddingTopLeft: [leftPadding, 80], // [x, y] - Push from left, and top
+                    paddingBottomRight: [50, 50],       // [x, y] - Buffer on right and bottom
+                    animate: false // Disable animation to prevent race conditions during resize
+                });
             } else {
-                backgroundMap.setZoom(defaultZoom);
+                // Mobile/Tablet: Standard padding
+                backgroundMap.fitBounds(bounds, {
+                    padding: [50, 50],
+                    animate: false
+                });
             }
-            backgroundMap.invalidateSize(); // Ensure map resizes correctly
         }
 
         // Adjust map on window resize
         window.addEventListener('resize', () => {
-            adjustMapZoom(); // MODIFIED: Call new zoom function
+            fitMapToMarkers();
         });
 
-        // ADDED: Call adjustMapZoom on initial load
-        adjustMapZoom();
+        // Call on initial load
+        // Tiny timeout ensures container has sizing before fitting
+        setTimeout(fitMapToMarkers, 100);
 
     </script>
 </body>

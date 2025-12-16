@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloudberry Escapes - Design Prototype</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --color-dark-primary: #102632;
@@ -15,6 +16,8 @@
             --color-white: #FFFFFF;
             --color-black-transparent: rgba(21, 20, 25, 0.95);
             --color-black-scrolled: rgba(21, 20, 25, 1);
+            --font-primary: "EB Garamond", "Garamond", "Georgia", serif;
+            --font-secondary: "Lora", "Times New Roman", serif;
         }
 
         * {
@@ -180,7 +183,7 @@
         .mobile-nav-menu a {
             text-decoration: none;
             color: var(--color-light-bg); /* Use light body BG color for contrast on dark overlay */
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 28px;
             font-weight: 600;
             letter-spacing: 0.05em;
@@ -427,16 +430,17 @@
         }
 
         .story-content h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Garamond', serif;
             font-size: 48px;
             font-weight: 700;
             color: var(--color-light-bg); /* Light BG on dark background */
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             letter-spacing: -0.01em;
         }
 
         .story-content p {
-            font-size: 18px;
+            font-family: 'Lora', serif;
+            font-size: 20px;
             /* color: gray; */
             color: var(--color-light-bg);
             line-height: 1.8;
@@ -478,7 +482,7 @@
         }
 
         .gallery-showcase h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 48px;
             font-weight: 700;
             color: var(--color-light-bg); /* Dark text on light BG */
@@ -487,7 +491,8 @@
         }
 
         .gallery-showcase > p {
-            font-size: 18px;
+            font-family: var(--font-secondary);
+            font-size: 20px;
             color: var(--color-light-bg);
             margin-bottom: 60px;
             max-width: 600px;
@@ -560,7 +565,7 @@
             left: 0;
             width: 100%;
             height: 120%;
-            background: url(./Images/DJI_0966-Edit___media_library_original_5272_2962.jpeg);
+            background: url(./Images/IG3A2089___media_library_original_4136_2757.jpeg);
             background-size: cover;
             background-position: center;
             transform: translateY(0);
@@ -578,11 +583,10 @@
         }
 
         .parallax-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 52px;
+            font-family: var(--font-primary);
+            font-size: 60px;
             font-weight: 700;
-            color: var(--color-light-bg);
-            margin-bottom: 20px;
+            color: var(--color-light-bg);            
             letter-spacing: -0.01em;
             text-shadow: 0 2px 20px rgba(0,0,0,0.3);
         }
@@ -594,7 +598,7 @@
             border: 1px solid var(--color-light-bg);
             border-radius: 2px;
             color: var(--color-light-bg);
-            font-family: 'Playfair Display', serif; 
+            font-family: var(--font-primary); 
             font-size: 16px;
             font-weight: 600;
             letter-spacing: 0.02em;
@@ -677,8 +681,9 @@
         }
         
         .gallery-description {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px; 
+            font-family: var(--font-primary);
+            font-size: 27px; 
+            font-weight: bold;
             color: var(--color-light-bg); 
             line-height: 1.5;
             max-width: 80%; 
@@ -715,8 +720,7 @@
         .gallery-read-more:hover { color: var(--color-accent); }       
 
         /* Value Props */
-        .value-props {
-            /* Should use main background color */
+        .value-props {           
             background: var(--color-light-bg); 
             padding: 100px 60px;
             max-width: 1200px;
@@ -724,11 +728,10 @@
         }
 
         .value-props h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 48px;
             font-weight: 700;
-            color: var(--color-dark-primary); /* Dark text on light BG */
-            margin-bottom: 60px;
+            color: var(--color-dark-primary); /* Dark text on light BG */            
             letter-spacing: -0.01em;
         }
 
@@ -747,13 +750,14 @@
             margin-bottom: 12px;
         }
         .value-card h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 22px;
             font-weight: 700;
             color: var(--color-dark-primary);
             margin-bottom: 16px;
         }
         .value-card p {
+            font-family: var(--font-secondary);
             font-size: 16px;
             color: var(--color-dark-secondary);
             line-height: 1.8;
@@ -769,11 +773,11 @@
         }
 
         .testimonials-section h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 48px;
             font-weight: 700;
             color: var(--color-light-bg); /* Dark text on light BG */
-            margin-bottom: 60px;
+            margin-bottom: 30px;
             letter-spacing: -0.01em;
         }
 
@@ -798,7 +802,7 @@
         }
 
         .testimonial-quote {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-secondary);
             font-size: 20px;
             font-style: italic;
             margin-bottom: 24px;
@@ -807,15 +811,15 @@
         }
 
         .testimonial-author h4 {
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
+            font-family: var(--font-primary);
+            font-size: 18px;
             font-weight: 600;
             color: var(--color-dark-primary);
             margin-bottom: 4px;
         }
 
         .testimonial-author p {
-            font-size: 12px;
+            font-size: 10px;
             color: var(--color-dark-secondary);
             letter-spacing: 0.05em;
             text-transform: uppercase;
@@ -832,15 +836,15 @@
 
         .newsletter-content { max-width: 600px; margin: 0 auto; }
         .newsletter-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 40px;
+            font-family: var(--font-primary);
+            font-size: 51px;
             font-weight: 700;
-            color: var(--color-dark-primary);
-            margin-bottom: 15px;
+            color: var(--color-dark-primary);            
             letter-spacing: -0.01em;
         }
         .newsletter-content p {
-            font-size: 16px;
+            font-family: var(--font-secondary);
+            font-size: 18px;
             color: var(--color-dark-secondary);
             margin-bottom: 30px;
             line-height: 1.8;
@@ -902,8 +906,8 @@
         }
 
         .cta-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px;
+            font-family: var(--font-primary);
+            font-size: 50px;
             font-weight: 700;
             color: var(--color-light-bg);
             margin-bottom: 20px;
@@ -912,6 +916,7 @@
 
         .cta-section p {
             font-size: 18px;
+            font-family: var(--font-secondary);
             margin-bottom: 40px;
             max-width: 600px;
             margin-left: auto;
@@ -958,7 +963,7 @@
         }
 
         footer h4 {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 16px;
             color: var(--color-accent);
             margin-bottom: 16px;
@@ -967,6 +972,7 @@
         }
 
         footer p, footer a {
+            font-family: var(--font-secondary);
             font-size: 14px;
             color: var(--color-light-bg);
             line-height: 2;
@@ -976,11 +982,15 @@
         footer a:hover { color: var(--color-accent); }
 
         .footer-logo {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 18px;
             color: var(--color-accent);
             margin-bottom: 16px;
             letter-spacing: 0.05em;
+        }
+
+        .footer-logo img{
+            size: 24px;
         }
 
         .footer-social-icons {
@@ -1002,67 +1012,7 @@
             transition: fill 0.3s ease;
         }
 
-        .footer-social-icons a:hover svg { fill: var(--color-accent); }
-
-        /* Floating Menu */
-        .floating-social-menu {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            z-index: 1000;
-            opacity: 0;
-            transform: translateY(20px);
-            pointer-events: none; 
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .floating-social-menu.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        .scroll-top-btn {
-            width: 30px; 
-            height: 30px; 
-            background: transparent; 
-            border: none;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .scroll-top-btn:hover { transform: scale(1.1); }
-        .scroll-top-btn svg { width: 100%; height: 100%; fill: var(--color-dark-primary); transition: fill 0.3s ease; }
-        .scroll-top-btn:hover svg { fill: var(--color-accent); }
-
-        .floating-icons-group {
-            background: rgba(13, 29, 28, 0.1); /* Subtle dark background on light body */
-            display: flex;
-            flex-direction: column;
-            gap: 14px; 
-            padding: 15px 8px; 
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-
-        .floating-icons-group a {
-            display: block;
-            width: 30px;
-            height: 30px;
-            transition: transform 0.3s ease;
-        }
-
-        .floating-icons-group a:hover { transform: scale(1.1); }
-        .floating-icons-group svg { width: 100%; height: 100%; fill: var(--color-dark-primary); }
-        .floating-icons-group a:hover svg { fill: var(--color-accent); }
+        .footer-social-icons a:hover svg { fill: var(--color-accent); }        
         
         /* Map Section */
         .map-section { width: 100%; padding: 0; background: transparent; }
@@ -1368,10 +1318,9 @@
     <footer>
         <div class="footer-content">
             <div>
-                <div class="footer-logo">CLOUDBERRY ESCAPES</div>
-                <p>Designing bespoke Arctic itineraries in Northern Norway for discerning travelers seeking authentic luxury.</p>
+                <div class="footer-logo"><img src="./Images/Logo/Cloudberry Orange.png" alt="Cloudberry Escapes"></div>                
             </div>
-            <div>
+            <div class="explore">
                 <h4>Explore</h4>
                 <p><a href="./experiences.html">Experiences</a></p>
                 <p><a href="./index.html">Destinations</a></p>
@@ -1380,7 +1329,7 @@
                 <p><a href="#">About Us</a></p>
                 <p><a href="#">Terms & Conditions</a></p>
             </div>
-            <div>
+            <div class="connect">
                 <h4>Connect</h4>
                 <p>hello@cloudberryescapes.com</p>
                 <p>+47 XXX XX XXX</p>
@@ -1389,33 +1338,18 @@
                     <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">                            
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
-                            </svg>
-                        </a>
-                    </div>
-                    <p style="margin-top: 16px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
+                        </svg>
+                    </a>
+                    <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">                            
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
+                        </svg>
+                    </a>
                 </div>
+                <p style="margin-top: 16px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
             </div>
-        </footer>
-
-    <!-- FLOATING MENU COMPONENT
-    <div class="floating-social-menu" id="floatingSocialMenu">
-        <div class="floating-icons-group">
-            <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37.2-2.1-147.9-2.1-185.1 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37.2-2.1 147.9 0 185.1 1.7 35.9 9.9 67.7 36.2 93.9 26.2 26.2 58 34.4 93.9 36.2 37.2 2.1 147.9 2.1 185.1 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37.2 2.1-147.8 0-185.1zM416 397.2c-1.7 29.4-9.7 50.7-32.2 73.2s-43.8 30.5-73.2 32.2c-29.7 1.7-118.2 1.7-147.9 0-29.4-1.7-50.7-9.7-73.2-32.2s-30.5-43.8-32.2-73.2c-1.7-29.7-1.7-118.2 0-147.9 1.7-29.4 9.7-50.7 32.2-73.2s43.8-30.5 73.2-32.2c29.7-1.7 118.2-1.7 147.9 0 29.4 1.7 50.7 9.7 73.2 32.2s30.5 43.8 32.2 73.2c1.7 29.7 1.7 118.2 0 147.9z"/></svg>
-            </a>
-            <a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5L194.2 318.1H133.4L133.4 256H194.2L194.2 205.6C194.2 146.6 230.1 113.2 284.5 113.2C310.5 113.2 332.4 115.1 336.7 115.8L336.7 171.1L303.8 171.1C274.9 171.1 268.8 189.9 268.8 210.1L268.8 256H333.6L322.6 318.1H268.8L268.8 504.5C429.3 476.8 512 376 512 256z"/></svg>
-            </a>
-            <button class="scroll-top-btn" id="scrollToTopBtn" aria-label="Scroll to top">
-               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.372 24.568-9.372 33.941-.001z"/></svg>
-            </button>
         </div>
-    </div> -->
+        </footer>
 
     <script>
         // --- LOGO ANIMATION & NAV LOGIC ---
