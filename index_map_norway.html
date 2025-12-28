@@ -175,11 +175,12 @@ body {
 /* Full-width background map layer */
 .map-background {
     position: absolute;
-    top: 3rem;
-    left: 9rem;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;    
     pointer-events: none;
+    z-index: 0;
 }
 
 .map-background * {
@@ -189,7 +190,7 @@ body {
 .map-background #background-map {
     width: 100%;
     height: 100%;
-    background-color: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
+    background-color: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);            
 }
 
 /* Allow marker interaction on background map */
@@ -214,17 +215,19 @@ body {
 /* Content wrapper - sits on top of map background */
 .section-content-wrapper {
     position: relative;
-    z-index: 2;
+    z-index: 2000;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 60px;
+    pointer-events: none; /* ADDED: Allow clicks to pass through to map */
 }
 
 .section-header {
     text-align: center;
     margin-bottom: 60px;
     position: relative;
-    z-index: 2;
+    z-index: 2002;
+    pointer-events: auto; /* ADDED: Keep header interactive */
 }
 
 .section-header h1 {
@@ -253,7 +256,7 @@ body {
     align-items: stretch;
     min-height: 600px;
     position: relative;
-    z-index: 2;
+    z-index: 2001; /* Ensure panel container is above map */
 }
 
 /* Left panel - Information with subtle transparency */
@@ -267,6 +270,8 @@ body {
     transition: all 0.4s ease;
     position: relative; /* For close btn positioning */
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    z-index: 2002; /* Explicitly higher than markers */
+    pointer-events: auto; /* ADDED: Keep panel interactive */
 }
 
 .info-content {
@@ -298,6 +303,7 @@ body {
     align-items: center;
     justify-content: center;
     transition: background 0.2s ease;
+    pointer-events: auto; /* ADDED */
 }
 
 .close-btn:hover {
@@ -351,6 +357,7 @@ body {
     position: relative;
     min-height: 600px;
     pointer-events: none;
+    z-index: 1; /* Keep low so it doesn't block map if it overlaps */
 }
 
 /* Background map styling */
@@ -556,7 +563,7 @@ body {
         overflow-y: auto;
         background-color: #102632; /* Solid background color (Navy) */
         /* border: 1px solid rgba(234, 93, 36, 0.3); */
-        z-index: 2000; /* Ensure it's above the map */
+        z-index: 3000; /* Max z-index for popup */
         /* border-radius: 16px; */
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
         margin: 0; /* Remove any flex margin */
@@ -580,11 +587,15 @@ body {
 
     .map-background {
         position: absolute;
-        top: 2rem;
-        left: -6rem;
-        width: 120%;
+        top: 0;
+        left: 0;
+        width: 100%;
         height: 100%;
         pointer-events: none;
+    }
+    .map-background #background-map {
+        left: -13px;
+        top: -79px;      
     }
 }
 
@@ -643,6 +654,39 @@ body {
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
    <script>
+        /**
+         * SVALBARD TRANSFORMATION CONFIG
+         * * To fit Svalbard comfortably in the frame without reducing the scale of the entire map,
+         * we perform a "cartographic shift". We identify Svalbard (lat > 72), scale it down,
+         * and move it South-West closer to the mainland coast (creating an "inset" effect).
+         */
+        const SVALBARD_CONFIG = {
+            thresholdLat: 72,      // Apply to anything above this latitude
+            pivot: { lat: 78.0, lon: 16.0 }, // Approximate center of Svalbard for scaling
+            scale: 0.40,           // Scale down to 55% size
+            offset: { lat: -4.5, lon: -4.0 } // Move South 4.5deg, West 4.0deg
+        };
+
+        // Helper function to apply the transform to a single coordinate (Lat, Lon)
+        function transformSvalbardCoordinate(lat, lon) {
+            // Only transform high latitudes
+            if (lat < SVALBARD_CONFIG.thresholdLat) return [lat, lon];
+            
+            // 1. Center relative to pivot
+            const relLat = lat - SVALBARD_CONFIG.pivot.lat;
+            const relLon = lon - SVALBARD_CONFIG.pivot.lon;
+            
+            // 2. Scale
+            const scaledLat = relLat * SVALBARD_CONFIG.scale;
+            const scaledLon = relLon * SVALBARD_CONFIG.scale;
+            
+            // 3. Translate back + Offset
+            const newLat = SVALBARD_CONFIG.pivot.lat + scaledLat + SVALBARD_CONFIG.offset.lat;
+            const newLon = SVALBARD_CONFIG.pivot.lon + scaledLon + SVALBARD_CONFIG.offset.lon;
+            
+            return [newLat, newLon];
+        }
+
         // Destination data with images and descriptions
         const destinations = [
             {
@@ -661,28 +705,28 @@ body {
             },
             {
                 name: 'Bergen',
-                lat: 60.39299,
+                lat: 61.39299,
                 lon: 5.32415,
                 image: 'https://pplx-res.cloudinary.com/image/upload/v1760345836/pplx_project_search_images/d892358331304effc8e664a770a33efffab98753.png',
                 description: 'Bergen\'s colorful waterfront, UNESCO Bryggen district, and surrounding mountains make it the gateway to Norway\'s fjords.'
             },
             {
                 name: 'Geirangerfjord',
-                lat: 62.50147,
+                lat: 63.50147,
                 lon: 7.20549,
                 image: 'https://pplx-res.cloudinary.com/image/upload/v1755454427/pplx_project_search_images/fd1eb5ad5e0f910024c94f401649b64eb119ce22.png',
                 description: 'Geirangerfjord is Norway\'s most famous fjord, a UNESCO site famed for sheer cliffs, waterfalls, and breathtaking panoramas.'
             },
             {
                 name: 'Sognefjord',
-                lat: 61.85222,
+                lat: 63.10,
                 lon: 6.56000,
                 image: 'https://pplx-res.cloudinary.com/image/upload/v1762691857/pplx_project_search_images/b5015eb921cd54214db39c3c7c6e60b7f8385da4.png',
                 description: 'Sognefjord is Norway\'s longest and deepest fjord, known for serene waters, green valleys, and historic villages nestled among spectacular nature.'
             },
             {
                 name: 'Bodø',
-                lat: 68.57,
+                lat: 69.10,
                 lon: 14.405,
                 image: 'https://pplx-res.cloudinary.com/image/upload/v1762704220/pplx_project_search_images/1f3a14d342f36452d091ad7bf22e6599cc91a6bf.png',
                 description: 'Bodø is a vibrant Arctic gateway city, famous for the powerful Saltstraumen maelstrom and stunning coastal landscapes.'
@@ -696,84 +740,98 @@ body {
             },
             {
                 name: 'North Cape',
-                lat: 71.172, /* Adjusted closer to actual mainland access */
+                lat: 73.172, /* Adjusted closer to actual mainland access */
                 lon: 25.78,
                 image: 'https://pplx-res.cloudinary.com/image/upload/v1762704219/pplx_project_search_images/042531000635e943e48fb28ebff2fd7924160e69.png',
                 description: 'North Cape is the northernmost point of continental Europe, an iconic destination with panoramic Arctic views and the famous globe monument.'
             },
             {
                 name: 'Alta',
-                lat: 69.968,
+                lat: 72.968,
                 lon: 23.271,
                 image: 'https://pplx-res.cloudinary.com/image/upload/v1762704219/pplx_project_search_images/3f839fb08aea4ca565b80a83307a1fac64466570.png',
                 description: 'Alta is Norway\'s northern lights capital, offering spectacular aurora displays and serene Arctic landscape experiences.'
             },
             {
                 name: 'Lyngen',
-                lat: 69.57,
-                lon: 20.22,
+                lat: 72.6496,
+                lon: 21.22,
                 image: 'https://pplx-res.cloudinary.com/image/upload/v1762704219/pplx_project_search_images/fb02a001c3d89ff1462caee6672fb0b4de87c0a1.png',
                 description: 'Lyngen Alps feature majestic snow-covered peaks, pristine fjords, and world-class hiking and skiing opportunities in the Arctic.'
             },
-            /* NEW DESTINATIONS */
             {
                 name: 'Oslo',
-                lat: 59.9139,
+                lat: 64.9139,
                 lon: 10.7522,
                 image: 'https://images.unsplash.com/photo-1513519107127-1bedb950a529?q=80&w=1920&auto=format&fit=crop',
                 description: 'Oslo, the capital of Norway, sits on the country’s southern coast at the head of the Oslofjord. It’s known for its green spaces and museums.'
             },
             {
                 name: 'Hardangerfjord',
-                lat: 60.33, 
-                lon: 6.26,
+                lat: 65.33, 
+                lon: 7.26,
                 image: 'https://images.unsplash.com/photo-1506015391300-4802dc74de2e?q=80&w=1920&auto=format&fit=crop',
                 description: 'The Queen of the Fjords. Hardangerfjord is famous for its fruit orchards, the Trolltunga rock formation, and spectacular waterfalls.'
             },
             {
                 name: 'Trondheim',
-                lat: 63.4305,
+                lat: 68.4305,
                 lon: 10.3951,
                 image: 'https://images.unsplash.com/photo-1542668595-fa9394e5b686?q=80&w=1920&auto=format&fit=crop',
                 description: 'Norway’s historical capital, featuring the stunning Nidaros Cathedral, charming wooden wharves along the Nidelva river, and a lively student atmosphere.'
             },
              {
                 name: 'Mo i Rana',
-                lat: 66.3128,
+                lat: 70.90,
                 lon: 14.1428,
                 image: 'https://images.unsplash.com/photo-1629837926188-466d63426214?q=80&w=1920&auto=format&fit=crop',
                 description: 'Located just south of the Arctic Circle, Mo i Rana is known as the "Arctic Circle City" and serves as a gateway to the Svartisen glacier and majestic caves.'
             },
             {
                 name: 'Kiruna',
-                lat: 67.8558,
+                lat: 72.8558,
                 lon: 20.2253,
                 image: 'https://images.unsplash.com/photo-1483015509214-77e8f0007886?q=80&w=1920&auto=format&fit=crop',
                 description: 'Sweden\'s northernmost city, famous for the Ice Hotel, the world\'s largest underground iron ore mine, and exceptional Northern Lights viewing.'
             },
             {
                 name: 'Rovaniemi',
-                lat: 66.5039,
+                lat: 72.30,
                 lon: 25.7294,
                 image: 'https://images.unsplash.com/photo-1544468640-1090333d4211?q=80&w=1920&auto=format&fit=crop',
                 description: 'The Official Hometown of Santa Claus in Finland. Located right on the Arctic Circle, it offers magical Christmas vibes year-round and reindeer safaris.'
             },
             {
                 name: 'Lapland',
-                lat: 67.92,
+                lat: 73.50,
                 lon: 24.8, /* Centered near Levi/Ylläs area */
                 image: 'https://images.unsplash.com/photo-1548267299-7928b9c8d626?q=80&w=1920&auto=format&fit=crop',
                 description: 'A vast region of magical wilderness stretching across northern Norway, Sweden, and Finland. Home to the Sami people, vast forests, and roaming reindeer herds.'
-            },
-            /* NEW: Svalbard */
+            },           
             {
                 name: 'Svalbard',
-                lat: 78.2232,
+                lat: 89.2232,
                 lon: 15.6267,
                 image: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?q=80&w=1920&auto=format&fit=crop',
                 description: 'A Norwegian archipelago in the Arctic Ocean, known for its rugged glaciers, frozen tundra, and polar bears. The northernmost settlement in the world.'
             }
         ];
+
+        // AUTO-UPDATE SVALBARD DESTINATION
+        // We must update the marker coordinates in the list to match our visual transformation
+        destinations.forEach(dest => {
+            if (dest.name === 'Svalbard') {
+                const [newLat, newLon] = transformSvalbardCoordinate(dest.lat, dest.lon);
+                dest.lat = newLat;
+                dest.lon = newLon;
+                // Also update mobile Lat if it exists, or just use main lat
+                if(dest.mobileLat) {
+                     const [mLat, mLon] = transformSvalbardCoordinate(dest.mobileLat, dest.mobileLon);
+                     dest.mobileLat = mLat;
+                     dest.mobileLon = mLon;
+                }
+            }
+        });
 
         // Initialize the BACKGROUND map - simplified init
         const backgroundMap = L.map('background-map', {
@@ -785,14 +843,15 @@ body {
             boxZoom: false,
             keyboard: false,
             tap: true,
-            preferCanvas: true
+            preferCanvas: true,
+            attributionControl: false // ADDED: Hide Leaflet attribution
         });   
 
-        // Add Arctic Circle Line
+        // Add Arctic Circle Line (SHORTENED as requested)
         const arcticCircleLat = 66.5636;
         const arcticCircleLine = L.polyline([
-            [arcticCircleLat, -10],
-            [arcticCircleLat, 45]
+            [arcticCircleLat, 2],  // Changed from -10 to 2
+            [arcticCircleLat, 34]  // Changed from 45 to 34
         ], {
             color: '#ec6d3a', // Brand orange
             weight: 1.5,
@@ -846,8 +905,8 @@ body {
                                 }
                             });
                             
-                            // Filter polygons
-                            const filteredPolygons = geometry.coordinates.filter(polygon => {
+                            // 1. FILTER Polygons (Keep mainland + Svalbard)
+                            let filteredPolygons = geometry.coordinates.filter(polygon => {
                                 // Always keep large chunks
                                 if (polygon[0].length > 50) return true;
 
@@ -866,7 +925,26 @@ body {
                                 return latDiff < 12 && lonDiff < 12; // Relaxed filter slightly
                             });
 
-                            // --- NO CUTTING LOGIC: FULL COUNTRIES SHOWN ---
+                            // 2. TRANSFORM Polygons (Scale/Shift Svalbard)
+                            filteredPolygons = filteredPolygons.map(polygon => {
+                                // Check if this is a high-latitude polygon (Svalbard)
+                                const lats = polygon[0].map(c => c[1]);
+                                const avgLat = lats.reduce((a,b) => a+b, 0) / lats.length;
+
+                                if (avgLat > SVALBARD_CONFIG.thresholdLat) {
+                                    // Transform the geometry
+                                    // GeoJSON is [lon, lat], Leaflet is [lat, lon]. Be careful with indices.
+                                    const transformedRing = polygon[0].map(coord => {
+                                        const lon = coord[0];
+                                        const lat = coord[1];
+                                        const [newLat, newLon] = transformSvalbardCoordinate(lat, lon);
+                                        return [newLon, newLat]; // Return as [lon, lat]
+                                    });
+                                    return [transformedRing];
+                                }
+                                return polygon;
+                            });
+
                             
                             const filteredFeature = {
                                 type: 'Feature',
@@ -920,13 +998,14 @@ body {
         const mapPanel = document.querySelector('.map-panel');
     
             if (showPanel) {
+            // Mobile only z-index logic
             mapBackground.style.zIndex = '1';
             mapPanel.style.zIndex = '1000';
             console.log('Z-index switched: Panel on top');
             } 
             
             else {
-            mapBackground.style.zIndex = '1000';
+            mapBackground.style.zIndex = '1'; // Keep it low
             mapPanel.style.zIndex = '1';
             console.log('Z-index switched: Map on top');
             }
@@ -1062,14 +1141,21 @@ body {
             // We need to 'pad' the map so it fits markers into the visible 60% on the right.
             
             if (window.innerWidth > 968) {
-                // Calculate pixel width of the left panel (40% of width)
-                // We add 50px extra padding so markers aren't right on the edge
-                const leftPadding = (window.innerWidth * 0.4) + 50;
+                // CHANGED: Use exact panel position for padding
+                // This prevents the map from over-shifting on wide screens
+                const infoPanel = document.querySelector('.info-panel');
+                let leftPadding = 500; // Default fallback
                 
+                if (infoPanel) {
+                    const rect = infoPanel.getBoundingClientRect();
+                    // Left padding should be where the panel ends + a small buffer (50px)
+                    leftPadding = rect.right + 50;
+                }
+
                 backgroundMap.fitBounds(bounds, {
                     paddingTopLeft: [leftPadding, 80], // [x, y] - Push from left, and top
-                    paddingBottomRight: [50, 50],       // [x, y] - Buffer on right and bottom
-                    animate: false // Disable animation to prevent race conditions during resize
+                    paddingBottomRight: [50, 100],      // [x, y] - INCREASED bottom padding to 100px
+                    animate: false 
                 });
             } else {
                 // Mobile/Tablet: Standard padding
