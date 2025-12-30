@@ -1016,9 +1016,34 @@
         .footer-social-icons a:hover svg { fill: var(--color-accent); }        
         
         /* Map Section */
-        .map-section { width: 100%; padding: 0; background: transparent; height: 100vh; }
-        .map-container-wrapper { width: 100%; height: 1000px; border: none; }
+        .map-section { width: 50vw;
+            padding: 0;
+            background: transparent;
+            height: 100vh;
+            margin: 0 auto; 
+        }
+        .map-container-wrapper { width: 100%; height: 1000px; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2);}
         .map-iframe { width: 100%; height: 100%; border: none; display: block; }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;         
+        }  
+        .section-header h1 {
+            font-family: var(--font-primary);
+            font-size: 40px; /* Increased slightly for Garamond */
+            font-weight: 600;
+            color: #ec6d3a;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-header p {
+            font-family: var(--font-secondary);
+            font-size: 20px; /* Increased slightly for Lora readability */
+            color: var(--color-light-bg);            
+            max-width: 700px;
+            margin: 0 auto;           
+        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -1044,13 +1069,13 @@
             .value-grid, .testimonials-grid { grid-template-columns: 1fr; }
             .footer-content { grid-template-columns: 1fr; gap: 30px; }
             
-            .map-container-wrapper { height: 400px; }
+            .map-container-wrapper { height: 90vh; }
         }
         
         @media (max-width: 480px) {
-            section,.value-props, .testimonials-section { padding: 60px 20px; }
+            section,.value-props{ padding: 100px 20px 60px 20px; }
             .gallery-item { aspect-ratio: 6 / 8; }  
-            .gallery-description{ font-size: 12px; }
+            .gallery-description{ font-size: 15px; }
             .gallery-showcase h2, .gallery-showcase > p { padding-left: 20px; padding-right: 20px; }
             .gallery-showcase {padding: 60px 5px;}
             .carousel-controls{ margin-top: 0px; }
@@ -1061,13 +1086,14 @@
             .parallax-cta { padding: 10px 28px; font-size: 15px; }
             .story-content p { font-size: 16px; }
             .value-number { font-size: 48px; }
-            .newsletter-content h2 { font-size: 30px; }
+            .newsletter-content h2 { font-size: 30px; padding: 0 0 10px 0; }
             .newsletter-form input[type="email"], .newsletter-form button { font-size: 14px; }
             footer { padding: 60px 30px; }
             .our-story-section { display: block; padding: 100px 30px; }
             .logo-container { display: none; }
             .btn-primary{ display: block; margin: auto; }
-            .map-container-wrapper { height: 1000px; }
+            .map-section{ width: 100vw; padding: 60px 5px; }
+            .testimonials-section { padding: 400px 20px 60px 20px; }                        
             
             .mobile-menu-content {
                 flex-direction: column; 
@@ -1266,7 +1292,11 @@
 
     <!-- Interactive Map Section -->
     <section class="map-section" id="destinations-map">
-        <div class="map-container-wrapper">
+        <div class="section-header">
+                <h1>Discover Our Destinations</h1>
+                <p>Explore the stunning landscapes and experiences across the Nordics</p>
+        </div>
+        <div class="map-container-wrapper">            
             <iframe src="index_map_norway.html" class="map-iframe" title="Norway Destinations Interactive Map"></iframe>
         </div>
     </section>
