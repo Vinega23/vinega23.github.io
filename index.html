@@ -333,7 +333,7 @@
         /* The Floating/Fixed Logo */
         #dynamic-hero-logo {
             position: fixed;
-            top: 40%; 
+            top: 20%; 
             left: 50%; 
             transform: translate(-50%, -50%);
             z-index: 900; 
@@ -938,7 +938,7 @@
             cursor: pointer;
             border: none;
             text-transform: uppercase;
-        }
+        }       
 
         .btn-primary:hover {
             background: var(--color-light-bg);
@@ -1047,7 +1047,7 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            nav { padding: 10px 20px; }
+            nav { padding: 10px 20px; height: 50px; }
             nav.scrolled { padding: 12px 20px; }
             .nav-menu { display: none; }
             .hamburger-menu { display: block; left: 0px; }
@@ -1077,7 +1077,7 @@
             .gallery-item { aspect-ratio: 6 / 8; }  
             .gallery-description{ font-size: 15px; }
             .gallery-showcase h2, .gallery-showcase > p { padding-left: 20px; padding-right: 20px; }
-            .gallery-showcase {padding: 60px 5px;}
+            .gallery-showcase {padding: 60px 0px 60px 5px;}
             .carousel-controls{ margin-top: 0px; }
             .hero-tagline { font-size: 12px; margin-bottom: 30px; }
             .hero-cta-secondary { padding: 10px 24px; font-size: 13px; }
@@ -1149,8 +1149,8 @@
                         </ul>
                     </li>
                     <li><a href="./index.html/#gallery-showcase">Inspiration</a></li>
-                    <li><a href="./index.html">Destinations</a></li>
-                    <li><a href="#testimonials">About</a></li>
+                    <li><a href="./index.html/#destinations-map">Destinations</a></li>
+                    <li><a href="./about.html">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li class="social-icons">
                          <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
@@ -1219,8 +1219,12 @@
             <p>
                 Every trip we design reflects our passion for unique experiences. Sailing under the midnight sun, immersing in local culture—it's the unexpected moments that truly captivate.
                 This is our story. We can't wait to help you write yours.
-            </p>           
-            <button class="btn-primary">Read More</button>
+            </p>  
+              
+            <a href="./about.html" class="btn-primary">
+                Read More
+            </a>
+            
         </div>
     </section>
 
@@ -1361,12 +1365,12 @@
                 <p><a href="./index.html">Destinations</a></p>
                 <p><a href="./services.html">Services</a></p>
                 <p><a href="./lodgings.html">Lodgings</a></p>
-                <p><a href="#">About Us</a></p>
+                <p><a href="./about.html">About Us</a></p>
                 <p><a href="#">Terms & Conditions</a></p>
             </div>
             <div class="connect">
                 <h4>Connect</h4>
-                <p>hello@cloudberryescapes.com</p>
+                <p>travel@cloudberryescapes.com</p>
                 <p>+47 XXX XX XXX</p>
                 
                 <div class="footer-social-icons">
@@ -1429,14 +1433,14 @@
             
             // Dimensions (Width)
             // UPDATED: Increased start width for bigger initial impact
-            const startWidth = isMobile ? 260 : 450; // Pixels (was 200/350)
+            const startWidth = isMobile ? 260 : 450; // Pixels 
             const endWidth = isMobile ? 110 : 150;   // Pixels
             
             // Positions (Top Center)
             // UPDATED: Start Higher up (40vh instead of 50vh)
-            const startY = window.innerHeight * 0.45; 
-            const endY = 45; // Approximate vertical center of nav
-            
+            const startY = window.innerHeight * 0.45;            
+            const endY = isMobile ? 25 : 45; // Approximate vertical center of nav
+
             // Interpolate
             const currentWidth = startWidth - (progress * (startWidth - endWidth));
             const currentY = startY - (progress * (startY - endY));
@@ -1602,7 +1606,7 @@
             });
         });
        
-            document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             const dropdownToggle = document.querySelector('.mobile-nav-menu .dropdown-toggle');
             const dropdown = dropdownToggle.closest('.dropdown');
 
