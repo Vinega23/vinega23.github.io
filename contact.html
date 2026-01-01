@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | Cloudberry Escapes</title>
+    <title>Contact Us | Cloudberry Escapes</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
+        /* --- REUSED STYLES FROM ABOUT.HTML --- */
         :root {
             --color-dark-primary: #102632;
             --color-dark-secondary: #25414E;
@@ -29,13 +30,12 @@
 
         body {
             font-family: var(--font-secondary);            
-            color: var(--color-light-bg); /* Adjusted for readability on dark bg */
+            color: var(--color-light-bg);
             line-height: 1.8;           
             background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
             overflow-x: hidden;
         }
 
-        /* Style for body when menu is open */
         body.mobile-menu-open {
             overflow: hidden; 
         }
@@ -104,7 +104,6 @@
         }
 
          /* Mobile Menu Overlay */
-
         .mobile-menu-content {
             display: flex;
             flex-direction: row; 
@@ -118,7 +117,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Uses darkest color: #0D1D1C (dark-primary) as requested */
             background: var(--color-black-scrolled);
             backdrop-filter: blur(15px);
             z-index: 1000; 
@@ -130,8 +128,6 @@
             pointer-events: none;
             transform: translateX(-100%);
             transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            display: flex;
-            justify-content: center; 
         }
 
         .mobile-menu-overlay.open {
@@ -146,7 +142,6 @@
             right: 25px;
             background: transparent;
             border: none;
-            /* Light color on dark overlay */
             color: var(--color-accent); 
             font-size: 40px;
             font-weight: 300;
@@ -174,7 +169,7 @@
 
         .mobile-nav-menu a {
             text-decoration: none;
-            color: var(--color-light-bg); /* Use light body BG color for contrast on dark overlay */
+            color: var(--color-light-bg);
             font-family: var(--font-primary);
             font-size: 28px;
             font-weight: 600;
@@ -186,7 +181,6 @@
             color: var(--color-accent);
         }
 
-        /* UPDATED: Push Social Icons to Bottom Left */
         .mobile-nav-menu .social-icons {
             display: flex;
             justify-content: flex-start;
@@ -242,7 +236,6 @@
             transition: transform 0.3s ease;
         }
 
-        /* Initially hide submenu */
         .mobile-nav-menu .dropdown-menu {
             list-style: none;
             padding-left: 20px;
@@ -259,7 +252,6 @@
             margin: 10px 0; 
         }
 
-        /* Dropdown open state */
         .mobile-nav-menu .dropdown.open > .dropdown-toggle .arrow-icon {
             transform: rotate(180deg);
         }
@@ -269,11 +261,9 @@
             animation: fadeIn 0.3s ease;
         }
 
-        /* PAGE CONTENT STYLES */
-
-        /* Header / Hero Section */
+        /* PAGE HEADER */
         .page-header {
-            padding: 180px 60px 80px 60px;
+            padding: 180px 60px 60px 60px;
             text-align: center;
             max-width: 1000px;
             margin: 0 auto;
@@ -305,170 +295,190 @@
             opacity: 0.6;
         }
 
-        /* About Section */
-        .about-section {
-            padding: 0 60px 100px 60px;
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
+        /* --- CONTACT SPECIFIC STYLES --- */
 
-        .about-text {
-            font-size: 20px;
-            line-height: 1.8;
-            color: rgba(255, 234, 219, 0.9); /* Slight transparency on light-bg color */
-            margin-bottom: 30px;
-        }
-        
-        .about-highlight {
-            color: var(--color-accent);
-            font-family: var(--font-primary);
-            font-style: italic;
-            font-size: 24px;
-        }
-
-        /* Team Section */
-        .team-section {
-            padding: 100px 60px;
-            background: rgba(21, 20, 25, 0.8);         
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 48px;
-            color: var(--color-light-bg);
-            margin-bottom: 80px;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 80px;
+        .contact-container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 60px 100px 60px;
+            display: grid;
+            grid-template-columns: 300px 1fr; /* Fixed width for contact info to prevent squishing */
+            gap: 80px;
+            align-items: start;
         }
 
-        .team-member {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+        .contact-info {
+            padding-top: 10px;
+            position: sticky;
+            top: 120px;
         }
 
-        .member-image-container {
-            width: 100%;
-            aspect-ratio: 3/4;
-            overflow: hidden;
-            border-radius: 2px;
-            background-color: #1a3a4a;
-            position: relative;
+        .contact-intro-text {
+            font-size: 18px;
+            color: rgba(255, 234, 219, 0.9);
+            margin-bottom: 40px;
         }
 
-        .member-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-            filter: grayscale(20%);
+        .contact-details h3 {
+            color: var(--color-light-bg);
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            margin-top: 30px;
+        }
+        
+        .contact-details h3:first-child { margin-top: 0; }
+
+        .contact-details p {
+            color: rgba(255, 234, 219, 0.7);
+            margin-bottom: 5px;
+            font-size: 15px;
         }
 
-        .member-image-container:hover img {
-            transform: scale(1.03);
-            filter: grayscale(0%);
-        }
-
-        .member-info {
-            text-align: left;
-        }
-
-        .member-role {
-            font-family: var(--font-ui);
-            text-transform: uppercase;
+        .contact-details .person-role {
             font-size: 12px;
-            letter-spacing: 0.15em;
-            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.6;
             margin-bottom: 10px;
             display: block;
         }
 
-        .member-name {
-            font-size: 32px;
-            color: var(--color-light-bg);
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .member-bio {
-            font-size: 16px;
-            color: rgba(255, 234, 219, 0.8);
-            line-height: 1.8;
-        }
-
-        /* Mobile Menu Overlay (Reused from your design) */
-        .mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--color-black-scrolled);
-            backdrop-filter: blur(15px);
-            z-index: 1000; 
-            opacity: 0;
-            pointer-events: none;
-            transform: translateX(-100%);
-            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            display: flex;
-            justify-content: center;
-            align-items: center; 
-        }
-
-        .mobile-menu-overlay.open {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateX(0);
-        }
-
-        .mobile-menu-close {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            background: transparent;
-            border: none;
-            color: var(--color-accent); 
-            font-size: 40px;
-            font-weight: 300;
-            cursor: pointer;
-            line-height: 1;
-            z-index: 1002;
-        }
-        
-        .mobile-nav-content {
-            text-align: center;
-        }
-
-        .mobile-nav-menu {
-            list-style: none;
-        }
-        
-        .mobile-nav-menu li {
-            margin: 20px 0;
-        }
-
-        .mobile-nav-menu a {
+        .contact-details a {
+            color: var(--color-accent);
             text-decoration: none;
-            color: var(--color-light-bg);
-            font-family: var(--font-primary);
-            font-size: 28px;
-            font-weight: 600;
             transition: color 0.3s ease;
         }
 
-        .mobile-nav-menu a:hover {
-            color: var(--color-accent);
+        .contact-details a:hover {
+            color: var(--color-light-bg);
         }
 
+        /* Form Styling */
+        .form-container {
+            background: transparent;
+            padding: 0;
+        }
 
-        /* Footer */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-family: var(--font-ui);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--color-light-bg);
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        /* Boxed Input Style */
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 234, 219, 0.25);
+            padding: 14px 16px;
+            color: var(--color-light-bg);
+            font-family: var(--font-secondary);
+            font-size: 15px;
+            transition: all 0.3s ease;
+            outline: none;
+            border-radius: 0; 
+        }
+
+        .form-input[type="date"] {
+            font-family: var(--font-ui);
+            color: rgba(255, 234, 219, 0.8);
+        }
+
+        .form-input::placeholder, .form-textarea::placeholder {
+             color: rgba(255, 234, 219, 0.3);
+             font-style: italic;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            border-color: var(--color-accent);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 140px;
+            margin-top: 0;
+        }
+
+        /* Option Grids (Checkboxes/Radios) */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 234, 219, 0.1);
+            transition: border-color 0.3s ease;
+        }
+        
+        .option-item:hover {
+            border-color: rgba(236, 109, 58, 0.5);
+        }
+
+        .option-item input[type="checkbox"], 
+        .option-item input[type="radio"] {
+            accent-color: var(--color-accent);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .option-label {
+            font-size: 14px;
+            color: rgba(255, 234, 219, 0.8);
+            font-family: var(--font-secondary);
+            cursor: pointer;
+            line-height: 1.2;
+        }
+
+        .wix-form-submit-btn {
+            background: var(--color-accent);
+            color: var(--color-dark-primary);
+            padding: 16px 42px;
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-transform: uppercase;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .wix-form-submit-btn:hover {
+            background: var(--color-light-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* --- FOOTER & CTA STYLES --- */
         footer {
             background: var(--color-dark-primary);
             color: var(--color-light-bg);
@@ -523,62 +533,13 @@
 
         .footer-logo{
             display: none;
-        }
-
-         /* CTA Section */
-        .cta-section {
-            padding: 100px 60px;
-            /* Using dark colors for visual break against the new light body BG */
-            background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
-            text-align: center;
-            color: var(--color-light-bg);
-        }
-
-        .cta-section h2 {
-            font-family: var(--font-primary);
-            font-size: 50px;
-            font-weight: 700;
-            color: var(--color-light-bg);
-            margin-bottom: 20px;
-            letter-spacing: -0.01em;
-        }
-
-        .cta-section p {
-            font-size: 18px;
-            font-family: var(--font-secondary);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            color: var(--color-accent);
-        }
-
-        .btn-primary {
-            background: var(--color-accent);
-            color: var(--color-dark-primary);
-            padding: 14px 38px;
-            border-radius: 2px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            display: inline-block;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            text-transform: uppercase;
-        }
-
-        .btn-primary:hover {
-            background: var(--color-light-bg);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(219, 115, 59, 0.4); 
-        }
+        }        
 
         /* Responsive Design */
         @media (max-width: 1024px) {
             .page-header h1 { font-size: 52px; }
-            .team-grid { gap: 40px; }
+            .contact-container { grid-template-columns: 1fr; gap: 60px; }
+            .contact-info { position: static; }
         }
 
         @media (max-width: 768px) {
@@ -586,25 +547,17 @@
             .nav-menu { display: none; }
             .hamburger-menu { display: block; left: 0; }
             
-            .page-header { padding: 140px 20px 60px 20px; }
+            .page-header { padding: 140px 20px 40px 20px; }
             .page-header h1 { font-size: 42px; }
             
-            .about-section { padding: 0 20px 60px 20px; }
-            .about-text { font-size: 18px; }
-
-            .team-section { padding: 60px 20px; }
-            .section-title { font-size: 36px; margin-bottom: 50px; }
-            .team-grid { grid-template-columns: 1fr; gap: 60px; }
-            .member-image-container { aspect-ratio: 2/3; }
+            .contact-container { padding: 0 20px 80px 20px; gap: 40px; }
+            .form-row, .options-grid { grid-template-columns: 1fr; }
+            .form-container { padding: 0; } 
             
             .footer-content { grid-template-columns: 1fr; gap: 40px; }
             .logo img { width: 120px; margin-top: 8px; }
-            .mobile-menu-content {
-                flex-direction: column; 
-            }
-            /* .mobile-menu-image {
-                display: ; 
-            } */
+            .mobile-menu-content { flex-direction: column; }
+            
             .mobile-nav-menu {
                 margin-top: 40px;
                 padding: 0 50px;
@@ -617,10 +570,8 @@
 </head>
 <body>
 
-    <!-- Navigation -->
-    <!-- Navigation -->
+    <!-- Navigation (Same as about.html) -->
     <nav id="mainNav">
-        <!-- We keep the logic div for spacing if needed, but visual logo is handled by fixed element -->
         <div class="logo"><img src="./Images/Logo/CE_logo_beige.png" alt=""></div>
         <ul class="nav-menu">
             <li><a href="#experiences">Services</a></li>
@@ -628,7 +579,6 @@
             <li><a href="#testimonials">About</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <!-- Hamburger Menu Button -->
         <button class="hamburger-menu" id="hamburgerMenu" aria-label="Open menu">
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
@@ -636,7 +586,7 @@
         </button>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
+    <!-- Mobile Menu Overlay (Same as about.html) -->
    <div class="mobile-menu-overlay" id="mobileMenu">
         <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
             <div class="mobile-menu-content">
@@ -645,7 +595,7 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
                             Services
-                            <span class="arrow-icon">&#x25BC;</span> <!-- down arrow -->
+                            <span class="arrow-icon">&#x25BC;</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="./services.html">Local Expertise</a></li>
@@ -666,7 +616,6 @@
                             </svg>
                         </a>
                         <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">
-                            <!-- Facebook SVG icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
                             </svg>
@@ -679,88 +628,186 @@
             </div>
     </div>
 
-    <!-- Hero / Title Section -->
+    <!-- Header Section -->
     <header class="page-header">
-        <span class="subtitle">Our Story</span>        
+        <span class="subtitle">Start Your Journey</span>        
+        <!-- <h1>Start Your Journey</h1>         -->
         <div class="separator"></div>
     </header>
 
-    <!-- About Content -->
-    <section class="about-section">
-        <div class="about-text">
-            <p>
-                Cloudberry Escapes creates bespoke journeys in Northern Norway, combining
-                raw Arctic nature with refined Arctic luxury. Founded by Bram Bril and Yves Jacobs, 
-                we specialize in tailor-made travel experiences designed for guests seeking authenticity, 
-                comfort, and seamless execution.
+    <!-- Contact Form Section -->
+    <section class="contact-container" id="contact">
+        <!-- Left Column: Contact Info/Text -->
+        <div class="contact-info">
+            <p class="contact-intro-text">
+                The more details you provide, the better we can tailor your travel itinerary to create a truly personalised and unforgettable experience.
             </p>
-            <br>
-            <p>
-                Our journeys go beyond standard itineraries, offering rare access to the
-                landscapes, culture, and hidden corners of the Arctic. Inspired by the cloudberry — 
-                <span class="about-highlight">viddas gull</span>, the “gold of the plateaus” — our approach
-                is rooted in exclusivity, local knowledge, and deep respect for the region. 
-            </p>
-            <br>
-            <p>
-                From full services hotels and lodges to private properties and villas to carefully curated Arctic
-                experiences, every detail is thoughtfully crafted to reflect the true spirit of the north.
-                With trusted local partners and hands-on expertise, we ensure each journey is
-                effortless, personal, and exceptional.
-            </p>
-        </div>
-    </section>
+            
+            <div class="contact-details">
+                <h3>Contact</h3>
+                
+                <p><strong>Yves Jacobs</strong><br>
+                <span class="person-role">Chief Experience Officer</span>
+                <a href="tel:+4794129301">0047 94129301</a></p>
 
-    <!-- Team Section -->
-    <section class="team-section">
-        <h2 class="section-title">Meet the Team</h2>
-        
-        <div class="team-grid">
-            <!-- Member 1: Yves Jacobs -->
-            <div class="team-member">
-                <div class="member-image-container">
-                    <!-- Placeholder image - Replace src with actual image of Yves -->
-                    <img src="./Images/Yves - Cloudberry Escapes _JPG.avif" alt="Yves Jacobs">
-                </div>
-                <div class="member-info">
-                    <span class="member-role">Founder & Chief Experience Officer</span>
-                    <h3 class="member-name">Yves Jacobs</h3>
-                    <p class="member-bio">
-                        Yves Jacobs is a multilingual Arctic travel specialist with over a decade of experience
-                        across Northern Europe. With a background in operations, product development, and
-                        bespoke guest journeys, he brings deep regional knowledge and a hands-on
-                        approach to creating seamless, high-quality experiences in remote Arctic
-                        destinations.
-                    </p>
-                </div>
-            </div>
+                <p style="margin-top:20px;"><strong>Bram Bril</strong><br>
+                <span class="person-role">Head of Sales</span>
+                <a href="tel:+4748043752">0047 48043752</a></p>
 
-            <!-- Member 2: Bram Bril -->
-            <div class="team-member">
-                <div class="member-image-container">
-                     <!-- Placeholder image - Replace src with actual image of Bram -->
-                    <img src="./Images/Bram - Cloudberry Escapes_JPG.avif" alt="Bram Bril">
-                </div>
-                <div class="member-info">
-                    <span class="member-role">Founder & Head of Sales</span>
-                    <h3 class="member-name">Bram Bril</h3>
-                    <p class="member-bio">
-                        Bram Bril is an experienced tourism professional based in Alta, Northern Norway,
-                        with over a decade of experience in Arctic travel and destination development. With a
-                        background spanning sales, business development, and guest experience, he
-                        combines international perspective with deep local knowledge to create thoughtful,
-                        high-quality Arctic journeys.
-                    </p>
-                </div>
+                <p style="margin-top:20px;">
+                    <a href="mailto:travel@cloudberryescapes.com">travel@cloudberryescapes.com</a>
+                </p>
+
+                <h3>Address</h3>
+                <p>
+                    Holtenbakken 9<br>
+                    9513 Alta, Finnmark<br>
+                    Norway
+                </p>
             </div>
         </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <h2>Ready to Discover Your Arctic Adventure?</h2>
-        <p>Let us craft your perfect Northern Norway escape. Reach out to our team to begin the conversation.</p>
-        <button class="btn-primary">Get in Touch</button>
+        <!-- Right Column: WIX Form Structure Matches Site -->
+        <div class="form-container">
+            <form id="contactForm">
+                <div class="form-group">
+                    <label class="form-label" for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" name="fullName" class="form-input" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email *</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Phone *</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="arrival">Arrival Airport *</label>
+                    <input type="text" id="arrival" name="arrival" class="form-input" required placeholder="e.g. Tromsø, Alta...">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                         <label class="form-label" for="dateFrom">Traveling From *</label>
+                         <input type="date" id="dateFrom" name="dateFrom" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                         <label class="form-label" for="dateUntil">Until *</label>
+                         <input type="date" id="dateUntil" name="dateUntil" class="form-input" required>
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                    <label class="form-label" for="guests">How many guests are in your travel party? *</label>
+                    <input type="number" id="guests" name="guests" min="1" class="form-input" required>
+                </div>
+
+                <!-- Purpose of Travel -->
+                <div class="form-group">
+                    <label class="form-label">Purpose of Travel</label>
+                    <div class="options-grid">
+                        <label class="option-item">
+                            <input type="checkbox" name="purpose" value="Leisure">
+                            <span class="option-label">Leisure</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="purpose" value="Adventure">
+                            <span class="option-label">Adventure</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="purpose" value="Family trip">
+                            <span class="option-label">Family trip</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="purpose" value="Business">
+                            <span class="option-label">Business</span>
+                        </label>
+                         <label class="option-item">
+                            <input type="checkbox" name="purpose" value="Cultural">
+                            <span class="option-label">Cultural / Heritage</span>
+                        </label>
+                         <label class="option-item">
+                            <input type="checkbox" name="purpose" value="Wellness">
+                            <span class="option-label">Wellness / Retreat</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Lodging Preferences -->
+                <div class="form-group">
+                    <label class="form-label">Lodging Preferences</label>
+                    <div class="options-grid">
+                        <label class="option-item">
+                            <input type="checkbox" name="lodging" value="Luxury">
+                            <span class="option-label">Luxury Lodges & Hotels</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="lodging" value="Cabins">
+                            <span class="option-label">Private Cabins</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="lodging" value="Glamping">
+                            <span class="option-label">Glamping</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="lodging" value="Other">
+                            <span class="option-label">Other</span>
+                        </label>
+                    </div>
+                </div>
+
+                 <!-- Activity Preferences -->
+                <div class="form-group">
+                    <label class="form-label">Activity Preferences</label>
+                    <div class="options-grid">
+                        <label class="option-item">
+                            <input type="checkbox" name="activity" value="Nature">
+                            <span class="option-label">Nature & outdoors</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="activity" value="City">
+                            <span class="option-label">City tours / sightseeing</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="activity" value="Adventure">
+                            <span class="option-label">Adventure tours</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="activity" value="Food">
+                            <span class="option-label">Food & wine</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="activity" value="Museums">
+                            <span class="option-label">Museums & art</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="activity" value="Culture">
+                            <span class="option-label">Local culture & traditions</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="activity" value="Spa">
+                            <span class="option-label">Spa & wellness</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="activity" value="Shopping">
+                            <span class="option-label">Shopping</span>
+                        </label>
+                    </div>
+                </div>               
+
+                <div class="form-group">
+                    <label class="form-label" for="message">What does your perfect getaway look like?</label>
+                    <textarea id="message" name="message" class="form-textarea" placeholder="The more we know, the better we can personalize your itinerary!"></textarea>
+                </div>
+
+                <button type="submit" class="wix-form-submit-btn">Submit</button>
+            </form>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -798,7 +845,9 @@
                 <p style="margin-top: 16px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
             </div>
         </div>
-        </footer>
+    </footer>
+    
+    <!-- Scripts -->
     <script>
         // Navigation Scroll Effect
         const nav = document.getElementById('mainNav');
