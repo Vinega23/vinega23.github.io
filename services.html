@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloudberry Escapes - Services</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --color-dark-primary: #102632;
@@ -16,6 +17,8 @@
             --color-black-transparent: rgba(21, 20, 25, 0.95);
             --color-black-cut: rgba(21, 20, 25, 0.8);
             --color-black-scrolled: rgba(21, 20, 25, 1);
+            --font-primary: "EB Garamond", "Garamond", "Georgia", serif;
+            --font-secondary: "Lora", "Times New Roman", serif;
         }
 
         * {
@@ -25,7 +28,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-secondary);
             color: var(--color-dark-secondary);
             line-height: 1.7;
             background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
@@ -37,8 +40,8 @@
             overflow: hidden; 
         }
 
-        /* --- NAVIGATION --- */
-        nav {
+        /* Navigation */
+          nav {
             position: fixed;
             top: 0;
             width: 100%;           
@@ -52,19 +55,31 @@
             transition: all 0.4s ease;
             height: 90px; 
             border-bottom: 1px solid transparent;
-        }      
-        
+        }
+
         .logo img {          
             width: 150px;
             margin-top: 8px;
         }
-
-        /* Hide standard links on all screens, forcing Hamburger use */
+        
         .nav-menu {
-            display: none;
+            display: none;          
+        }       
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--color-light-bg);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
         }
 
-        /* Hamburger Menu Button */
+        .nav-menu a:hover {
+            color: var(--color-accent);
+        }
+
         .hamburger-menu {
             display: block; 
             background: transparent;
@@ -79,34 +94,12 @@
             display: block;
             width: 24px;
             height: 2px;
-            background-color: var(--color-light-bg);
+            background-color: var(--color-light-bg); 
             margin: 5px 0;
             transition: all 0.3s ease;
         }
-        
-        /* Mobile Menu Overlay */
-        .mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--color-black-scrolled);
-            backdrop-filter: blur(15px);
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateX(-100%);
-            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            display: flex;
-            justify-content: center;
-        }
 
-        .mobile-menu-overlay.open {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateX(0);
-        }
+         /* Mobile Menu Overlay */
 
         .mobile-menu-content {
             display: flex;
@@ -115,18 +108,47 @@
             height: 100%;
         }
 
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Uses darkest color: #0D1D1C (dark-primary) as requested */
+            background: var(--color-black-scrolled);
+            backdrop-filter: blur(15px);
+            z-index: 1000; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-100%);
+            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            justify-content: center; 
+        }
+
+        .mobile-menu-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0);
+        }
+
         .mobile-menu-close {
             position: absolute;
             top: 20px;
             right: 25px;
             background: transparent;
             border: none;
+            /* Light color on dark overlay */
+            color: var(--color-accent); 
             font-size: 40px;
             font-weight: 300;
             cursor: pointer;
             line-height: 1;
             z-index: 1002;
-            color: var(--color-light-bg);
         }
 
         .mobile-nav-menu {
@@ -136,6 +158,7 @@
             text-align: left;
             display: flex;
             flex-direction: column;           
+            text-decoration: none;
             list-style: none;
             overflow-y: auto; 
             height: 100%; 
@@ -147,8 +170,8 @@
 
         .mobile-nav-menu a {
             text-decoration: none;
-            color: var(--color-light-bg);
-            font-family: 'Playfair Display', serif;
+            color: var(--color-light-bg); /* Use light body BG color for contrast on dark overlay */
+            font-family: var(--font-primary);
             font-size: 28px;
             font-weight: 600;
             letter-spacing: 0.05em;
@@ -159,6 +182,7 @@
             color: var(--color-accent);
         }
 
+        /* UPDATED: Push Social Icons to Bottom Left */
         .mobile-nav-menu .social-icons {
             display: flex;
             justify-content: flex-start;
@@ -195,18 +219,51 @@
         .mobile-menu-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; 
         }
 
-        /* Mobile Dropdown Logic */
-        .mobile-nav-menu .dropdown { position: relative; }
-        .mobile-nav-menu .dropdown-toggle { cursor: pointer; display: flex; align-items: center; }
-        .mobile-nav-menu .arrow-icon { margin-left: 8px; font-size: 14px; transition: transform 0.3s ease; }
-        .mobile-nav-menu .dropdown-menu { list-style: none; padding-left: 20px; margin-top: 10px; display: none; }
-        .mobile-nav-menu .dropdown-menu a { font-size: 20px; opacity: 0.8; }
-        .mobile-nav-menu .dropdown-menu li { margin: 10px 0; }
-        .mobile-nav-menu .dropdown.open > .dropdown-toggle .arrow-icon { transform: rotate(180deg); }
-        .mobile-nav-menu .dropdown.open > .dropdown-menu { display: block; animation: fadeIn 0.3s ease; }
+        .mobile-nav-menu .dropdown {
+            position: relative;
+        }
+
+        .mobile-nav-menu .dropdown-toggle {
+            cursor: pointer;
+            display: flex;
+            align-items: center;            
+        }
+
+        .mobile-nav-menu .arrow-icon {
+            margin-left: 8px;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Initially hide submenu */
+        .mobile-nav-menu .dropdown-menu {
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 10px; 
+            display: none;
+        }
+
+        .mobile-nav-menu .dropdown-menu a {
+            font-size: 20px;
+            opacity: 0.8;
+        }
+        
+        .mobile-nav-menu .dropdown-menu li {
+            margin: 10px 0; 
+        }
+
+        /* Dropdown open state */
+        .mobile-nav-menu .dropdown.open > .dropdown-toggle .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        .mobile-nav-menu .dropdown.open > .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -235,8 +292,9 @@
         .hero-tagline {
             position: relative;
             z-index: 2;
-            font-family: 'Playfair Display', serif;
-            font-size: 48px; 
+            font-family: var(--font-primary);
+            font-size: 60px; 
+            font-weight: 700;
             color: var(--color-light-bg);
             letter-spacing: 0.05em;            
             animation: fadeInUp 1.2s ease-out;
@@ -266,7 +324,7 @@
         }
 
         .services-intro p {
-            font-size: 18px;
+            font-size: 20px;
             color: var(--color-light-bg);
             line-height: 1.8;
             margin-bottom: 24px; 
@@ -357,7 +415,7 @@
         }
         
         .service-text-cut h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 32px;
             margin-bottom: 12px;
             color: var(--color-light-bg);
@@ -474,16 +532,15 @@
 
         /* --- CTA SECTION --- */
         .cta-section {
-            padding: 100px 60px;
-            background: rgba(16, 38, 50, 0.5); 
+            padding: 100px 60px;            
+            background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
             text-align: center;
             color: var(--color-light-bg);
-            border-top: 1px solid rgba(255, 234, 219, 0.1);
         }
 
         .cta-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px;
+            font-family: var(--font-primary);
+            font-size: 50px;
             font-weight: 700;
             color: var(--color-light-bg);
             margin-bottom: 20px;
@@ -492,6 +549,7 @@
 
         .cta-section p {
             font-size: 18px;
+            font-family: var(--font-secondary);
             margin-bottom: 40px;
             max-width: 600px;
             margin-left: auto;
@@ -513,20 +571,20 @@
             cursor: pointer;
             border: none;
             text-transform: uppercase;
-        }
+        }       
 
         .btn-primary:hover {
             background: var(--color-light-bg);
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(245, 110, 15, 0.4); 
+            box-shadow: 0 12px 30px rgba(219, 115, 59, 0.4); 
         }
 
-        /* --- FOOTER --- */
+         /* Footer */
         footer {
+            /* Uses darkest color: #0D1D1C (dark-primary) */
             background: var(--color-dark-primary);
             color: var(--color-light-bg);
             padding: 60px;
-            border-top: 1px solid rgba(255, 234, 219, 0.1);
         }
 
         .footer-content {
@@ -538,7 +596,7 @@
         }
 
         footer h4 {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 16px;
             color: var(--color-accent);
             margin-bottom: 16px;
@@ -547,6 +605,7 @@
         }
 
         footer p, footer a {
+            font-family: var(--font-secondary);
             font-size: 14px;
             color: var(--color-light-bg);
             line-height: 2;
@@ -556,17 +615,22 @@
         footer a:hover { color: var(--color-accent); }
 
         .footer-logo {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 18px;
             color: var(--color-accent);
             margin-bottom: 16px;
             letter-spacing: 0.05em;
+            display: none;
+        }
+
+        .footer-logo img{
+            size: 24px;
         }
 
         .footer-social-icons {
             display: flex;
             gap: 16px;
-            margin-top: 16px; 
+            margin-top: 14px; 
         }
 
         .footer-social-icons a {
@@ -582,7 +646,7 @@
             transition: fill 0.3s ease;
         }
 
-        .footer-social-icons a:hover svg { fill: var(--color-accent); }
+        .footer-social-icons a:hover svg { fill: var(--color-accent); }        
 
         /* --- RESPONSIVE --- */
         @media (max-width: 1024px) {
@@ -593,7 +657,9 @@
         }
 
         @media (max-width: 768px) {
-            nav { padding: 10px 20px; }
+            nav { padding: 10px 20px; height: 50px; }
+            .nav-menu { display: none; }
+            .hamburger-menu { display: block; left: 0; }
             
             /* Stack everything on mobile */
             .services-grid {
@@ -621,10 +687,17 @@
             }
 
             .footer-content { grid-template-columns: 1fr; gap: 40px; }
-            
-            .mobile-menu-content { flex-direction: column; }
-            .mobile-menu-image { display: none; }
-            .mobile-nav-menu { padding: 0 40px; margin-top: 40px; width: 100%; }
+            .logo img { width: 120px; margin-top: 8px; }
+            .mobile-menu-content {
+                flex-direction: column; 
+            }           
+            .mobile-nav-menu {
+                margin-top: 40px;
+                padding: 0 50px;
+                flex: unset;
+                width: 100%;
+                justify-content: flex-start;
+            }  
         }
 
     </style>
@@ -633,19 +706,15 @@
 
     <!-- Navigation -->
     <nav id="mainNav">
-        <div class="logo">
-            <img src="./Images/Logo/CE_logo_beige.png" alt="Cloudberry Escapes" onerror="this.style.display='none'; document.querySelector('.logo-text').style.display='block'">
-            <span class="logo-text" style="display:none; color:white; font-family:'Playfair Display'; font-weight:bold; font-size:20px;">CLOUDBERRY</span>
-        </div>
-        
+        <!-- We keep the logic div for spacing if needed, but visual logo is handled by fixed element -->
+        <div class="logo"><img src="./Images/Logo/CE_logo_beige.png" alt=""></div>
         <ul class="nav-menu">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="#">Inspiration</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="#experiences">Services</a></li>
+            <li><a href="#gallery-showcase">Inspiration</a></li>
+            <li><a href="#testimonials">About</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-
+        <!-- Hamburger Menu Button -->
         <button class="hamburger-menu" id="hamburgerMenu" aria-label="Open menu">
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
@@ -654,42 +723,49 @@
     </nav>
 
     <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobileMenu">
+   <div class="mobile-menu-overlay" id="mobileMenu">
         <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
-        <div class="mobile-menu-content">
-            <ul class="mobile-nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
-                        Services
-                        <span class="arrow-icon">&#x25BC;</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#local-expertise">Local Expertise</a></li>
-                        <li><a href="#off-beaten">Off The Beaten Track</a></li>
-                        <li><a href="#experiences">Unforgettable Experiences</a></li>
-                        <li><a href="#concierge">Travel Concierge</a></li>
-                        <li><a href="#transport">Private Transport</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Inspiration</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                
-                <li class="social-icons">
-                        <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
+            <div class="mobile-menu-content">
+                <ul class="mobile-nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                            Services
+                            <span class="arrow-icon">&#x25BC;</span> <!-- down arrow -->
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./services.html">Bespoke Travel Itineraries</a></li>
+                            <li><a href="./services.html">Local Expertise</a></li>
+                            <li><a href="./services.html">Off The Beaten Track</a></li>
+                            <li><a href="./services.html">Unforgettable Experiences</a></li>
+                            <li><a href="./services.html">Travel Concierge</a></li>
+                            <li><a href="./services.html">Private Transport</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="./index.html/#gallery-showcase">Inspiration</a></li>
+                    <li><a href="./index.html">Destinations</a></li>
+                    <li><a href="#testimonials">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="social-icons">
+                         <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
                             </svg>
-                        </a>                     
-                        <a href="#" target="_blank"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/></svg></a>
-                </li>
-            </ul>
-            <div class="mobile-menu-image">
-                <img src="./Images/PXL_20240925_061734060.jpg" alt="Menu image" />
+                        </a>
+                        <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">
+                            <!-- Facebook SVG icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+                <div class="mobile-menu-image">
+                    <img src="./Images/PXL_20240925_061734060.jpg" alt="Menu image" />
+                </div>
             </div>
-        </div>
     </div>
+
 
     <!-- Hero Section -->
     <div class="hero">          
@@ -705,8 +781,28 @@
         </section>        
 
         <div class="services-grid">
-            
-            <!-- Service 1: Local Expertise -->
+            <!-- Service 1: Itineraries -->
+            <div class="service-card" id="bespoke-itineraries">
+                <div class="flip-inner">
+                    <!-- Front Side -->
+                    <div class="flip-front">
+                        <img src="./Images/_MAB3906 copy.jpg" alt="Bespoke itineraries">
+                        <div class="service-text-cut">
+                            <h2>Bespoke Travel Itineraries</h2>
+                            <p>A well-planned journey is more than just an itinerary—it’s a seamless experience where every detail is carefully thought out.</p>
+                            <button class="btn-card read-more-btn">Read More</button>
+                        </div>
+                    </div>
+                    <!-- Back Side -->
+                    <div class="flip-back">
+                        <h3>Bespoke Travel Itineraries</h3>
+                        <p>At Cloudberry Escapes, we specialize in bespoke travel planning, ensuring that every trip is fully tailored, perfectly coordinated, and executed to the highest standard. Every traveler is unique, and so is every journey we create. Whether you dream of a peaceful escape in a remote Arctic cabin, an adventure-packed itinerary filled with dog sledding and snowmobiling, or a culinary exploration of regional flavors, we craft experiences that match your individual preferences. We take the time to understand what you want from your trip and build an itinerary that reflects your interests, pace, and style.</p>
+                        <button class="btn-card btn-card-back read-less-btn">Read Less</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 2: Local Expertise -->
             <div class="service-card" id="local-expertise">
                 <div class="flip-inner">
                     <!-- Front Side -->
@@ -727,7 +823,7 @@
                 </div>
             </div>
 
-            <!-- Service 2: Off The Beaten Track -->
+            <!-- Service 3: Off The Beaten Track -->
             <div class="service-card" id="off-beaten">
                 <div class="flip-inner">
                     <div class="flip-front">
@@ -746,7 +842,7 @@
                 </div>
             </div>
 
-            <!-- Service 3: Unforgettable Experiences -->
+            <!-- Service 4: Unforgettable Experiences -->
             <div class="service-card" id="experiences">
                 <div class="flip-inner">
                     <div class="flip-front">
@@ -765,7 +861,7 @@
                 </div>
             </div>
 
-            <!-- Service 4: Travel Concierge -->
+            <!-- Service 5: Travel Concierge -->
             <div class="service-card" id="concierge">
                 <div class="flip-inner">
                     <div class="flip-front">
@@ -783,15 +879,14 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Service 5: Private Transport (Full Width) -->
-            <div class="service-card full-width" id="transport">
+            <!-- Service 6: Transport -->
+            <div class="service-card" id="transport">
                 <div class="flip-inner">
                     <div class="flip-front">
                         <img src="./Images/11062b_07b13061ba204761aab6f1951c7d2c6c~mv2.avif" alt="Private Transport">
                         <div class="service-text-cut">
                             <h2>Private <span>Transport</span></h2>
-                            <p>Navigate the Arctic in safety and style. We provide high-end private transportation with experienced drivers, so you can relax and enjoy the scenery.</p>
+                            <p>Navigate the Arctic in safety and style. We provide high-end private transportation with experienced drivers, you can relax and enjoy the scenery.</p>
                             <button class="btn-card read-more-btn">Read More</button>
                         </div>
                     </div>
@@ -807,86 +902,102 @@
     </div>
 
     <!-- CTA Section -->
-    <section class="cta-section" id="contact">
+    <section class="cta-section">
         <h2>Ready to Discover Your Arctic Adventure?</h2>
         <p>Let us craft your perfect Northern Norway escape. Reach out to our team to begin the conversation.</p>
-        <button class="btn-primary">Get in Touch</button>
+        <a href="./about.html" class="btn-primary">Get In Touch</a>
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div>
-                <div class="footer-logo">CLOUDBERRY ESCAPES</div>
-                <p>Designing bespoke Arctic itineraries in Northern Norway for discerning travelers seeking authentic luxury.</p>
+                <div class="footer-logo"><img src="./Images/Logo/Cloudberry Orange.png" alt="Cloudberry Escapes"></div>                
             </div>
-           <div>
+            <div class="explore">
                 <h4>Explore</h4>
-               <p><a href="./experiences.html">Experiences</a></p>
+                <p><a href="./experiences.html">Experiences</a></p>
                 <p><a href="./index.html">Destinations</a></p>
                 <p><a href="./services.html">Services</a></p>
                 <p><a href="./lodgings.html">Lodgings</a></p>
-                <p><a href="#">About Us</a></p>
+                <p><a href="./about.html">About Us</a></p>
                 <p><a href="#">Terms & Conditions</a></p>
             </div>
-            <div>
+            <div class="connect">
                 <h4>Connect</h4>
-                <p>hello@cloudberryescapes.com</p>
+                <p>travel@cloudberryescapes.com</p>
                 <p>+47 XXX XX XXX</p>
                 
                 <div class="footer-social-icons">
-                        <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
-                            </svg>
-                        </a>                    
-                        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/></svg></a>
+                    <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">                            
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
+                        </svg>
+                    </a>
                 </div>
                 <p style="margin-top: 16px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
             </div>
         </div>
-    </footer>
+        </footer>
 
     <script>
-        // --- Navigation Logic ---
+         // Navigation Scroll Effect
         const nav = document.getElementById('mainNav');
-        const hamburgerBtn = document.getElementById('hamburgerMenu');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const closeBtn = document.getElementById('mobileMenuClose');
-        const mobileLinks = document.querySelectorAll('.mobile-nav-menu a');      
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
 
-        // Mobile Menu Toggles
-        if (hamburgerBtn && mobileMenu) {
-            hamburgerBtn.addEventListener('click', () => {
-                mobileMenu.classList.add('open');
-                document.body.classList.add('mobile-menu-open');
-            });
-            closeBtn.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-                document.body.classList.remove('mobile-menu-open');
-            });
-            
-            // Close menu when a link is clicked (unless it's a dropdown toggle)
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (link.classList.contains('dropdown-toggle')) return;
+        // Mobile Menu
+            const hamburgerBtn = document.getElementById('hamburgerMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const closeBtn = document.getElementById('mobileMenuClose');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-menu a');
+
+            if (hamburgerBtn && mobileMenu) {
+                hamburgerBtn.addEventListener('click', () => {
+                    mobileMenu.classList.add('open');
+                    document.body.classList.add('mobile-menu-open');
+                });
+                closeBtn.addEventListener('click', () => {
                     mobileMenu.classList.remove('open');
                     document.body.classList.remove('mobile-menu-open');
                 });
-            });
-        }
+                
+                // FIX: Check if the link is a dropdown toggle before closing the menu
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        // If it's the dropdown toggle, do nothing (return) so the menu stays open
+                        if (link.classList.contains('dropdown-toggle')) {
+                            return; 
+                        }
+                        
+                        mobileMenu.classList.remove('open');
+                        document.body.classList.remove('mobile-menu-open');
+                    });
+                });
+            }
 
-        // Mobile Dropdown Logic
-        const dropdownToggle = document.querySelector('.mobile-nav-menu .dropdown-toggle');
-        const dropdown = dropdownToggle ? dropdownToggle.closest('.dropdown') : null;
+          document.addEventListener('DOMContentLoaded', () => {
+            const dropdownToggle = document.querySelector('.mobile-nav-menu .dropdown-toggle');
+            const dropdown = dropdownToggle.closest('.dropdown');
 
-        if (dropdownToggle && dropdown) {
-            dropdownToggle.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropdown.classList.toggle('open');
-            });
-        }
+            if (dropdownToggle && dropdown) {
+                dropdownToggle.addEventListener('click', (e) => {
+                    e.preventDefault();   // Prevent following the "#" link
+                    e.stopPropagation();  // Prevent closing menu by parent handlers
+                    dropdown.classList.toggle('open');
+                });
+            }
+        });
 
         // --- Intersection Observer for Scroll Animations ---
         const observerOptions = {

@@ -36,8 +36,8 @@
             overflow: hidden;
         }
 
-        /* --- NAVIGATION --- */
-        nav {
+        /* Navigation */
+          nav {
             position: fixed;
             top: 0;
             width: 100%;           
@@ -52,7 +52,7 @@
             height: 90px; 
             border-bottom: 1px solid transparent;
         }
-        
+
         .logo img {          
             width: 150px;
             margin-top: 8px;
@@ -95,16 +95,29 @@
             transition: all 0.3s ease;
         }
 
-        /* --- MOBILE MENU OVERLAY --- */
+         /* Mobile Menu Overlay */
+
+        .mobile-menu-content {
+            display: flex;
+            flex-direction: row; 
+            width: 100%;
+            height: 100%;
+        }
+
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            /* Uses darkest color: #0D1D1C (dark-primary) as requested */
             background: var(--color-black-scrolled);
             backdrop-filter: blur(15px);
             z-index: 1000; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             opacity: 0;
             pointer-events: none;
             transform: translateX(-100%);
@@ -119,19 +132,13 @@
             transform: translateX(0);
         }
 
-        .mobile-menu-content {
-            display: flex;
-            flex-direction: row; 
-            width: 100%;
-            height: 100%;
-        }
-
         .mobile-menu-close {
             position: absolute;
             top: 20px;
             right: 25px;
             background: transparent;
             border: none;
+            /* Light color on dark overlay */
             color: var(--color-accent); 
             font-size: 40px;
             font-weight: 300;
@@ -147,24 +154,31 @@
             text-align: left;
             display: flex;
             flex-direction: column;           
+            text-decoration: none;
             list-style: none;
             overflow-y: auto; 
             height: 100%; 
         }
 
-        .mobile-nav-menu li { margin: 20px 0; }
+        .mobile-nav-menu li {
+            margin: 20px 0;
+        }
 
         .mobile-nav-menu a {
             text-decoration: none;
-            color: var(--color-light-bg); 
-            font-family: 'Playfair Display', serif;
+            color: var(--color-light-bg); /* Use light body BG color for contrast on dark overlay */
+            font-family: var(--font-primary);
             font-size: 28px;
             font-weight: 600;
             letter-spacing: 0.05em;
             transition: color 0.3s ease;
         }
-        .mobile-nav-menu a:hover { color: var(--color-accent); }
 
+        .mobile-nav-menu a:hover {
+            color: var(--color-accent);
+        }
+
+        /* UPDATED: Push Social Icons to Bottom Left */
         .mobile-nav-menu .social-icons {
             display: flex;
             justify-content: flex-start;
@@ -173,9 +187,21 @@
             padding-top: 20px; 
             margin-bottom: 100px;
         }
-        .mobile-nav-menu .social-icons a { color: var(--color-light-bg); }
-        .mobile-nav-menu .social-icons a:hover { color: var(--color-accent); }
-        .mobile-nav-menu .social-icons svg { width: 28px; height: 28px; fill: currentColor; }
+
+        .mobile-nav-menu .social-icons a {
+            color: var(--color-light-bg);
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-menu .social-icons a:hover {
+            color: var(--color-accent);
+        }
+
+        .mobile-nav-menu .social-icons svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+        }
 
         .mobile-menu-image {
             flex: 1; 
@@ -185,18 +211,55 @@
             justify-content: center;
             overflow: hidden;
         }
-        .mobile-menu-image img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Dropdown Logic */
-        .mobile-nav-menu .dropdown { position: relative; }
-        .mobile-nav-menu .dropdown-toggle { cursor: pointer; display: flex; align-items: center; }
-        .mobile-nav-menu .arrow-icon { margin-left: 8px; font-size: 14px; transition: transform 0.3s ease; }
-        .mobile-nav-menu .dropdown-menu { list-style: none; padding-left: 20px; margin-top: 10px; display: none; }
-        .mobile-nav-menu .dropdown-menu a { font-size: 20px; opacity: 0.8; }
-        .mobile-nav-menu .dropdown-menu li { margin: 10px 0; }
-        .mobile-nav-menu .dropdown.open > .dropdown-toggle .arrow-icon { transform: rotate(180deg); }
-        .mobile-nav-menu .dropdown.open > .dropdown-menu { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .mobile-menu-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+        }
+
+        .mobile-nav-menu .dropdown {
+            position: relative;
+        }
+
+        .mobile-nav-menu .dropdown-toggle {
+            cursor: pointer;
+            display: flex;
+            align-items: center;            
+        }
+
+        .mobile-nav-menu .arrow-icon {
+            margin-left: 8px;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Initially hide submenu */
+        .mobile-nav-menu .dropdown-menu {
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 10px; 
+            display: none;
+        }
+
+        .mobile-nav-menu .dropdown-menu a {
+            font-size: 20px;
+            opacity: 0.8;
+        }
+        
+        .mobile-nav-menu .dropdown-menu li {
+            margin: 10px 0; 
+        }
+
+        /* Dropdown open state */
+        .mobile-nav-menu .dropdown.open > .dropdown-toggle .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        .mobile-nav-menu .dropdown.open > .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
 
         /* --- PAGE HEADER --- */
         .page-header {

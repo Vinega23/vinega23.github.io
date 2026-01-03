@@ -182,7 +182,7 @@
 
         .mobile-nav-menu a {
             text-decoration: none;
-            color: var(--color-light-bg); /* Use light body BG color for contrast on dark overlay */
+            color: var(--color-light-bg);
             font-family: var(--font-primary);
             font-size: 28px;
             font-weight: 600;
@@ -193,8 +193,7 @@
         .mobile-nav-menu a:hover {
             color: var(--color-accent);
         }
-
-        /* UPDATED: Push Social Icons to Bottom Left */
+        
         .mobile-nav-menu .social-icons {
             display: flex;
             justify-content: flex-start;
@@ -362,6 +361,7 @@
             animation: fadeInUp 1.5s ease-out 0.3s both;
             transition: opacity 0.8s ease, transform 0.8s ease; 
             margin-bottom: 40px;
+            font-family: var(--font-primary);
         }
 
         .hero-tagline.fade-out {
@@ -430,7 +430,7 @@
         }
 
         .story-content h2 {
-            font-family: 'Garamond', serif;
+            font-family: var(--font-primary);
             font-size: 48px;
             font-weight: 700;
             color: var(--color-light-bg); /* Light BG on dark background */
@@ -439,7 +439,7 @@
         }
 
         .story-content p {
-            font-family: 'Lora', serif;
+            font-family: var(--font-secondary);
             font-size: 20px;
             /* color: gray; */
             color: var(--color-light-bg);
@@ -898,8 +898,7 @@
 
         /* CTA Section */
         .cta-section {
-            padding: 100px 60px;
-            /* Using dark colors for visual break against the new light body BG */
+            padding: 100px 60px;            
             background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
             text-align: center;
             color: var(--color-light-bg);
@@ -938,6 +937,7 @@
             cursor: pointer;
             border: none;
             text-transform: uppercase;
+            width: fit-content;
         }       
 
         .btn-primary:hover {
@@ -947,8 +947,7 @@
         }
 
         /* Footer */
-        footer {
-            /* Uses darkest color: #0D1D1C (dark-primary) */
+        footer {           
             background: var(--color-dark-primary);
             color: var(--color-light-bg);
             padding: 60px;
@@ -1141,17 +1140,18 @@
                             <span class="arrow-icon">&#x25BC;</span> <!-- down arrow -->
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a href="./services.html/#bespoke-itineraries">Bespoke Travel Itineraries</a></li>
                             <li><a href="./services.html">Local Expertise</a></li>
                             <li><a href="./services.html">Off The Beaten Track</a></li>
                             <li><a href="./services.html">Unforgettable Experiences</a></li>
                             <li><a href="./services.html">Travel Concierge</a></li>
-                            <li><a href="./services.html">Private Transport</a></li>
+                            <li><a href="./services.html/#transport">Private Transport</a></li>
                         </ul>
                     </li>
                     <li><a href="./index.html/#gallery-showcase">Inspiration</a></li>
                     <li><a href="./index.html/#destinations-map">Destinations</a></li>
                     <li><a href="./about.html">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
                     <li class="social-icons">
                          <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -1221,9 +1221,7 @@
                 This is our story. We can't wait to help you write yours.
             </p>  
               
-            <a href="./about.html" class="btn-primary">
-                Read More
-            </a>
+            <a href="./about.html" class="btn-primary">Read More</a>
             
         </div>
     </section>
@@ -1350,7 +1348,7 @@
     <section class="cta-section">
         <h2>Ready to Discover Your Arctic Adventure?</h2>
         <p>Let us craft your perfect Northern Norway escape. Reach out to our team to begin the conversation.</p>
-        <button class="btn-primary">Get in Touch</button>
+        <a href="./contact.html" class="btn-primary">Get In Touch</a>
     </section>
 
     <!-- Footer -->
