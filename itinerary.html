@@ -1,11 +1,12 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lodgings - Cloudberry Escapes</title>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <title>Itineraries - Cloudberry Escapes</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
     <style>
         /* --- CORE VARIABLES & RESET --- */
         :root {
@@ -29,7 +30,7 @@
         }
 
         body {
-            font-family: var(--font-secondary);            
+            font-family:var(--font-secondary);            
             color: var(--color-dark-secondary);
             line-height: 1.7;           
             background: var(--color-light-bg); 
@@ -161,7 +162,7 @@
         .mobile-nav-menu a {
             text-decoration: none;
             color: var(--color-light-bg); 
-            font-family: var();
+            font-family: var(--font-primary);
             font-size: 28px;
             font-weight: 600;
             letter-spacing: 0.05em;
@@ -223,162 +224,173 @@
             opacity: 0.9;
         }
 
-        /* --- NEW LODGING SECTIONS LAYOUT --- */
-        .lodgings-container {
-            /* Wider container for big impact */
-            max-width: 1800px; 
+        /* --- APP & HIGHLIGHTS SECTION --- */
+        .highlights-container {
+            max-width: 800px;
             margin: 0 auto;
-            padding: 100px 40px;
+            padding: 80px 20px;
         }
 
-        .lodging-section {
-            display: flex;
-            align-items: center;
-            gap: 100px; /* Increased gap */
-            margin-bottom: 160px;
+        /* APP INTRO SECTION */
+        .app-intro-section {
+            text-align: center;
+            margin-bottom: 80px;
+            border-bottom: 1px solid rgba(16, 38, 50, 0.1);
+            padding-bottom: 60px;
         }
 
-        /* Alternating layout: Even sections flip order */
-        .lodging-section:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .lodging-visuals {
-            flex: 1.6; /* Images are much bigger (approx 60% of width) */
-            min-width: 0; 
-            position: relative;
-        }
-
-        .lodging-text {
-            flex: 1; /* Text is smaller */
-            padding: 20px 0;
-        }
-
-        .lodging-text h2 {
+        .app-intro-section h2 {
             font-family: var(--font-primary);
-            font-size: 48px;
+            font-size: 38px;
             color: var(--color-dark-primary);
-            margin-bottom: 24px;
-            line-height: 1.1;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .lodging-text p {
-            font-family: var(--font-secondary);
-            font-size: 17px;
+        .app-subtitle {
+            font-family: var(--font-ui);
+            color: var(--color-accent);
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .app-intro-section p {
+            font-size: 18px;
             color: var(--color-dark-secondary);
-            line-height: 1.8;
-            margin-bottom: 0; /* No buttons below, so no margin needed */
-            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* --- SLIDER COMPONENT --- */
-        .slider-wrapper {
-            position: relative;
-            width: 100%;
-            /* Taller aspect ratio for more impact */
-            padding-bottom: 60%; 
-            overflow: hidden;
-            border-radius: 2px;
-            /* Subtler shadow */
-            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+        .how-it-works {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            max-width: 650px;
+            margin: 0 auto 40px auto;
+            text-align: left;
         }
 
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out; /* Slower, smoother fade */
-            pointer-events: none;
-            transform: scale(1.05); /* Subtle zoom effect start */
-            transition: opacity 0.8s ease-in-out, transform 8s ease;
-        }
-
-        .slide.active {
-            opacity: 1;
-            pointer-events: auto;
-            z-index: 1;
-            transform: scale(1); /* Subtle zoom in/out on active */
-        }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .how-it-works strong {
+            color: var(--color-dark-primary);
+            font-family: var(--font-primary);
+            font-size: 20px;
             display: block;
-        }
-
-        /* Slider Controls */
-        .slider-controls {
-            position: absolute;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            gap: 12px;
-            z-index: 10;
-        }
-
-        .slider-btn {
-            background: rgba(255, 255, 255, 0.1); /* Subtle glass background */
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%; /* Circle */
-            width: 50px; /* Slightly larger touch target */
-            height: 50px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-white);
-            opacity: 0.9;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .slider-btn:hover {
-            opacity: 1;
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
+            margin-bottom: 8px;
         }
         
-        .slider-btn svg {
-            width: 24px; 
-            height: 24px;
-            fill: none; 
-            stroke: currentColor; 
-            stroke-width: 2; /* Thicker stroke for visibility */
+        .app-features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-item {
+            font-family: var(--font-ui);
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* Dot Indicators */
-        .slider-dots {
+        /* HIGHLIGHT BLOCKS */
+        .example-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .example-header h2 {
+            font-family: var(--font-primary);
+            font-size: 42px;
+            color: var(--color-dark-primary);
+            font-weight: 600;
+        }
+
+        .example-header .subheading {
+            font-family: var(--font-ui);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-accent);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .highlight-text-block {
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .highlight-text-block h3 {
+            font-family: var(--font-primary);
+            font-size: 32px;
+            color: var(--color-dark-primary);
+            margin-bottom: 15px;
+        }
+
+        .highlight-text-block p {
+            font-size: 18px;
+            color: var(--color-dark-secondary);
+        }
+
+        /* The Screenshot Card */
+        .screenshot-card {
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 15px 40px rgba(16, 38, 50, 0.1);
+            margin-bottom: 100px; /* Space between sections */
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+            max-width: 450px; /* Constrain width to look like phone/doc */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 2px;
+        }
+
+        /* Badge to indicate this is a preview */
+        .preview-badge {
             position: absolute;
-            bottom: 45px; /* Aligned vertically with buttons */
-            left: 40px; /* Opposite side of arrows */
-            display: flex;
-            gap: 12px;
+            top: 20px;
+            right: 20px;
+            background: var(--color-accent);
+            color: white;
+            font-family: var(--font-ui);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             z-index: 10;
         }
 
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.0); /* Transparent border for sizing */
-        }
-
-        .dot:hover {
-            background: rgba(255, 255, 255, 0.7);
-        }
-
-        .dot.active {
-            background: var(--color-white);
-            transform: scale(1.2);
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        .download-btn-container {
+            text-align: center;
+            margin-top: 60px;
         }
 
         /* --- CTA SECTION --- */
@@ -428,6 +440,26 @@
             box-shadow: 0 12px 30px rgba(219, 115, 59, 0.4); 
         }
 
+        .btn-download {
+            background: transparent;
+            color: var(--color-dark-primary);
+            padding: 16px 42px;
+            border-radius: 2px;
+            text-decoration: underline;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-transform: uppercase;
+        }
+
+        .btn-download:hover {
+            color: var(--color-accent);
+        }        
+
         /* --- FOOTER --- */
         footer {
             background: var(--color-dark-primary);
@@ -466,7 +498,7 @@
             font-size: 18px;
             color: var(--color-accent);
             margin-bottom: 16px;
-            letter-spacing: 0.05em;            
+            letter-spacing: 0.05em;
         }
 
         .footer-social-icons {
@@ -491,72 +523,38 @@
         .footer-social-icons a:hover svg { fill: var(--color-accent); }
 
         /* --- RESPONSIVE --- */
-        @media (max-width: 1200px) {
-            .lodging-section { gap: 60px; }
-            .lodging-text h2 { font-size: 40px; }
-        }
-
-        @media (max-width: 1024px) {
-            .lodging-section, .lodging-section:nth-child(even) {
-                flex-direction: column;
-                gap: 40px;
-                margin-bottom: 100px;
-            }
-            .lodging-visuals {
-                width: 100%;
-                flex: auto;
-            }
-            .lodging-text {
-                width: 100%;
-                flex: auto;
-                text-align: left;
-                padding: 0 20px;
-            }
-        }
-
         @media (max-width: 768px) {
-            nav { padding: 10px 20px; }
+            nav { padding: 10px 20px; height: 50px; }
             .nav-menu { display: none; }
-            .hamburger-menu { display: block; left: 0px; }
+            .hamburger-menu { display: block; left: 0; }
             .mobile-nav-menu { padding-left: 40px; }
             
             .page-header { padding-top: 140px; padding-bottom: 40px; }
             .page-header h1 { font-size: 42px; }
             
-            .lodgings-container { padding: 40px 0px; /* Full width images on mobile */ }
-            .lodging-visuals { border-radius: 0; }
-            .slider-wrapper { border-radius: 0; }
+            .app-features { flex-direction: column; align-items: center; gap: 15px; }
             
             .footer-content { grid-template-columns: 1fr; gap: 30px; }
             .mobile-menu-content { flex-direction: column; }
             .mobile-menu-image { display: none; }
             .mobile-nav-menu { margin-top: 40px; padding: 0 50px; flex: unset; width: 100%; justify-content: flex-start; }
             
-            .slider-wrapper { padding-bottom: 75%; }
-            
-            /* Responsive Slider Controls */
-            .slider-controls { right: 20px; bottom: 20px; }
-            .slider-dots { left: 20px; bottom: 35px; }
-            .slider-btn { width: 44px; height: 44px; }
+            .screenshot-card { max-width: 100%; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+   <!-- Navigation -->
     <nav id="mainNav">
-          <div class="logo">
-            <img src="./Images/Logo/CE_logo_beige.png" alt="Cloudberry Escapes" onerror="this.style.display='none'; document.querySelector('.logo-text').style.display='block'">
-            <span class="logo-text" style="display:none; color:white; font-family:'Playfair Display'; font-weight:bold; font-size:20px;">CLOUDBERRY</span>
-        </div>
-
+        <!-- We keep the logic div for spacing if needed, but visual logo is handled by fixed element -->
+        <div class="logo"><img src="./Images/Logo/CE_logo_beige.png" alt=""></div>
         <ul class="nav-menu">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="#">Inspiration</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="#experiences">Services</a></li>
+            <li><a href="#gallery-showcase">Inspiration</a></li>
+            <li><a href="#testimonials">About</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-
+        <!-- Hamburger Menu Button -->
         <button class="hamburger-menu" id="hamburgerMenu" aria-label="Open menu">
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
@@ -573,28 +571,33 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
                             Services
-                            <span class="arrow-icon">&#x25BC;</span>
+                            <span class="arrow-icon">&#x25BC;</span> <!-- down arrow -->
                         </a>
-                         <ul class="dropdown-menu">
-                            <li><a href="#bespoke-itineraries">Bespoke Travel Itineraries</a></li>
-                            <li><a href="#local-expertise">Local Expertise</a></li>
-                            <li><a href="#off-beaten">Off The Beaten Track</a></li>
-                            <li><a href="#experiences">Unforgettable Experiences</a></li>
-                            <li><a href="#concierge">Travel Concierge</a></li>
-                            <li><a href="#transport">Private Transport</a></li>
+                        <ul class="dropdown-menu">
+                            <li><a href="./services.html">Bespoke Travel Itineraries</a></li>
+                            <li><a href="./services.html">Local Expertise</a></li>
+                            <li><a href="./services.html">Off The Beaten Track</a></li>
+                            <li><a href="./services.html">Unforgettable Experiences</a></li>
+                            <li><a href="./services.html">Travel Concierge</a></li>
+                            <li><a href="./services.html">Private Transport</a></li>
                         </ul>
                     </li>
-                    <li><a href="lodgings.html">Lodgings</a></li>
-                    <li><a href="index.html#testimonials">About</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
-
+                    <li><a href="./index.html/#gallery-showcase">Inspiration</a></li>
+                    <li><a href="./index.html">Destinations</a></li>
+                    <li><a href="#testimonials">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
                     <li class="social-icons">
-                        <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
+                         <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
                             </svg>
-                        </a>                     
-                        <a href="#" target="_blank"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/></svg></a>
+                        </a>
+                        <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">
+                            <!-- Facebook SVG icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
+                            </svg>
+                        </a>
                     </li>
                 </ul>
                 <div class="mobile-menu-image">
@@ -603,151 +606,140 @@
             </div>
     </div>
 
-    <!-- Page Header -->
+    <!-- Page Header (UPDATED) -->
     <header class="page-header">
-        <h1>Lodgings</h1>        
-    </header>
+        <h1>Itineraries</h1>        
+    </header>    
 
-    <!-- New Lodgings Sections -->
-    <div class="lodgings-container">
+    <!-- MAIN CONTENT -->
+    <main class="highlights-container">
         
-        <!-- SECTION 1: HOTELS -->
-        <section class="lodging-section" id="hotels">
-            <div class="lodging-visuals">
-                <div class="slider-wrapper" data-slide-index="0">
-                    <!-- Slides -->
-                    <div class="slide active">
-                        <img src="./Images/DJI_0966-Edit___media_library_original_5272_2962.jpeg" alt="Luxury Lodge">
-                    </div>
-                    <div class="slide">
-                        <img src="./Images/AWL Exterior Copyright Sorrisniva AS.jpg" alt="Sorrisniva Exterior">
-                    </div>
-                    <div class="slide">
-                         <img src="./Images/Bjørnfjell - Fotograf Mads Suhr Pettersen - 9G9A0598 - 171102.jpg" alt="Arctic Dome">
-                    </div>
-                    
-                    <!-- New Dot Container -->
-                    <div class="slider-dots"></div>
-
-                    <!-- Controls -->
-                    <div class="slider-controls">
-                        <button class="slider-btn prev-btn" aria-label="Previous Slide">
-                            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-                        </button>
-                        <button class="slider-btn next-btn" aria-label="Next Slide">
-                            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-                        </button>
-                    </div>
-                </div>
+        <!-- NEW APP INTRO SECTION (Updated) -->
+        <div class="app-intro-section">
+            <h2>The Cloudberry App</h2>
+            <div class="app-subtitle">Powered by Tern Travel</div>
+            
+            <p>Your journey deserves a seamless digital companion. We partner with <strong>Tern Travel</strong> to provide you with a world-class itinerary app that keeps every detail at your fingertips—flight updates, documents, and daily schedules, all in one place.</p>
+            
+            <div class="how-it-works">
+                <strong>How it Works</strong>
+                <p style="font-size: 16px; margin-bottom: 0; color: #555;">Once your bespoke trip is confirmed, you will receive an exclusive invitation via email. Simply download the Tern Travel app, log in with your secure credentials, and watch your Arctic adventure come to life instantly.</p>
             </div>
-            <div class="lodging-text">
-                <h2>Exclusive Lodges & Hotels</h2>
-                <p>Indulge in the finest accommodations Northern Norway has to offer. Our handpicked selection of luxury lodgings and boutique hotels provides the perfect blend of comfort and Arctic charm. Nestled in pristine landscapes, these elegant retreats offer world-class service, breathtaking views, and immersive experiences designed for the discerning traveler.</p>
+
+            <div class="app-features">
+                <div class="feature-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-1.07 3.97-2.9 5.33z"/></svg> Live Maps</div>
+                <div class="feature-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z"/></svg> Offline Access</div>
+                <div class="feature-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 19h19v2h-19zm19.57-9.36c-.21-.8-1.04-1.28-1.84-1.06L14.92 10l-6.9-6.4c-.46-.42-1.19-.36-1.58.13l-1.17 1.48c-.28.35-.24.86.09 1.17l6.4 5.95-3.32.76-2.58-1.87c-.22-.16-.5-.22-.76-.15l-.94.25c-.32.09-.52.4-.44.72l1.36 5.09c.12.44.57.7 1.02.58l13.97-3.74c.8-.21 1.28-1.04 1.06-1.85z"/></svg> Flight Updates</div>
             </div>
-        </section>
+        </div>
 
-        <!-- SECTION 2: CABINS -->
-        <section class="lodging-section" id="cabins">
-            <div class="lodging-visuals">
-                <div class="slider-wrapper" data-slide-index="0">
-                    <!-- Slides -->
-                    <div class="slide active">
-                         <img src="./Images/_DSC7628.jpg" alt="Cabin Exterior">
-                    </div>
-                    <div class="slide">
-                        <img src="./Images/_FRI2879-HDR.jpg" alt="Cabin Interior">
-                    </div>
-                    <div class="slide">
-                        <img src="./Images/Bjornfjell-24.jpg" alt="Scenic Cabin View">
-                    </div>
+        <!-- EXAMPLE ITINERARY HEADER -->
+        <div class="example-header">
+            <span class="subheading">extraordinary 8-day journey itinerary sample</span>
+            <h2>Arctic Wonders</h2>
+            <p>Fjords, Wildlife & Northern Lights</p>
+        </div>
 
-                    <!-- New Dot Container -->
-                    <div class="slider-dots"></div>
+        <!-- SCREENSHOT 1: OVERVIEW -->
+        <div class="screenshot-card">
+            <span class="preview-badge">App Overview</span>
+            <img src="./Images/itinerary_screenshots/Snímek obrazovky 2026-01-04 v 16.32.07.png" alt="Itinerary Overview Screenshot">
+        </div>
 
-                    <!-- Controls -->
-                    <div class="slider-controls">
-                        <button class="slider-btn prev-btn" aria-label="Previous Slide">
-                            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-                        </button>
-                        <button class="slider-btn next-btn" aria-label="Next Slide">
-                            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="lodging-text">
-                <h2>Private Cabins</h2>
-                <p>Escape to your own secluded haven in the Arctic wilderness. Our private cabins offer an intimate retreat where you can disconnect from the world and reconnect with nature. Featuring cozy interiors, modern amenities, and stunning surroundings, these cabins provide the perfect balance of luxury and tranquility for an unforgettable Northern escape.</p>
-            </div>
-        </section>
+        <!-- ACCOMMODATION (New Requested Section) -->
+        <div class="highlight-text-block">
+            <h3>Unique Accommodation</h3>
+            <p>From glass igloos under the aurora to traditional fisherman's cabins (rorbuer) by the sea. We secure the most sought-after stays that blend authentic charm with modern luxury.</p>
+        </div>
 
-        <!-- SECTION 3: GLAMPING -->
-        <section class="lodging-section" id="glamping">
-            <div class="lodging-visuals">
-                <div class="slider-wrapper" data-slide-index="0">
-                    <!-- Slides -->
-                    <div class="slide active">
-                        <img src="./Images/Dome-edited -4-2.jpg" alt="Glamping Tent">
-                    </div>
-                    <div class="slide">
-                        <img src="./Images/2020-06-16 10.49.30.jpg" alt="Glamping Interior">
-                    </div>
-                    <div class="slide">
-                        <img src="./Images/Kopi av _DSC7675-HDR (1).jpg" alt="Arctic Nature">
-                    </div>
+        <div class="screenshot-card">
+            <span class="preview-badge">Lodging Details</span>
+            <!-- PLACEHOLDER: Replace with screenshot of Svinøya Rorbuer or similar -->
+            <img src="./Images/itinerary_screenshots/Snímek obrazovky 2026-01-04 v 16.14.57.png" alt="Accommodation Details Screenshot">
+        </div>
 
-                    <!-- New Dot Container -->
-                    <div class="slider-dots"></div>
+        <!-- ACTIVE EXPLORATION -->
+        <div class="highlight-text-block">
+            <h3>Active Exploration</h3>
+            <p>We believe the best way to see the Arctic is to be out in it. Your journey includes carefully curated activities, from kayaking through crystal-clear winter waters to hiking under the polar night sky.</p>
+        </div>
 
-                    <!-- Controls -->
-                    <div class="slider-controls">
-                        <button class="slider-btn prev-btn" aria-label="Previous Slide">
-                            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-                        </button>
-                        <button class="slider-btn next-btn" aria-label="Next Slide">
-                             <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="lodging-text">
-                <h2>Glamping</h2>
-                <p>Experience the raw beauty of the Arctic without sacrificing comfort. Our glamping accommodations combine the thrill of outdoor adventure with the luxury of high-end hospitality. Stay in beautifully designed tents or glass-domed lodges, allowing you to sleep under the northern lights or the midnight sun while enjoying cozy beds, fine dining, and curated Arctic experiences.</p>
-            </div>
-        </section>
+        <div class="screenshot-card">
+            <span class="preview-badge">Day 2 Highlight</span>
+            <img src="./Images/itinerary_screenshots/Snímek obrazovky 2026-01-04 v 16.34.12.png" alt="Day 2 Activity Screenshot">
+        </div>
 
-    </div>
+        <!-- TRANSPORT & DINING -->
+        <div class="highlight-text-block">
+            <h3>Seamless Logistics</h3>
+            <p>Every detail is managed for you. From private transfers waiting at the airport to reserved tables at the region's finest restaurants, you never have to worry about the logistics.</p>
+        </div>
+
+        <div class="screenshot-card">
+            <span class="preview-badge">Private Transport</span>
+            <img src="./Images/itinerary_screenshots/Snímek obrazovky 2026-01-04 v 16.16.09.png" alt="Transport Details Screenshot">
+        </div>
+
+        <div class="screenshot-card">
+            <span class="preview-badge">Fine Dining</span>
+            <img src="./Images/itinerary_screenshots/Snímek obrazovky 2026-01-04 v 16.16.41.png" alt="Dining Details Screenshot">
+        </div>
+
+        <!-- CULTURAL IMMERSION -->
+        <div class="highlight-text-block">
+            <h3>Cultural Immersion</h3>
+            <p>Connect with the deep history of the North. Experience the Sami way of life, meet reindeer herders, and enjoy authentic local cuisine in a traditional Lavvu.</p>
+        </div>
+
+        <div class="screenshot-card">
+            <span class="preview-badge">Day 7 Highlight</span>
+            <img src="./Images/itinerary_screenshots/Snímek obrazovky 2026-01-04 v 16.17.26.png" alt="Cultural Experience Screenshot">
+        </div>
+
+        <!-- DOWNLOAD BUTTON -->
+        <div class="download-btn-container">
+            <a href="#" class="btn-download" style="padding: 20px 50px; font-size: 16px;">Download Full Sample Itinerary (PDF)</a>
+        </div>
+
+    </main>
 
     <!-- CTA Section -->
     <section class="cta-section">
         <h2>Ready to Discover Your Arctic Adventure?</h2>
         <p>Let us craft your perfect Northern Norway escape. Reach out to our team to begin the conversation.</p>
-        <button class="btn-primary">Get in Touch</button>
+        <a href="./contact.html" class="btn-primary">Get In Touch</a>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">            
+        <div class="footer-content">
             <div>
+                <div class="footer-logo"><img src="./Images/Logo/Cloudberry Orange.png" alt="Cloudberry Escapes"></div>                
+            </div>
+            <div class="explore">
                 <h4>Explore</h4>
                 <p><a href="./experiences.html">Experiences</a></p>
                 <p><a href="./index.html">Destinations</a></p>
                 <p><a href="./services.html">Services</a></p>
                 <p><a href="./lodgings.html">Lodgings</a></p>
-                <p><a href="#">About Us</a></p>
+                <p><a href="./about.html">About Us</a></p>
                 <p><a href="#">Terms & Conditions</a></p>
             </div>
-            <div>
+            <div class="connect">
                 <h4>Connect</h4>
-                <p>hello@cloudberryescapes.com</p>
+                <p>travel@cloudberryescapes.com</p>
                 <p>+47 XXX XX XXX</p>
                 
                 <div class="footer-social-icons">
-                    <a href="#" aria-label="Instagram">                            
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/></svg>
+                    <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">                            
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm7.25 1.5a1 1 0 110 2 1 1 0 010-2zm-3.75 2a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+                        </svg>
                     </a>
-                    <a href="#" aria-label="Facebook">                            
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/></svg>
+                    <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">                            
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M22 12a10 10 0 10-11.5 9.87v-6.98h-2.5v-2.9h2.5v-2.2c0-2.45 1.46-3.8 3.7-3.8 1.07 0 2.19.19 2.19.19v2.4h-1.23c-1.21 0-1.59.76-1.59 1.54v1.87h2.7l-.43 2.9h-2.27v6.98A10 10 0 0022 12"/>
+                        </svg>
                     </a>
                 </div>
                 <p style="margin-top: 16px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
