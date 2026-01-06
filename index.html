@@ -27,7 +27,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;            
+            font-family: var(--font-secondary);            
             color: var(--color-dark-secondary);
             line-height: 1.7;           
             background: linear-gradient(135deg, var(--color-dark-primary) 0%, var(--color-dark-secondary) 100%);
@@ -956,9 +956,10 @@
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 60px;
+            display: flex;
+            grid-template-columns: repeat(3, 3fr);
+            gap: 100px;
+            justify-content: center;
         }
 
         footer h4 {
@@ -1012,7 +1013,39 @@
             transition: fill 0.3s ease;
         }
 
-        .footer-social-icons a:hover svg { fill: var(--color-accent); }        
+        .footer-social-icons a:hover svg { fill: var(--color-accent); }
+        
+        /* Footer Logos Section */
+        .footer-logos {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo-item {            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }      
+
+        .footer-logo-item img {
+            height: 90px;
+            width: auto;
+            fill: var(--color-white);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
         
         /* Map Section */
         .map-section { width: 50vw;
@@ -1383,10 +1416,29 @@
                         </svg>
                     </a>
                 </div>
-                <p style="margin-top: 16px; font-size: 12px;">©2025 Cloudberry Escapes AS</p>
-            </div>
+                
+            </div>        
+            
         </div>
-        </footer>
+          <!-- NEW: Footer Logos Section -->
+            <div class="footer-logos">
+                <div class="footer-logo-item" title="ApprovedBy-Badge-Hvit">                    
+                    <img src="./Images/Logo/ApprovedBy-Badge-Hvit.png" alt="Cloudberry Escapes">
+                </div>
+                <div class="footer-logo-item" title="logo_asia">                    
+                    <img src="./Images/Logo/LOGO ILTM ASIA PACIFIC.png" alt="Cloudberry Escapes">                
+                </div>
+                <div class="footer-logo-item" title="logo_latin">
+                    <img src="./Images/Logo/LOGO_ILTM_LATIN_AMERICA-removebg-preview.png" alt="Cloudberry Escapes">                
+                </div>
+                <div class="footer-logo-item" title="Reisegarantifondet">
+                    <img src="./Images/Logo/Reisegarantifondet-removebg-preview.png" alt="Cloudberry Escapes">                
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Cloudberry Escapes. All rights reserved.
+            </div>
+    </footer>
 
     <script>
         // --- LOGO ANIMATION & NAV LOGIC ---

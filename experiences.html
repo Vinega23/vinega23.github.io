@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Experiences - Cloudberry Escapes</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* --- CORE VARIABLES & RESET --- */
@@ -16,6 +17,8 @@
             --color-white: #FFFFFF;
             --color-black-transparent: rgba(21, 20, 25, 0.95);
             --color-black-scrolled: rgba(21, 20, 25, 1);
+            --font-primary: "EB Garamond", "Garamond", "Georgia", serif;
+            --font-secondary: "Lora", "Times New Roman", serif;
         }
 
         * {
@@ -25,7 +28,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;            
+            font-family: var(--font-secondary);            
             color: var(--color-dark-secondary);
             line-height: 1.7;           
             background: var(--color-light-bg); 
@@ -269,7 +272,7 @@
         }
 
         .page-header h1 {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 56px;
             color: var(--color-light-bg);
             margin-bottom: 20px;
@@ -354,7 +357,7 @@
         }
 
         .experience-text-wrapper h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 48px;
             color: var(--color-dark-primary);
             margin-bottom: 25px;
@@ -362,11 +365,12 @@
         }
 
         .experience-text-wrapper p {
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
+            font-family: var(--font-secondary);
+            font-size: 18px;
             color: var(--color-dark-secondary);
             line-height: 1.8;
             margin-bottom: 20px;
+            opacity: 0.9;
         }
 
         /* Images Grid Container - Full Width Row */
@@ -403,7 +407,7 @@
         }
 
         .cta-section h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 48px;
             font-weight: 700;
             color: var(--color-light-bg);
@@ -458,7 +462,7 @@
         }
 
         footer h4 {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-primary);
             font-size: 16px;
             color: var(--color-accent);
             margin-bottom: 16px;
@@ -536,10 +540,8 @@
             }
 
             /* Scroll tabs on mobile */
-            .experience-tabs {
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                justify-content: flex-start;
+            .experience-tabs {                
+                overflow-x: auto;                
                 padding-bottom: 10px;
                 -webkit-overflow-scrolling: touch;
             }
